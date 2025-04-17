@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{labels.page_title_base}} | {{labels.page_title}}</title>
+        <!-- Tailwind CSS via CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Poppins"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Courgette"
+        />
+        <link rel="stylesheet" href="{%static 'sito/style.css'%}" />
+        <link
+            rel="icon"
+            href="https://cdn-icons-png.flaticon.com/512/6730/6730352.png"
+        />
+    </head>
+    <body>
+        <header class="sticky top-0 bg-white shadow-md z-50">
+            <div
+                class="container mx-auto py-3 flex items-center justify-between"
+            >
+                <!-- Left: Logo and Business Name -->
+                <a class="flex items-center space-x-3" href="/">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/6730/6730352.png"
+                        alt="Logo"
+                        class="h-10 w-10 mx-2"
+                    />
+                    <span
+                        class="text-lg md:text-3xl font-bold text-gray-800 font-[Courgette]"
+                        >{{labels.business_name}}</span
+                    >
+                </a>
+
+                <!-- Middle: Category Buttons -->
+                <nav class="hidden lg:flex items-center space-x-6">
+                    <a
+                        href="/contacts/{{lang}}#book"
+                        class="bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    >
+                        <span>{{labels.book}}</span>
+                    </a>
+                    <a
+                        href="/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'home'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_home}}</a
+                    >
+                    <a
+                        href="/calagonone/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_calagonone}}</a
+                    >
+                    <a
+                        href="/contacts/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_contacts}}</a
+                    >
+                </nav>
+
+                <!-- Right: Language Buttons -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a
+                        href="{{it_redirect}}"
+                        class="rounded-full p-1"
+                    >
+                        <img src="{%static 'sito/flag_it.png'%}" alt="Italian" class="h-6 w-6  min-w-6 max-h-6" />
+                    </a>
+                    <a
+                        href="{{en_redirect}}"
+                        class="rounded-full p-1"
+                    >
+                        <img src="{%static 'sito/flag_en.png'%}" alt="English" class="h-6 w-6  min-w-6 max-h-6" />
+                    </a>
+                </div>
+
+                <!-- Mobile: Hamburger Menu -->
+                <button
+                    id="nav-menu-toggle"
+                    class="block lg:hidden text-gray-600 hover:text-gray-800 mx-2"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-8 w-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"
+                        />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+                id="nav-mobile-menu"
+                class="hidden bg-white shadow-md lg:hidden opacity-0 scale-95 transition-all duration-300 ease-in-out"
+            >
+                <nav class="flex flex-col p-4 space-y-3">
+                    <div class="flex items-center space-x-4 mt-4">
+                        <a
+                            href="{{it_redirect}}"
+                            class="rounded-full p-1"
+                        >
+                            <img
+                                src="{%static 'sito/flag_it.png'%}"
+                                alt="Italian"
+                                class="h-6 w-6"
+                            />
+                        </a>
+                        <a
+                            href="{{en_redirect}}"
+                            class="rounded-full p-1"
+                        >
+                            <img
+                                src="{%static 'sito/flag_en.png'%}"
+                                alt="English"
+                                class="h-6 w-6"
+                            />
+                        </a>
+                    </div>
+                    <a
+                        href="/contacts/{{lang}}#book"
+                        class="bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    >
+                        <span>{{labels.book}}</span>
+                    </a>
+                    <a
+                        href="/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'home'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_home}}</a
+                    >
+                    <a
+                        href="/calagonone/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_calagonone}}</a
+                    >
+                    <a
+                        href="/contacts/{{lang}}"
+                        class="text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}{{ 'underline'}}{%else%}{{''}}{%endif%}"
+                        >{{labels.section_contacts}}</a
+                    >
+                </nav>
+            </div>
+        </header>
+
+        
+
+        {% block content %} {%endblock%}
+
+        
+
+        {% if messages %}
+<div class="fixed top-[5rem] left-0 w-full z-50">
+  <div class="container mx-auto px-4 max-w-3xl">
+    {% for message in messages %}
+    <div
+      class="text-white text-center py-3 px-6 rounded-md mb-4 shadow-lg border-4 transition-transform transform"
+      style="
+        background-color: {% if message.tags == 'success' %}#28a745{% elif message.tags == 'error' %}#dc3545{% else %}#007bff{% endif %};
+        border-color: {% if message.tags == 'success' %}#1e7e34{% elif message.tags == 'error' %}#c82333{% else %}#0056b3{% endif %};
+      "
+    >
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+<a
+href="#"
+id="scroll-to-top"
+class="fixed opacity-0 pointer-events-none bottom-4 right-4 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+    style="z-index: 10000;"
+>
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+>
+    <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M5 15l7-7 7 7"
+    />
+</svg>
+</a>
+        <footer class="bg-gray-800 text-white py-4">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+              <!-- Footer Links -->
+              <div class="flex flex-col md:flex-row md:space-x-6 text-center md:text-left">
+                <a href="/contacts/{{lang}}#book" class="text-sm md:text-base hover:underline">{{labels.book}}</a>
+                <a href="/contacts/{{lang}}" class="text-sm md:text-base hover:underline">{{labels.section_contacts}}</a>
+                <a href="/calagonone/{{lang}}#location-directions" class="text-sm md:text-base hover:underline">{{labels.location_directions}}</a>
+                <a href="/contacts/{{lang}}#privacy-policy" class="text-sm md:text-base hover:underline">PRIVACY POLICY</a>
+              </div>
+              <!-- Copyright -->
+              <div class="mt-4 md:mt-0 text-xs md:text-sm text-gray-400 text-center">
+                &copy; 2025 La Bouganville. All rights reserved. Website by Damiano Ricciardi
+              </div>
+            </div>
+          </footer>
+
+        <script src="{%static 'sito/base_script.js'%}"></script>
+    </body>
+</html>

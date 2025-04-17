@@ -1,0 +1,6 @@
+THINGS THAT MAY BE TEMPORARY
+
+use django-tailwind
+business logo
+image of the sea from above
+must make static and media files work when deployed
