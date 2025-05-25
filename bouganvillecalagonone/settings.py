@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from django.apps import apps
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,10 @@ SECRET_KEY = 'django-insecure-3*eqparwve$2+wfau0o)e%3r#7^9^n4xy7welhkqnmc^%-3nd8
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://' + os.environ.get('RAILWAY_STATIC_URL', 'bouganvillecalagonone-production.up.railway.app')
+]
 
 
 # Application definition
