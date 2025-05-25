@@ -1,9 +1,11 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
 urlpatterns = [
-     path('submit-booking/', views.submit_request, name='submit_request'),
+    path("submit-booking/", views.submit_request, name="submit_request"),
     path("", views.view_home),
     path("it", views.view_home_it),
     path("en", views.view_home_en),
@@ -17,3 +19,4 @@ urlpatterns = [
     path("apartment-<int:aid>/en", views.view_apartment_en),
     path("apartment-<int:aid>/it", views.view_apartment_it),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
