@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from django.apps import apps
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bouganvillecalagonone.urls'
+
 
 TEMPLATES = [
     {
@@ -140,3 +145,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "labouganville.booknotifier@gmail.com"
 EMAIL_HOST_PASSWORD = r"ueai lkth wnmb qnup"
+
+cloudinary.config(cloud_name= 'defrk7jtt',
+    api_key= '946818288696483',
+    api_secret= 'VsPefGEiuALVuEeDXhAGmr3w94Y')

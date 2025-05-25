@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class Apartment(models.Model):
@@ -37,9 +38,7 @@ class ApartmentImage(models.Model):
 class WelcomeInfo(models.Model):
     italian = models.TextField("Descrizione in italiano")
     english = models.TextField("Descrizione in inglese")
-    background_img = models.ImageField(
-        "Home background image", upload_to="images/", default=None
-    )
+    background_img = CloudinaryField("Background Image")
 
     def __str__(self):
         return "<Informazioni di benvenuto>"
