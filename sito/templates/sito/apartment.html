@@ -1,4 +1,622 @@
-{% extends "../sito/base.html" %}
-{%block content%}
-{{apartment.full_descr|safe}}
+{% extends "../sito/base.html" %} {%block content%}
+
+<div id="everything">
+<!--END SLIDESHOW-->
+<div
+    id="image-carousel-container"
+    class="relative w-full max-h-[50vh] overflow-hidden"
+>
+    <button
+        onclick="scrollCarousel(-1)"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+    >
+        &#10094;
+    </button>
+    <button
+        onclick="scrollCarousel(1)"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+    >
+        &#10095;
+    </button>
+
+    <div
+        id="carousel-images"
+        class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x"
+        style="scrollbar-width: none; -ms-overflow-style: none"
+    >
+        {% for image in apartment.images %}
+        <div class="min-w-full md:min-w-[33%] snap-center flex-shrink-0">
+            <img
+                src="{{ image.image.url }}"
+                alt="Apartment Image {{ forloop.counter }}"
+                class="w-full h-[40vh] object-cover md:h-[50vh]"
+                draggable="false"
+            />
+        </div>
+        {% endfor %}
+    </div>
+
+    <div
+        class="absolute top-1/2 left-0 -translate-y-1/2 z-5 w-[100%] justify-center text-center items-center flex shadow-[0_0_25px_rgba(0,0,0,0.85)] bg-black/45"
+    >
+        <span
+            class="hidden lg:inline-flex text-3xl md:text-6xl items-center justify-center w-16 h-16 mr-10 rounded-full bg-purple-600 text-white font-bold font-[Courgette]"
+        >
+            {{apartment.index}}
+        </span>
+        <h1
+            class="text-white text-4xl md:text-7xl font-bold font-[Courgette] drop-shadow-2xl"
+        >
+            {{apartment.name}}
+        </h1>
+    </div>
+    <a
+        href="#book-apartment"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-3xl font-[Poppins] bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+    >
+        <span>{{labels.book}}</span><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-8 w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19 9l-7 7-7-7"
+                    />
+                </svg>
+    </a>
+</div>
+<!--END SLIDESHOW-->
+<!-- 2 COLUMN CONTAINER-->
+<div class="relative">
+    <img
+        class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
+        src="{{bg_img}}"
+        style="object-fit: fill; z-index: -10"
+    />
+    <div class="container mx-auto bg-white shadow-lg">
+        <div
+            class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[40%_60%] pb-0"
+        >
+            <div class="px-6 pt-6 rounded-lg bg-white">
+                <h1 class="text-black text-3xl font-bold font-[Courgette]">
+                    <span
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                    >
+                    </span>
+                    {{labels.in_evidenza}}
+                </h1>
+                <br />
+                <p
+                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                >
+                    {{apartment.descr|safe}}
+                </p>
+                <br />
+                <ul
+                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
+                >
+                    {% for feature in apartment.key_features%}
+                    <li class="">{{feature|safe}}</li>
+                    {% endfor%}
+                </ul>
+            </div>
+            <div class="p-6 rounded-lg bg-white lg:pr-0">
+                <h1 class="text-black text-3xl font-bold font-[Courgette] pb-5">
+                    <span
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                    >
+                    </span>
+                    {{labels.full_descr}}
+                </h1>
+                <p
+                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                >
+                    {{apartment.full_descr|safe}}
+                </p>
+            </div>
+        </div>
+        <!--FORM-->
+        <div class="pb-6 pt-0 rounded-lg bg-white w-full" id="book-apartment">
+            <form
+                method="POST"
+                action="{% url 'submit_request' %}"
+                class="mx-8 bg-white space-y-6 md:px-0 lg:px-0 font-[Poppins]"
+            >
+                {% csrf_token %}
+                <input type="hidden" name="language" value="{{ lang }}" />
+                <input type="hidden" name="url" value="{{ redirect }}" />
+                <h1 class="text-black text-3xl font-bold font-[Courgette]">
+                    <span
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 font-bold text-purple-600"
+                    >
+                        .
+                    </span>
+                    {{labels.quick_book}}
+                </h1>
+
+                <!-- Dropdown Row -->
+                <div>
+                    <label
+                        for="options"
+                        class="block text-sm font-medium text-gray-700"
+                        >{{labels.form_apartment}}</label
+                    >
+                    <div class="w-full bg-gray-200 rounded-md">
+                        <h1 class="text-gray-600 p-1">{{apartment.name}}</h1>
+                        <select
+                            id="options"
+                            name="options"
+                            class="hidden"
+                            required
+                        >
+                            <option
+                                value="{{apartment.name}}"
+                                selected
+                            ></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Start and End Date -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            for="start-date"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_check_in}}</label
+                        >
+                        <input
+                            type="date"
+                            id="start-date"
+                            name="start-date"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 px-1"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label
+                            for="end-date"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_check_out}}</label
+                        >
+                        <input
+                            type="date"
+                            id="end-date"
+                            name="end-date"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 px-1"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <!-- Adults and Children Dropdowns -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            for="adults"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_adults}}</label
+                        >
+                        <div class="relative">
+                            <select
+                                id="adults"
+                                name="adults"
+                                class="block w-full rounded-md border-gray-300 shadow-sm hover:border-indigo-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 appearance-none px-1"
+                                required
+                            >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="3">4</option>
+                                <option value="3">5</option>
+                            </select>
+                            <div
+                                class="absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none"
+                            >
+                                <svg
+                                    class="w-5 h-5 text-gray-500"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            for="children"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_children}}</label
+                        >
+                        <div class="relative">
+                            <select
+                                id="children"
+                                name="children"
+                                class="block w-full rounded-md border-gray-300 shadow-sm hover:border-indigo-500 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 appearance-none px-1"
+                            >
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            <div
+                                class="absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none"
+                            >
+                                <svg
+                                    class="w-5 h-5 text-gray-500"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone and Email -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            for="phone"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_phone}}</label
+                        >
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="{{labels.form_phone_ph}}"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 px-1"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
+                            >{{labels.form_email}}</label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="{{labels.form_email_ph}}"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 px-1"
+                            required
+                        />
+                    </div>
+                </div>
+                <div>
+                    <label
+                        for="message"
+                        class="block text-sm font-medium text-gray-700"
+                        >{{labels.form_message}}</label
+                    >
+                    <textarea
+                        rows="3"
+                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none px-1"
+                        placeholder="{{labels.form_message_ph}}"
+                        id="message"
+                        name="message"
+                    ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-2xl font-[Poppins] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                >
+                    {{labels.form_submit}}
+                </button>
+            </form>
+        </div>
+        <!--END FORM-->
+        <!--IMAGES-->
+        <div>
+                    <div
+                        class="relative"
+                        id="slideshow-apartment-{{apartment.index}}"
+                    >
+                        {%for image in apartment.images%}
+                        <a onclick="openModal()">
+                            <div
+                                class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
+                                id="image-{{apartment.index}}-{{forloop.counter0}}"
+                            >
+                                <img
+                                    class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
+                                    src="{{image.image.url}}"
+                                    alt="Apartment image {{forloop.counter0}}"
+                                />
+                                <img
+                                    class="absolute inset-0 w-full h-full object-contain"
+                                    src="{{image.image.url}}"
+                                    alt="Apartment image {{forloop.counter0}}"
+                                /></div
+                        ></a>
+                        {%endfor%}
+                        <button
+                            class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                            id="prevBtn-{{apartment.index}}"
+                        >
+                            &#10094;
+                        </button>
+                        <button
+                            class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                            id="nextBtn-{{apartment.index}}"
+                        >
+                            &#10095;
+                        </button>
+                    </div>
+
+                    <!-- Arrows -->
+                </div>
+        <!--END IMAGES-->
+        <h1 class="text-black text-5xl font-bold font-[Courgette] p-6">
+            <span
+                class="text-4xl inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-600 text-white font-bold"
+            >
+            </span>
+            {{labels.other_apartments}}
+        </h1>
+
+        <!--APARTMENTS-->
+        {% for apartm in apartments %} {% if apartm.name == apartment.name %}
+        {%else%}
+        <div
+            class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 bg-white shadow-lg"
+            id="apartment-grid-{{apartm.index}}"
+        >
+            <!-- Left Column -->
+            <div class="p-6 rounded-lg bg-white">
+                <h1 class="text-black text-3xl font-bold font-[Courgette]">
+                    <span
+                        class="text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-600 text-white font-bold"
+                    >
+                        {{apartm.index}}
+                    </span>
+                    {{apartm.name}}
+                </h1>
+                <br />
+                <p
+                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                >
+                    {{apartm.descr|safe}}
+                </p>
+                <br />
+                <ul
+                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
+                >
+                    {% for feature in apartm.key_features%}
+                    <li class="">{{feature|safe}}</li>
+                    {% endfor%}
+                </ul>
+                <br />
+                <a
+                    href="/apartment-{{apartm.index}}/{{lang}}"
+                    class="my-3 bg-purple-600 text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                >
+                    <span>{{labels.details}}</span>
+                </a>
+            </div>
+
+            <!-- Right Column -->
+            <div class="p-6 rounded-lg bg-white">
+                <!--START CAROUSEL-->
+                <div>
+                    <div
+                        class="relative"
+                        id="slideshow-apartment-{{apartm.index}}"
+                    >
+                        {%for image in apartm.images%}
+                        <a href="/apartment-{{apartm.index}}/{{lang}}">
+                            <div
+                                class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
+                                id="image-{{apartm.index}}-{{forloop.counter0}}"
+                            >
+                                <img
+                                    class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
+                                    src="{{image.image.url}}"
+                                    alt="Apartment image {{forloop.counter0}}"
+                                />
+                                <img
+                                    class="absolute inset-0 w-full h-full object-contain"
+                                    src="{{image.image.url}}"
+                                    alt="Apartment image {{forloop.counter0}}"
+                                /></div
+                        ></a>
+                        {%endfor%}
+                        <button
+                            class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                            id="prevBtn-{{apartm.index}}"
+                        >
+                            &#10094;
+                        </button>
+                        <button
+                            class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                            id="nextBtn-{{apartm.index}}"
+                        >
+                            &#10095;
+                        </button>
+                    </div>
+
+                    <!-- Arrows -->
+                </div>
+                <!--END CAROUSEL-->
+            </div>
+        </div>
+        {%endif%} {%endfor%}
+        <!--END APARTMENTS-->
+    </div>
+</div>
+</div>
+<!-- END 2 COLUMN CONTAINER-->
+ <!--SLIDESHOW-->
+<div id="modal-overlay" class="fixed inset-0 bg-black hidden flex justify-center items-center z-50 h-screen w-screen">
+    <div class="w-[97vw]">
+        <div class="relative" id="slideshow-apartmentM-{{apartment.index}}">
+            {% for image in apartment.images %}
+            <div
+                class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
+                id="imageM-{{apartment.index}}-{{forloop.counter0}}"
+            >
+                <!-- background blur image -->
+                <img
+                    class="absolute inset-0 w-full h-full object-fill blur-md opacity-70"
+                    src="{{ image.image.url }}"
+                    alt="Apartment image {{ forloop.counter0 }}"
+                />
+                <!-- foreground sharp image -->
+                <img
+                    class="absolute inset-0 w-full h-full object-contain"
+                    src="{{ image.image.url }}"
+                    alt="Apartment image {{ forloop.counter0 }}"
+                />
+            </div>
+            {% endfor %}
+
+            <!-- Navigation Buttons -->
+            <button
+                class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                id="prevBtnM-{{ apartment.index }}"
+            >
+                &#10094;
+            </button>
+            <button
+                class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                id="nextBtnM-{{ apartment.index }}"
+            >
+                &#10095;
+            </button>
+
+        </div>
+        <a
+class="absolute right-4 top-4 z-50 bg-gray-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 hover:outline-none hover:ring-4 hover:ring-gray-300 focus:outline-none transition-all"
+    onclick="closeModal()"
+>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     fill="none" viewBox="0 0 24 24" 
+     stroke-width="2" stroke="currentColor" 
+     class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg></a>
+    </div>
+</div>
+<!--END SLIDESHOW-->
+<script>
+    const carousel = document.getElementById("carousel-images");
+    function scrollCarousel(direction) {
+        const imageWidth = carousel.querySelector("div").offsetWidth;
+        carousel.scrollBy({ left: direction * imageWidth, behavior: "smooth" });
+    }
+</script>
+
+<script type="text/javascript">
+    function openModal() {
+        document.getElementById('modal-overlay').classList.remove('hidden');
+        document.getElementById('scroll-to-top').classList.add('hidden');
+        document.getElementById('everything').classList.add('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').classList.add('hidden');
+        document.getElementById('scroll-to-top').classList.remove('hidden');
+        document.getElementById('everything').classList.remove('hidden');
+    }
+
+    let currentImageM{{apartment.index}} = 1;
+    var totalImagesM{{apartment.index}} = 0;
+    var imagesM{{apartment.index}} = [];
+    {%for image in apartment.images%}
+    totalImagesM{{apartment.index}} += 1;
+    imagesM{{apartment.index}}.push(document.getElementById("imageM-{{apartment.index}}-{{forloop.counter0}}"));
+    {%endfor%}
+    const imagesContainerM{{apartment.index}} = document.getElementById("slideshow-apartmentM-{{apartment.index}}");
+
+
+    function updateImagesM{{apartment.index}}() {
+        imagesM{{apartment.index}}.forEach((image, index) => {
+            if (index + 1 === currentImageM{{apartment.index}}) {
+                image.classList.remove("opacity-0");
+                image.classList.add("opacity-100");
+                image.classList.remove("hidden");
+            } else {
+                image.classList.remove("opacity-100");
+                image.classList.add("opacity-0");
+                image.classList.add("hidden");
+            }
+        });
+    }
+
+    document.getElementById("prevBtnM-{{apartment.index}}").addEventListener("click", function () {
+        currentImageM{{apartment.index}} = currentImageM{{apartment.index}} === 1 ? totalImagesM{{apartment.index}} : currentImageM{{apartment.index}} - 1;
+        updateImagesM{{apartment.index}}();
+    });
+
+    document.getElementById("nextBtnM-{{apartment.index}}").addEventListener("click", function () {
+        currentImageM{{apartment.index}} = currentImageM{{apartment.index}} === totalImagesM{{apartment.index}} ? 1 : currentImageM{{apartment.index}} + 1;
+        updateImagesM{{apartment.index}}();
+    });
+
+    updateImagesM{{apartment.index}}();
+
+    // APARTMENTS SLIDESHOWS
+    {%for apartm in apartments%}
+    
+    let currentImage{{apartm.index}} = 1;
+    var totalImages{{apartm.index}} = 0;
+    var images{{apartm.index}} = [];
+    {%for image in apartm.images%}
+    totalImages{{apartm.index}} += 1;
+    images{{apartm.index}}.push(document.getElementById("image-{{apartm.index}}-{{forloop.counter0}}"));
+    {%endfor%}
+    const imagesContainer{{apartm.index}} = document.getElementById("slideshow-apartment-{{apartm.index}}");
+
+
+    function updateImages{{apartm.index}}() {
+        images{{apartm.index}}.forEach((image, index) => {
+            if (index + 1 === currentImage{{apartm.index}}) {
+                image.classList.remove("opacity-0");
+                image.classList.add("opacity-100");
+                image.classList.remove("hidden");
+            } else {
+                image.classList.remove("opacity-100");
+                image.classList.add("opacity-0");
+                image.classList.add("hidden");
+            }
+        });
+    }
+
+    document.getElementById("prevBtn-{{apartm.index}}").addEventListener("click", function () {
+        currentImage{{apartm.index}} = currentImage{{apartm.index}} === 1 ? totalImages{{apartm.index}} : currentImage{{apartm.index}} - 1;
+        updateImages{{apartm.index}}();
+    });
+
+    document.getElementById("nextBtn-{{apartm.index}}").addEventListener("click", function () {
+        currentImage{{apartm.index}} = currentImage{{apartm.index}} === totalImages{{apartm.index}} ? 1 : currentImage{{apartm.index}} + 1;
+        updateImages{{apartm.index}}();
+    });
+
+    updateImages{{apartm.index}}();
+    {%endfor%}
+    // Hide all slides except the current one
+</script>
+
 {%endblock%}

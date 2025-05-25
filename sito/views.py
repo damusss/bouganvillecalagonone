@@ -131,6 +131,9 @@ def add_labels(ctx, english, page):
         "form_email_ph",
         "form_phone_ph",
         "form_message_ph",
+        "in_evidenza",
+        "full_descr",
+        "other_apartments",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -192,6 +195,9 @@ def add_data_calagonone(ctx, english): ...
 def add_data_contacts(ctx, english):
     add_contact_info(ctx, english)
     add_apartments(ctx, english)
+    
+def add_data_apartment(ctx, english):
+    add_apartments(ctx, english)
 
 
 def get_apartment_data(aid, english):
@@ -226,6 +232,7 @@ ADD_DATA = {
     "home": add_data_home,
     "calagonone": add_data_calagonone,
     "contacts": add_data_contacts,
+    "apartment": add_data_apartment
 }
 
 

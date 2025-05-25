@@ -119,6 +119,13 @@ class Labels(models.Model):
     cancelation_en = models.CharField("Etichetta 'cancellazione' (EN)", max_length=1000, default="")
     rubbish_it = models.CharField("Etichetta 'rifiuti' (IT)", max_length=1000, default="")
     rubbish_en = models.CharField("Etichetta 'rifiuti' (EN)", max_length=1000, default="")
+    
+    in_evidenza_it = models.CharField("Etichetta 'in evidenza' (IT)", max_length=1000, default="")
+    in_evidenza_en = models.CharField("Etichetta 'in evidenza' (EN)", max_length=1000, default="")
+    full_descr_it = models.CharField("Etichetta 'descrizione' appartamento (IT)", max_length=1000, default="")
+    full_descr_en = models.CharField("Etichetta 'descrizione' appartamento (EN)", max_length=1000, default="")
+    other_apartments_it = models.CharField("Etichetta 'altri appartamenti' (IT)", max_length=1000, default="")
+    other_apartments_en = models.CharField("Etichetta 'altri appartamenti' (IT)", max_length=1000, default="")
 
 
 class CalaGononeInfo(models.Model):
