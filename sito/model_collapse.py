@@ -22,7 +22,7 @@ class CTXLabels:
     phone: str = ""
     location: str = ""
     call: str = ""
-    
+
     prices: str = ""
     taxes: str = ""
     cancelation: str = ""
@@ -41,7 +41,7 @@ class CTXLabels:
     form_email_ph: str = ""
     form_phone_ph: str = ""
     form_message_ph: str = ""
-    
+
     in_evidenza: str = ""
     full_descr: str = ""
     other_apartments: str = ""

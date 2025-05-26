@@ -28,7 +28,7 @@
                 class="container mx-auto py-3 flex items-center justify-between"
             >
                 <!-- Left: Logo and Business Name -->
-                <a class="flex items-center space-x-3" href="/">
+                <a class="flex items-center space-x-3" href="/{{lang}}">
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/6730/6730352.png"
                         alt="Logo"
@@ -156,11 +156,7 @@
             </div>
         </header>
 
-        
-
         {% block content %} {%endblock%}
-
-        
 
         {% if messages %}
 <div class="fixed top-[5rem] left-0 w-full z-50">
@@ -182,7 +178,7 @@
 <a
 href="#"
 id="scroll-to-top"
-class="fixed opacity-0 pointer-events-none bottom-4 right-4 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-purple-600 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
     style="z-index: 10000;"
 >
 <svg

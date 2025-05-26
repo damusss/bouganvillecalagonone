@@ -3,4 +3,9 @@ THINGS THAT MAY BE TEMPORARY
 use django-tailwind
 business logo
 image of the sea from above
-must make static and media files work when deployed
+manda mail a mamma non a me
+use environment variables da railwind per cose "segrete"
+carica tutte immagini sul cloud
+change allowed hosts!
+change database
+change trusted origins

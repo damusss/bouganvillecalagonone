@@ -1,39 +1,39 @@
-{% extends "../sito/base.html" %} {%block content%} {%load static%}
+{% extends "../sito/base.html" %} {%block content%} {%load static%} {%load alias %}
 <div class="relative w-full h-screen">
     <img
         class="absolute w-full h-screen bg-cover bg-center blur-sm brightness-90"
         src="{{ welcome.image.url }}"
         style="object-fit: cover"
     />
-    <div class="absolute inset-0 flex items-center justify-center">
+    <div class="absolute inset-0 flex items-center justify-center overflow-hidden">
         <!-- Left Column: Text content -->
         <div
-            class="w-full lg:w-1/2 text-white text-center md:text-left lg:text-left px-4 sm:px-8 lg:px-16 md:px-16"
+            class="w-full lg:w-1/2 text-white text-center md:text-left lg:text-left px-4 sm:px-8 lg:px-16 md:px-16 z-12"
         >
             <h1
-                class="text-white text-5xl font-bold text-shadow-cloud font-[Courgette]"
+                class="text-white text-5xl font-bold text-shadow-cloud font-[Courgette] z-12" style=" z-index: 10 !important; position: relative;"
             >
                 {{labels.business_name}}
             </h1>
             <p
-                class="text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins]"
+                class="text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins] z-12"  style=" z-index: 10 !important; position: relative;"
             >
                 {{ welcome.descr1|safe }}
             </p>
-            <p
-                class="my-0 text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins]"
+            <p 
+                class="my-0 text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins] z-10"  style=" z-index: 10 !important; position: relative;"
             >
                 {{ welcome.descr2|safe }}
             </p>
 
             <a
                 href="#apartments"
-                class="my-3 bg-purple-600 text-white font-bold py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                class="z-10 mb-5 bg-purple-600 text-white font-bold font-[Poppins] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
             >
                 <span>{{labels.view_apartments}}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-8 w-8"
+                    class="h-6 w-6 md:h-8 md:w-8"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -47,30 +47,52 @@
                 </svg>
             </a>
             <br />
-            <div class="lg:hidden mx-0 relative">
-                <div class="w-full h-full overflow-hidden rounded-lg">
+            <div class="lg:hidden mx-0 relative mx-8 mb-0">
+                <div class="w-full h-full">
                     <div
                         id="slideshow-container"
                         class="relative w-full h-[17rem] md:h-[22rem]"
                     >
                         {%for img_iter in panorama_iter%}
+                        {%alias img_iter|add:'-1' as suffix%}
+                    {% if img_iter == 0%}
+                    {%alias panorama_count|add:'-1' as suffix%}
+                    {%endif%}
+                    {%alias img_iter|add:'1' as suffixR%}
+                    {% if img_iter == panorama_count|add:'-1'%}
+                    {%alias 0 as suffixR%}
+                    {%endif%}
                         <img
-                            src="{% static '' %}sito/panorama_images/panorama{{ img_iter }}.jpg"
+                        src="{% static '' %}sito/panorama_images/panorama{{suffix}}.jpg"
+                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%]"
+                        style="-webkit-mask-image: linear-gradient(to left, black -10%, transparent 50%);
+            mask-image: linear-gradient(to left, black -10%, transparent 50%);"
+                        id="slidePREV{{img_iter}}"
+                    />
+                        <img
+                            src="{% static '' %}sito/panorama_images/panorama{{img_iter}}.jpg"
                             class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100"
                             id="slide{{img_iter}}"
                         />
+                        <img
+                        src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
+                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%]"
+                        style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
+            mask-image: linear-gradient(to right, black, transparent 50%);"
+                        id="slideNEXT{{img_iter}}"
+                    />
                         {%endfor%}
                     </div>
 
                     <!-- Arrows -->
                     <button
-                        class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full"
+                        class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full z-20"
                         id="prevBtn"
                     >
                         &#10094;
                     </button>
                     <button
-                        class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full"
+                        class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full z-20"
                         id="nextBtn"
                     >
                         &#10095;
@@ -80,31 +102,54 @@
         </div>
 
         <!-- Right Column: Image (only on desktop) -->
-        <div class="hidden lg:block w-1/2 mx-8 relative">
-            <div class="w-full h-full overflow-hidden rounded-lg">
+        <div class="hidden lg:block w-1/2 mx-8 relative -translate-x-[10%]">
+            <div class="w-full h-full">
+                <!---->
                 <div
-                    id="slideshow-container-l"
+                    id="slideshow-container-l z-20"
                     class="relative w-full"
                     style="height: 38rem"
                 >
                     {%for img_iter in panorama_iter%}
+                    {%alias img_iter|add:'-1' as suffix%}
+                    {% if img_iter == 0%}
+                    {%alias panorama_count|add:'-1' as suffix%}
+                    {%endif%}
+                    {%alias img_iter|add:'1' as suffixR%}
+                    {% if img_iter == panorama_count|add:'-1'%}
+                    {%alias 0 as suffixR%}
+                    {%endif%}
+                    <img
+                        src="{% static '' %}sito/panorama_images/panorama{{ suffix }}.jpg"
+                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%]"
+                        style="-webkit-mask-image: linear-gradient(to left, black, transparent 50%);
+            mask-image: linear-gradient(to left, black, transparent 50%); z-index: -10;"
+                        id="slidePREV{{img_iter}}l"
+                    />
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ img_iter }}.jpg"
                         class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100"
                         id="slide{{img_iter}}l"
+                    />
+                    <img
+                        src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
+                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%]"
+                        style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
+            mask-image: linear-gradient(to right, black, transparent 50%);"
+                        id="slideNEXT{{img_iter}}l"
                     />
                     {%endfor%}
                 </div>
 
                 <!-- Arrows -->
                 <button
-                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none z-20"
                     id="prevBtnL"
                 >
                     &#10094;
                 </button>
                 <button
-                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none z-20"
                     id="nextBtnL"
                 >
                     &#10095;
@@ -266,6 +311,11 @@
         document.getElementById("slide{{img_iter}}"),
         {%endfor%}
     ];
+    const slidesPREV = [
+        {%for img_iter in panorama_iter%}
+        document.getElementById("slidePREV{{img_iter}}"),
+        {%endfor%}
+    ];
 
     const slidesL = [
         {%for img_iter in panorama_iter%}
@@ -273,9 +323,30 @@
         {%endfor%}
     ];
 
+    const slidesNEXT = [
+        {%for img_iter in panorama_iter%}
+        document.getElementById("slideNEXT{{img_iter}}"),
+        {%endfor%}
+    ];
+
+    const slidesPREVL = [
+        {%for img_iter in panorama_iter%}
+        document.getElementById("slidePREV{{img_iter}}l"),
+        {%endfor%}
+    ];
+
+    const slidesNEXTL = [
+        {%for img_iter in panorama_iter%}
+        document.getElementById("slideNEXT{{img_iter}}l"),
+        {%endfor%}
+    ];
+
+    const slidesSLIDES = [slides, slidesL, slidesPREV, slidesPREVL, slidesNEXT, slidesNEXTL];
+
     // Hide all slides except the current one
     function updateSlides() {
-        slides.forEach((slide, index) => {
+        slidesSLIDES.forEach((slidesS, sI) => {
+        slidesS.forEach((slide, index) => {
             if (index + 1 === currentSlide) {
                 slide.classList.remove("opacity-0");
                 slide.classList.add("opacity-100");
@@ -284,15 +355,7 @@
                 slide.classList.add("opacity-0");
             }
         });
-        slidesL.forEach((slide, index) => {
-            if (index + 1 === currentSlide) {
-                slide.classList.remove("opacity-0");
-                slide.classList.add("opacity-100");
-            } else {
-                slide.classList.remove("opacity-100");
-                slide.classList.add("opacity-0");
-            }
-        });
+    });
     }
 
     document.getElementById("prevBtn").addEventListener("click", function () {

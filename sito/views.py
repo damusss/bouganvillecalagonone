@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.conf import settings
 
 from .models import ContactsInfo, WelcomeInfo, Apartment, Labels
 from .model_collapse import CTXContactInfo, CTXWelcomeInfo, CTXApartment, CTXLabels
@@ -52,8 +53,8 @@ def submit_request(request):
 
             Il sito era in lingua {language} quando la richiesta è stata inviata
             """,
-            from_email="labouganville.booknotifier@gmail.com",
-            recipient_list=["ricciardi.damiano06@gmail.com"],
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_END_USER],
             fail_silently=False,
         )
         messages.success(
@@ -195,7 +196,8 @@ def add_data_calagonone(ctx, english): ...
 def add_data_contacts(ctx, english):
     add_contact_info(ctx, english)
     add_apartments(ctx, english)
-    
+
+
 def add_data_apartment(ctx, english):
     add_apartments(ctx, english)
 
@@ -232,7 +234,7 @@ ADD_DATA = {
     "home": add_data_home,
     "calagonone": add_data_calagonone,
     "contacts": add_data_contacts,
-    "apartment": add_data_apartment
+    "apartment": add_data_apartment,
 }
 
 

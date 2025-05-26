@@ -18,5 +18,4 @@ urlpatterns = [
     path("apartment-<int:aid>", views.view_apartment),
     path("apartment-<int:aid>/en", views.view_apartment_en),
     path("apartment-<int:aid>/it", views.view_apartment_it),
-]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
