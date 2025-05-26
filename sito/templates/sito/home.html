@@ -29,7 +29,8 @@
             <a
                 href="#apartments"
                 class="z-10 mb-5 bg-purple-600 text-white font-bold font-[Poppins] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
-            >
+                 style=" z-index: 10 !important; position: relative;"
+                >
                 <span>{{labels.view_apartments}}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,19 +65,19 @@
                     {%endif%}
                         <img
                         src="{% static '' %}sito/panorama_images/panorama{{suffix}}.jpg"
-                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%]"
+                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%]"
                         style="-webkit-mask-image: linear-gradient(to left, black -10%, transparent 50%);
             mask-image: linear-gradient(to left, black -10%, transparent 50%);"
                         id="slidePREV{{img_iter}}"
                     />
                         <img
                             src="{% static '' %}sito/panorama_images/panorama{{img_iter}}.jpg"
-                            class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100"
+                            class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100"
                             id="slide{{img_iter}}"
                         />
                         <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
-                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%]"
+                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%]"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"
                         id="slideNEXT{{img_iter}}"
@@ -121,19 +122,19 @@
                     {%endif%}
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffix }}.jpg"
-                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%]"
+                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%]  top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to left, black, transparent 50%);
             mask-image: linear-gradient(to left, black, transparent 50%); z-index: -10;"
                         id="slidePREV{{img_iter}}l"
                     />
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ img_iter }}.jpg"
-                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100"
+                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
                         id="slide{{img_iter}}l"
                     />
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
-                        class="w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%]"
+                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%]  top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"
                         id="slideNEXT{{img_iter}}l"
@@ -302,6 +303,7 @@
     {%endfor%}
 
     // PANORAMA SLIDESHOWS
+    let skip = false;
     let currentSlide = 1;
     const totalSlides = {{panorama_count}}; // Update this if you have more images
     const slideshowContainer = document.getElementById("slideshow-container");
@@ -360,25 +362,33 @@
 
     document.getElementById("prevBtn").addEventListener("click", function () {
         currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
+        skip = true;
         updateSlides();
     });
 
     document.getElementById("nextBtn").addEventListener("click", function () {
         currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
+        skip = true;
         updateSlides();
     });
 
     document.getElementById("prevBtnL").addEventListener("click", function () {
         currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
+        skip = true;
         updateSlides();
     });
 
     document.getElementById("nextBtnL").addEventListener("click", function () {
         currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
+        skip = true;
         updateSlides();
     });
 
     setInterval(() => {
+        if (skip) {
+            skip = false;
+            return;
+        }
         currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
         updateSlides();
     }, 3000);
