@@ -6,3 +6,4 @@ cloudinary
 psycopg2-binary
 dj-database-url
 python-dotenv
+django-anymail[brevo]

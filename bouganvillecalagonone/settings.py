@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "cloudinary",
+    "anymail",
 ]
 
 MIDDLEWARE = [
@@ -136,16 +137,13 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # EMAIL
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get("EMAIL_HOST")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT") or -1)
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+ANYMAIL = {
+    "BREVO_API_KEY": os.environ.get("BREVO_API_KEY"),
+}
+
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"  # "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_END_USER = os.environ.get("EMAIL_END_USER")
 EMAIL_FROM_USER = os.environ.get("EMAIL_FROM_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-
-print(EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_END_USER, EMAIL_FROM_USER)
 
 # CLOUDINARY
 cloudinary.config(
