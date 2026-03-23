@@ -141,7 +141,7 @@ ANYMAIL = {
     "BREVO_API_KEY": os.environ.get("BREVO_API_KEY"),
 }
 
-EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"  # "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 EMAIL_END_USER = os.environ.get("EMAIL_END_USER")
 EMAIL_FROM_USER = os.environ.get("EMAIL_FROM_USER")
 

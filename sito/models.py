@@ -23,6 +23,10 @@ class Apartment(models.Model):
     max_people = models.CharField(
         "Numero Massimo Persone", max_length=1000, default="5"
     )
+    available = models.BooleanField(
+        "L'appartamento è affittabile (dovrebbe essere mostrato nel sito)?",
+        default=True,
+    )
 
     def __str__(self):
         return f"<Appartamento {self.index}, {self.name_it}>"
@@ -231,6 +235,8 @@ class Labels(models.Model):
     other_apartments_en = models.CharField(
         "Etichetta 'altri appartamenti' (IT)", max_length=1000, default=""
     )
+    apartment_not_available_it = models.CharField("Etichetta 'appartamento non disponibile' (IT)", max_length=1000, default="")
+    apartment_not_available_en = models.CharField("Etichetta 'appartamento non disponibile' (EN)", max_length=1000, default="")
 
 
 class CalaGononeInfo(models.Model):

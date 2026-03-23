@@ -135,6 +135,7 @@ def add_labels(ctx, english, page):
         "in_evidenza",
         "full_descr",
         "other_apartments",
+        "apartment_not_available",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -227,6 +228,7 @@ def get_apartment_data(aid, english):
         if item.strip()
     ]
     ctx.images = apartment.images.all()  # type: ignore
+    ctx.available = apartment.available
     return ctx
 
 

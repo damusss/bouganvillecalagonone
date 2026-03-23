@@ -1,5 +1,5 @@
 {% extends "../sito/base.html" %} {%block content%}
-
+{% if apartment.available == True %}
 <div id="everything">
 <!--END SLIDESHOW-->
 <div
@@ -378,8 +378,10 @@
         </h1>
 
         <!--APARTMENTS-->
-        {% for apartm in apartments %} {% if apartm.name == apartment.name %}
+        {% for apartm in apartments %}
+        {% if apartm.name == apartment.name %}
         {%else%}
+        {% if apartm.available %}
         <div
             class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 bg-white shadow-lg"
             id="apartment-grid-{{apartm.index}}"
@@ -462,7 +464,9 @@
                 <!--END CAROUSEL-->
             </div>
         </div>
-        {%endif%} {%endfor%}
+        {%endif%}
+        {%endif%}
+        {%endfor%}
         <!--END APARTMENTS-->
     </div>
 </div>
@@ -618,5 +622,15 @@ class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w
     {%endfor%}
     // Hide all slides except the current one
 </script>
-
+{%else%}
+<div class="flex-grow flex items-center justify-center p-8">
+<h1 class="text-black text-3xl font-bold font-[Courgette]">
+                    <span
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                    >
+                    </span>
+                    {{labels.apartment_not_available}}
+                </h1>
+</div>
+{%endif%}
 {%endblock%}

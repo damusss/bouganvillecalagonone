@@ -56,6 +56,7 @@ class CTXApartment:
     full_descr: str = ""
     images: typing.Any = None
     max_people: str = ""
+    available: bool = True
 
 
 @dataclass

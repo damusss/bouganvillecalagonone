@@ -166,6 +166,7 @@
         style="object-fit: fill; z-index: -10"
     />
     {% for apartment in apartments %}
+    {% if apartment.available == True %}
     <div class="container mx-auto px-4">
         <div
             class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 bg-white shadow-lg"
@@ -251,13 +252,14 @@
             </div>
         </div>
     </div>
-
+    {%endif%}
     {%endfor%}
 </div>
 
 <script type="text/javascript">
     // APARTMENTS SLIDESHOWS
     {%for apartment in apartments%}
+    {% if apartment.available == True %}
 
     let currentImage{{apartment.index}} = 1;
     var totalImages{{apartment.index}} = 0;
@@ -300,6 +302,7 @@
 
     updateImages{{apartment.index}}();
 
+    {% endif %}
     {%endfor%}
 
     // PANORAMA SLIDESHOWS
