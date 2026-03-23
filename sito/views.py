@@ -38,7 +38,7 @@ def submit_request(request):
     message = request.POST.get("message")
     language = "inglese" if lang == "en" else "italiana"
     try:
-        send_mail(
+        print("mail result: ", send_mail(
             subject=f"Nuova Richiesta Da {email}",
             message=f"""
             Nuova Richiesta Disponibilità:
@@ -56,7 +56,7 @@ def submit_request(request):
             from_email=settings.EMAIL_FROM_USER,
             recipient_list=[settings.EMAIL_END_USER],
             fail_silently=False,
-        )
+        ))
         messages.success(
             request,
             "Your aviability request was successfully submitted!"

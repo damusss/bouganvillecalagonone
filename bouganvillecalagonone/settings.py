@@ -145,6 +145,8 @@ EMAIL_END_USER = os.environ.get("EMAIL_END_USER")
 EMAIL_FROM_USER = os.environ.get("EMAIL_FROM_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
+print(EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_END_USER, EMAIL_FROM_USER)
+
 # CLOUDINARY
 cloudinary.config(
     cloud_name=os.environ.get("CLODUINARY_NAME"),
