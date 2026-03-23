@@ -13,18 +13,19 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import cloudinary
+import dj_database_url
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # DATA FROM ENVIRONMENT VARIABLES (+ email host/end user, password)
-SECRET_KEY = "django-insecure-3*eqparwve$2+wfau0o)e%3r#7^9^n4xy7welhkqnmc^%-3nd8"
-CLODUINARY_NAME = "defrk7jtt"
-CLOUDINARY_KEY = "946818288696483"
-CLOUDINARY_SECRET = "VsPefGEiuALVuEeDXhAGmr3w94Y"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,11 +83,18 @@ WSGI_APPLICATION = "bouganvillecalagonone.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "db.sqlite3",
+#    }
+# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
@@ -131,11 +139,13 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "labouganville.booknotifier@gmail.com"
-EMAIL_END_USER = "ricciardi.damiano06@gmail.com"
-EMAIL_HOST_PASSWORD = r"ueai lkth wnmb qnup"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_END_USER = os.environ.get("EMAIL_END_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 # CLOUDINARY
 cloudinary.config(
-    cloud_name=CLODUINARY_NAME, api_key=CLOUDINARY_KEY, api_secret=CLOUDINARY_SECRET
+    cloud_name=os.environ.get("CLODUINARY_NAME"),
+    api_key=os.environ.get("CLOUDINARY_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_SECRET"),
 )
