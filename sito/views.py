@@ -53,7 +53,7 @@ def submit_request(request):
 
             Il sito era in lingua {language} quando la richiesta è stata inviata
             """,
-            from_email=settings.EMAIL_HOST_USER,
+            from_email=settings.EMAIL_FROM_USER,
             recipient_list=[settings.EMAIL_END_USER],
             fail_silently=False,
         )
