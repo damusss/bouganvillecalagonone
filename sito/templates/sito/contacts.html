@@ -14,7 +14,7 @@
                 <form
                     method="POST"
                     action="{% url 'submit_request' %}"
-                    class="max-w-xl mx-auto bg-white space-y-6 px-6 md:px-0 lg:px-0 font-[Poppins]"
+                    class="max-w-xl mx-auto bg-white space-y-6 px-6 md:px-0 lg:px-0 font-[{{conf.p_font}}]"
                 >
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{{ lang }}" />
@@ -43,7 +43,7 @@
                                 required
                             >
                                 {%for apartment in apartments%}
-                                <option value="{{apartment.name}}" class="font-[Poppins]">
+                                <option value="{{apartment.name}}" class="font-[{{conf.p_font}}]">
                                     {{apartment.name}} (Max.
                                     {{apartment.max_people}}
                                     {{labels.form_people}})
@@ -247,14 +247,14 @@
                 <ul class="list-disc pl-10">
                     <li>
                         <a
-                            class="text-md text-blue-700 hover:underline font-bold font-[Poppins]"
+                            class="text-md text-blue-700 hover:underline font-bold font-[{{conf.p_font}}]"
                             href="mailto:{{contact.email}}"
                         >
                             E-Mail: {{contact.email}}
                         </a>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[Poppins]">
+                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
                             {{labels.phone}}: {{contact.phone}}
                         </p>
                     </li>
@@ -299,22 +299,22 @@
                     </a>
                 </div>
                 <br />
-                <p class="text-lg text-black font-[Poppins] pl-6">
+                <p class="text-lg text-black font-[{{conf.p_font}}] pl-6">
                     {{labels.location}}
                 </p>
                 <ul class="list-disc pl-10">
                     <li>
-                        <p class="text-md text-black font-bold font-[Poppins]">
+                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
                             {{contact.address}}
                         </p>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[Poppins]">
+                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
                             {{contact.cap_and_town}}
                         </p>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[Poppins]">
+                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
                             {{contact.region_and_country}}
                         </p>
                     </li>
@@ -341,7 +341,7 @@
                     </span>
                     {{labels.prices}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 font-[Poppins]">{{contact.prices|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 font-[{{conf.p_font}}]">{{contact.prices|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
@@ -351,7 +351,7 @@
                     </span>
                     {{labels.taxes}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[Poppins]">{{contact.tassa_di_soggiorno|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.tassa_di_soggiorno|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
@@ -361,7 +361,7 @@
                     </span>
                     {{labels.cancelation}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[Poppins]">{{contact.cancelation|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.cancelation|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
@@ -371,7 +371,7 @@
                     </span>
                     {{labels.rubbish}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[Poppins]">{{contact.rubbish|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.rubbish|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2" id="privacy-policy">
                     <span
@@ -381,7 +381,7 @@
                     </span>
                     Privacy Policy
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[Poppins]">{{contact.privacy|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.privacy|safe}}</p>
                 <br>
             </div>
         </div>

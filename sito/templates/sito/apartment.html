@@ -52,7 +52,7 @@
     </div>
     <a
         href="#book-apartment"
-        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[Poppins] bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[{{conf.p_font}}] bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
     >
         <span>{{labels.book}}</span><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -92,13 +92,13 @@
                 </h1>
                 <br />
                 <p
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
                 >
                     {{apartment.descr|safe}}
                 </p>
                 <br />
                 <ul
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
                 >
                     {% for feature in apartment.key_features%}
                     <li class="">{{feature|safe}}</li>
@@ -114,7 +114,7 @@
                     {{labels.full_descr}}
                 </h1>
                 <p
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
                 >
                     {{apartment.full_descr|safe}}
                 </p>
@@ -125,7 +125,7 @@
             <form
                 method="POST"
                 action="{% url 'submit_request' %}"
-                class="mx-8 bg-white space-y-6 md:px-0 lg:px-0 font-[Poppins]"
+                class="mx-8 bg-white space-y-6 md:px-0 lg:px-0 font-[{{conf.p_font}}]"
             >
                 {% csrf_token %}
                 <input type="hidden" name="language" value="{{ lang }}" />
@@ -321,7 +321,7 @@
                 <!-- Submit Button -->
                 <button
                     type="submit"
-                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-2xl font-[Poppins] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-2xl font-[{{conf.p_font}}] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                 >
                     {{labels.form_submit}}
                 </button>
@@ -398,13 +398,13 @@
                 </h1>
                 <br />
                 <p
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
                 >
                     {{apartm.descr|safe}}
                 </p>
                 <br />
                 <ul
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
                 >
                     {% for feature in apartm.key_features%}
                     <li class="">{{feature|safe}}</li>

@@ -16,19 +16,19 @@
                 {{labels.business_name}}
             </h1>
             <p
-                class="text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins] z-12"  style=" z-index: 10 !important; position: relative;"
+                class="text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[{{conf.p_font}}] z-12"  style=" z-index: 10 !important; position: relative;"
             >
                 {{ welcome.descr1|safe }}
             </p>
             <p 
-                class="my-0 text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[Poppins] z-10"  style=" z-index: 10 !important; position: relative;"
+                class="my-0 text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[{{conf.p_font}}] z-10"  style=" z-index: 10 !important; position: relative;"
             >
                 {{ welcome.descr2|safe }}
             </p>
 
             <a
                 href="#apartments"
-                class="z-10 mb-5 bg-purple-600 text-white font-bold font-[Poppins] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                class="z-10 mb-5 bg-purple-600 text-white font-bold font-[{{conf.p_font}}] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                  style=" z-index: 10 !important; position: relative;"
                 >
                 <span>{{labels.view_apartments}}</span>
@@ -185,13 +185,13 @@
                 </h1>
                 <br />
                 <p
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] text-lg lg:text-xl"
                 >
                     {{apartment.descr|safe}}
                 </p>
                 <br />
                 <ul
-                    class="font-[Poppins] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
+                    class="font-[{{conf.p_font}}] w-[100%] md:w-[100%] lg:w-[90%] list-disc pl-6 text-lg lg:text-xl"
                 >
                     {% for feature in apartment.key_features%}
                     <li class="">{{feature|safe}}</li>

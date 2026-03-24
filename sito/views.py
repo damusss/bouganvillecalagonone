@@ -85,6 +85,10 @@ def site_main(request, english, page, aid=None, url=""):
         "redirect": f"{url}{'/' if url != '/' else ''}{lang}",
     }
     add_labels(ctx, english, page)
+    ctx["conf"] = {
+        "p_font": "Poppins",
+        "h_font": "Courgette"
+    }
     func = ADD_DATA.get(page, None)
     if func:
         func(ctx, english)
