@@ -1,7 +1,7 @@
 {% extends "../sito/base.html" %} {%block content%} {%load static%}
 {% if apartment.available == True %}
 <div id="everything">
-<!--END SLIDESHOW-->
+<!--START SLIDESHOW-->
 <div
     id="image-carousel-container"
     class="relative w-full max-h-[50vh] overflow-hidden"
@@ -18,18 +18,24 @@
     >
         &#10095;
     </button>
-
+    <!--snap-x snap-mandatory-->
     <div
         id="carousel-images"
-        class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x"
+        class="flex overflow-x-auto scroll-smooth touch-pan-x"
         style="scrollbar-width: none; -ms-overflow-style: none"
     >
         {% for image in apartment.images %}
-        <div class="min-w-full md:min-w-[33%] snap-center flex-shrink-0">
+        <div class="min-w-full md:min-w-[33%] snap-center flex-shrink-0"
+             style="pointer-events: none;">
             <img
                 src="{{ image.image.url }}"
                 alt="Apartment Image {{ forloop.counter }}"
                 class="w-full h-[40vh] object-cover md:h-[50vh]"
+                style=  "-webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -o-user-select: none;
+                        user-select: none;"
                 draggable="false"
             />
         </div>
@@ -38,6 +44,7 @@
 
     <div
         class="absolute top-1/2 left-0 -translate-y-1/2 z-5 w-[100%] justify-center text-center items-center flex shadow-[0_0_25px_rgba(0,0,0,0.85)] bg-black/45"
+        style="pointer-events: none;"
     >
         <span
             class="hidden lg:inline-flex text-3xl md:text-6xl items-center justify-center w-16 h-16 mr-10 rounded-full bg-{{ secondary_col }} text-white font-bold font-[Courgette]"
@@ -369,7 +376,7 @@
                     <!-- Arrows -->
                 </div>
         <!--END IMAGES-->
-        <h1 class="text-black text-5xl font-bold font-[Courgette] p-6">
+        <h1 class="text-black text-4xl font-bold font-[Courgette] p-6">
             <span
                 class="text-4xl inline-flex items-center justify-center w-10 h-10 rounded-full bg-{{ secondary_col }} text-white font-bold"
             >
@@ -530,17 +537,46 @@ class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w
         const imageWidth = carousel.querySelector("div").offsetWidth;
         carousel.scrollBy({ left: direction * imageWidth, behavior: "smooth" });
     }
+
+    let mouseDown = false;
+    let startX, scrollLeft;
+
+    const startDragging = (e) => {
+        mouseDown = true;
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    }
+
+    const stopDragging = (e) => {
+        mouseDown = false;
+    }
+
+    const move = (e) => {
+        e.preventDefault();
+        if(!mouseDown) { return; }
+        const x = e.pageX - carousel.offsetLeft;
+        const scroll = x - startX;
+        carousel.scrollLeft = scrollLeft - scroll;
+    }
+
+    carousel.addEventListener('mousemove', move, false);
+    carousel.addEventListener('mousedown', startDragging, false);
+    carousel.addEventListener('mouseup', stopDragging, false);
+    carousel.addEventListener('mouseleave', stopDragging, false);
+
 </script>
 
 <script type="text/javascript">
+    const modal = document.getElementById('modal-overlay');
+
     function openModal() {
-        document.getElementById('modal-overlay').classList.remove('hidden');
+        modal.classList.remove('hidden');
         document.getElementById('scroll-to-top').classList.add('hidden');
         document.getElementById('everything').classList.add('hidden');
     }
 
     function closeModal() {
-        document.getElementById('modal-overlay').classList.add('hidden');
+        modal.classList.add('hidden');
         document.getElementById('scroll-to-top').classList.remove('hidden');
         document.getElementById('everything').classList.remove('hidden');
     }
@@ -569,20 +605,31 @@ class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w
         });
     }
 
-    document.getElementById("prevBtnM-{{apartment.index}}").addEventListener("click", function () {
+    const prevMoveImagesM = function () {
         currentImageM{{apartment.index}} = currentImageM{{apartment.index}} === 1 ? totalImagesM{{apartment.index}} : currentImageM{{apartment.index}} - 1;
         updateImagesM{{apartment.index}}();
-    });
+        if (!modal.classList.contains("hidden")) {
+            prevMoveImages{{apartment.index}}();
+        }
+    }
 
-    document.getElementById("nextBtnM-{{apartment.index}}").addEventListener("click", function () {
+    const nextMoveImagesM = function () {
         currentImageM{{apartment.index}} = currentImageM{{apartment.index}} === totalImagesM{{apartment.index}} ? 1 : currentImageM{{apartment.index}} + 1;
         updateImagesM{{apartment.index}}();
-    });
+        if (!modal.classList.contains("hidden")) {
+            nextMoveImages{{apartment.index}}();
+        }
+    }
+
+    document.getElementById("prevBtnM-{{apartment.index}}").addEventListener("click", prevMoveImagesM);
+
+    document.getElementById("nextBtnM-{{apartment.index}}").addEventListener("click", nextMoveImagesM);
 
     updateImagesM{{apartment.index}}();
 
     // APARTMENTS SLIDESHOWS
     {%for apartm in apartments%}
+    {% if apartm.available %}
     
     let currentImage{{apartm.index}} = 1;
     var totalImages{{apartm.index}} = 0;
@@ -608,19 +655,33 @@ class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w
         });
     }
 
-    document.getElementById("prevBtn-{{apartm.index}}").addEventListener("click", function () {
+    const prevMoveImages{{apartm.index}} = function () {
         currentImage{{apartm.index}} = currentImage{{apartm.index}} === 1 ? totalImages{{apartm.index}} : currentImage{{apartm.index}} - 1;
         updateImages{{apartm.index}}();
-    });
+        {%if apartm.index == apartment.index %}
+        if (modal.classList.contains("hidden")) {
+        prevMoveImagesM();
+        }
+        {%endif%}
+    }
 
-    document.getElementById("nextBtn-{{apartm.index}}").addEventListener("click", function () {
+    const nextMoveImages{{apartm.index}} = function () {
         currentImage{{apartm.index}} = currentImage{{apartm.index}} === totalImages{{apartm.index}} ? 1 : currentImage{{apartm.index}} + 1;
         updateImages{{apartm.index}}();
-    });
+        {%if apartm.index == apartment.index %}
+        if (modal.classList.contains("hidden")) {
+        nextMoveImagesM();
+        }
+        {%endif%}
+    }
+
+    document.getElementById("prevBtn-{{apartm.index}}").addEventListener("click", prevMoveImages{{apartm.index}});
+
+    document.getElementById("nextBtn-{{apartm.index}}").addEventListener("click", nextMoveImages{{apartm.index}});
 
     updateImages{{apartm.index}}();
+    {%endif%}
     {%endfor%}
-    // Hide all slides except the current one
 </script>
 {%else%}
 <div class="flex-grow flex items-center justify-center p-8">
