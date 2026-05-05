@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="{%static 'sito/style.css'%}" />
         <link
             rel="icon"
-            href="https://cdn-icons-png.flaticon.com/512/6730/6730352.png"
+            href="{% static '' %}sito/flower_logo.png"
         />
     </head>
     <body>
@@ -29,7 +29,7 @@
                 <!-- Left: Logo and Business Name -->
                 <a class="flex items-center space-x-3" href="/{{lang}}">
                     <img
-                        src="https://cdn-icons-png.flaticon.com/512/6730/6730352.png"
+                        src="{% static '' %}sito/flower_logo.png"
                         alt="Logo"
                         class="h-10 w-10 mx-2"
                     />
@@ -43,7 +43,7 @@
                 <nav class="hidden lg:flex items-center space-x-6">
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
@@ -132,7 +132,7 @@
                     </div>
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
@@ -177,7 +177,7 @@
 <a
 href="#"
 id="scroll-to-top"
-class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-purple-600 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-{{ secondary_col }} text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
     style="z-index: 10000;"
 >
 <svg

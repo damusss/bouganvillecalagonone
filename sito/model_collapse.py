@@ -46,6 +46,8 @@ class CTXLabels:
     full_descr: str = ""
     other_apartments: str = ""
 
+    where_are_we: str = ""
+
 
 @dataclass
 class CTXApartment:
@@ -79,3 +81,9 @@ class CTXWelcomeInfo:
     image: typing.Any = None
     descr1: str = ""
     descr2: str = ""
+
+
+@dataclass
+class CTXCalaGononeInfo:
+    title: str = ""
+    descr: str = ""

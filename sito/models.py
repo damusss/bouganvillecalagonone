@@ -235,8 +235,19 @@ class Labels(models.Model):
     other_apartments_en = models.CharField(
         "Etichetta 'altri appartamenti' (IT)", max_length=1000, default=""
     )
-    apartment_not_available_it = models.CharField("Etichetta 'appartamento non disponibile' (IT)", max_length=1000, default="")
-    apartment_not_available_en = models.CharField("Etichetta 'appartamento non disponibile' (EN)", max_length=1000, default="")
+    apartment_not_available_it = models.CharField(
+        "Etichetta 'appartamento non disponibile' (IT)", max_length=1000, default=""
+    )
+    apartment_not_available_en = models.CharField(
+        "Etichetta 'appartamento non disponibile' (EN)", max_length=1000, default=""
+    )
+
+    where_are_we_it = models.CharField(
+        "Etichetta 'Dove siamo' (IT)", max_length=1000, default=""
+    )
+    where_are_we_en = models.CharField(
+        "Etichetta 'Dove siamo' (EN)", max_length=1000, default=""
+    )
 
 
 class CalaGononeInfo(models.Model):
@@ -244,6 +255,9 @@ class CalaGononeInfo(models.Model):
     title_en = models.CharField(max_length=1000)
     description_it = models.TextField()
     description_en = models.TextField()
+    name_id = models.CharField(
+        "Identificativo speciale (non modificiare)", max_length=100, default=""
+    )
 
     def __str__(self):
         return f"<Informazioni per Cala Gonone dal titolo {self.title_it}>"

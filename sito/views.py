@@ -4,11 +4,11 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
 
-from .models import ContactsInfo, WelcomeInfo, Apartment, Labels
-from .model_collapse import CTXContactInfo, CTXWelcomeInfo, CTXApartment, CTXLabels
+from .models import ContactsInfo, WelcomeInfo, Apartment, Labels, CalaGononeInfo
+from .model_collapse import CTXContactInfo, CTXWelcomeInfo, CTXApartment, CTXLabels, CTXCalaGononeInfo
 
 
-BG_IMG = "https://img.freepik.com/free-photo/top-view-rocks-water_158595-5794.jpg?t=st=1738254838~exp=1738258438~hmac=79a7676422addb0e86640ada2412fe7d0d795b30e7cd4b6fe0f7641ce7dc7964&w=1380"
+SECONDARY_COLOR = "purple-600"
 
 
 def parse_bold(string):
@@ -79,7 +79,7 @@ def site_main(request, english, page, aid=None, url=""):
     ctx = {
         "lang": lang,
         "current_page": page,
-        "bg_img": BG_IMG,
+        "secondary_col": SECONDARY_COLOR,
         "it_redirect": f"{url}",
         "en_redirect": f"{url}{'/' if url != '/' else ''}en",
         "redirect": f"{url}{'/' if url != '/' else ''}{lang}",
@@ -140,6 +140,7 @@ def add_labels(ctx, english, page):
         "full_descr",
         "other_apartments",
         "apartment_not_available",
+        "where_are_we",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -195,7 +196,24 @@ def add_apartments(ctx, english):
     ctx["apartments"] = apartments
 
 
-def add_data_calagonone(ctx, english): ...
+def add_data_calagonone(ctx, english):
+    infos = CalaGononeInfo.objects.all()
+    street_directions = None
+    info_ctxs = []
+    for model_info in infos:
+        info = CTXCalaGononeInfo()
+        if english:
+            info.title = model_info.title_en
+            info.descr = model_info.description_en
+        else:
+            info.title = model_info.title_it
+            info.descr = model_info.description_it
+        if model_info.name_id == "street_directions":
+            street_directions = info
+        else:
+            info_ctxs.append(info)
+    ctx["infos"] = info_ctxs
+    ctx["street_directions"] = street_directions
 
 
 def add_data_contacts(ctx, english):

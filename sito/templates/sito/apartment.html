@@ -1,4 +1,4 @@
-{% extends "../sito/base.html" %} {%block content%}
+{% extends "../sito/base.html" %} {%block content%} {%load static%}
 {% if apartment.available == True %}
 <div id="everything">
 <!--END SLIDESHOW-->
@@ -40,7 +40,7 @@
         class="absolute top-1/2 left-0 -translate-y-1/2 z-5 w-[100%] justify-center text-center items-center flex shadow-[0_0_25px_rgba(0,0,0,0.85)] bg-black/45"
     >
         <span
-            class="hidden lg:inline-flex text-3xl md:text-6xl items-center justify-center w-16 h-16 mr-10 rounded-full bg-purple-600 text-white font-bold font-[Courgette]"
+            class="hidden lg:inline-flex text-3xl md:text-6xl items-center justify-center w-16 h-16 mr-10 rounded-full bg-{{ secondary_col }} text-white font-bold font-[Courgette]"
         >
             {{apartment.index}}
         </span>
@@ -52,7 +52,7 @@
     </div>
     <a
         href="#book-apartment"
-        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[{{conf.p_font}}] bg-purple-600 text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
     >
         <span>{{labels.book}}</span><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@
 <div class="relative">
     <img
         class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
-        src="{{bg_img}}"
+        src="{% static '' %}sito/sea_bg.jpg"
         style="object-fit: fill; z-index: -10"
     />
     <div class="container mx-auto bg-white shadow-lg">
@@ -85,7 +85,7 @@
             <div class="px-6 pt-6 rounded-lg bg-white">
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
-                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-{{ secondary_col }} text-white font-bold"
                     >
                     </span>
                     {{labels.in_evidenza}}
@@ -108,7 +108,7 @@
             <div class="p-6 rounded-lg bg-white lg:pr-0">
                 <h1 class="text-black text-3xl font-bold font-[Courgette] pb-5">
                     <span
-                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-{{ secondary_col }} text-white font-bold"
                     >
                     </span>
                     {{labels.full_descr}}
@@ -132,7 +132,7 @@
                 <input type="hidden" name="url" value="{{ redirect }}" />
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -321,7 +321,7 @@
                 <!-- Submit Button -->
                 <button
                     type="submit"
-                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-2xl font-[{{conf.p_font}}] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl font-[{{conf.p_font}}] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                 >
                     {{labels.form_submit}}
                 </button>
@@ -371,7 +371,7 @@
         <!--END IMAGES-->
         <h1 class="text-black text-5xl font-bold font-[Courgette] p-6">
             <span
-                class="text-4xl inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-600 text-white font-bold"
+                class="text-4xl inline-flex items-center justify-center w-10 h-10 rounded-full bg-{{ secondary_col }} text-white font-bold"
             >
             </span>
             {{labels.other_apartments}}
@@ -390,7 +390,7 @@
             <div class="p-6 rounded-lg bg-white">
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
-                        class="text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-600 text-white font-bold"
+                        class="text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} text-white font-bold"
                     >
                         {{apartm.index}}
                     </span>
@@ -413,7 +413,7 @@
                 <br />
                 <a
                     href="/apartment-{{apartm.index}}/{{lang}}"
-                    class="my-3 bg-purple-600 text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="my-3 bg-{{ secondary_col }} text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                 >
                     <span>{{labels.details}}</span>
                 </a>
@@ -626,7 +626,7 @@ class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w
 <div class="flex-grow flex items-center justify-center p-8">
 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
-                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white font-bold"
+                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-{{ secondary_col }} text-white font-bold"
                     >
                     </span>
                     {{labels.apartment_not_available}}

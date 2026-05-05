@@ -1,8 +1,8 @@
-{% extends "../sito/base.html" %} {%block content%}
+{% extends "../sito/base.html" %} {%block content%} {%load static%}
 <div class="relative">
     <img
         class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
-        src="{{bg_img}}"
+        src="{% static '' %}sito/sea_bg.jpg"
         style="object-fit: fill; z-index: -10"
     />
     <div class="container mx-auto lg:max-w-7xl px-4" id="book">
@@ -21,7 +21,7 @@
                     <input type="hidden" name="url" value="{{ redirect }}" />
                     <h1 class="text-black text-2xl font-bold font-[Courgette]">
                         <span
-                            class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 font-bold text-purple-600"
+                            class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                         >
                             .
                         </span>
@@ -228,7 +228,7 @@
                     <!-- Submit Button -->
                     <button
                         type="submit"
-                        class="w-full bg-purple-600 text-white py-2 px-4 rounded-2xl gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                     >
                         {{labels.form_submit}}
                     </button>
@@ -237,7 +237,7 @@
             <div class="p-6 rounded-lg bg-white">
                 <h1 class="text-black text-2xl font-bold font-[Courgette]">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -322,7 +322,7 @@
                 <div class="pl-5 pt-3">
                     <a
                         href="/calagonone/{{lang}}#location-directions"
-                        class="bg-purple-600 text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="bg-{{ secondary_col }} text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                     >
                         <span>{{labels.location_directions}}</span>
                     </a>
@@ -335,7 +335,7 @@
             <div class="px-6 lg:px-20 py-4">
                 <h1 class="text-black text-2xl font-bold font-[Courgette]">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -345,7 +345,7 @@
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -355,7 +355,7 @@
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -365,7 +365,7 @@
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
@@ -375,7 +375,7 @@
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2" id="privacy-policy">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-purple-600 font-bold text-purple-600"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
