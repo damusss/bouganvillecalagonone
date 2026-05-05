@@ -19,14 +19,39 @@
                     </span>
                     {{labels.where_are_we}}
                 </h1>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4153.993020868887!2d9.625948581771791!3d40.28568967254134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12def42637a344d7%3A0x8114c1df60c1be9c!2sLa%20Bouganville%20Apartments!5e1!3m2!1sen!2sit!4v1777996488921!5m2!1sen!2sit"
-                    class="w-full aspect-square md:aspect-video rounded-md mb-6"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
+                <div id="map-injector">
+                    <div
+                        class="relative w-full aspect-square md:aspect-video rounded-md mb-6 overflow-hidden"
+                    >
+                        <img
+                            src="{% static '' %}sito/map_preview.png"
+                            class="w-full h-full object-cover"
+                        />
+
+                        <div
+                            class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
+                        >
+                            <h1
+                                class="text-3xl font-bold text-white [text-shadow:_0_4px_12px_rgb(0_0_0_/_100%),_0_0_15px_rgb(0_0_0_/_100%)] mb-2 font-[Courgette]"
+                            >
+                                {{view_map.title}}
+                            </h1>
+
+                            <p
+                                class="text-white [text-shadow:_0_4px_12px_rgb(0_0_0_/_100%),_0_0_15px_rgb(0_0_0_/_100%)] mb-6 font-[{{conf.p_font}}] md:w-2/3"
+                            >
+                                {{view_map.descr|safe}}
+                            </p>
+
+                            <button
+                                onclick="acceptAndViewMap()"
+                                class="bg-{{ secondary_col }} text-white font-bold py-2 px-3 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                            >
+                                {{labels.view_map}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <details
                     class="group [&_summary::-webkit-details-marker]:hidden mb-6"
                 >
@@ -58,7 +83,9 @@
                         </h1>
                     </summary>
 
-                    <p class="mt-4 pl-11 text-gray-700 text-base leading-relaxed font-[{{conf.p_font}}]">
+                    <p
+                        class="mt-4 pl-11 text-gray-700 text-base leading-relaxed font-[{{conf.p_font}}]"
+                    >
                         {{ street_directions.descr|safe }}
                     </p>
                 </details>
@@ -66,4 +93,24 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    const injector = document.getElementById("map-injector");
+
+    function injectGoogleMapIFrame() {
+        if (document.cookie.split("; ").includes("gmaps_consent=accepted")) {
+            injector.innerHTML =
+                '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4153.993020868887!2d9.625948581771791!3d40.28568967254134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12def42637a344d7%3A0x8114c1df60c1be9c!2sLa%20Bouganville%20Apartments!5e1!3m2!1sen!2sit!4v1777996488921!5m2!1sen!2sit" class="w-full aspect-square md:aspect-video rounded-md mb-6" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe>';
+        }
+    }
+
+    function acceptAndViewMap() {
+        if (!document.cookie.split("; ").includes("gmaps_consent=accepted")) {
+            const maxAgeSeconds = 180 * 24 * 60 * 60;
+            document.cookie = `gmaps_consent=accepted; max-age=${maxAgeSeconds}; path=/; SameSite=Strict; Secure`;
+            injectGoogleMapIFrame();
+        }
+    }
+
+    injectGoogleMapIFrame();
+</script>
 {%endblock%}

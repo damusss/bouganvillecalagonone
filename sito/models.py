@@ -248,6 +248,8 @@ class Labels(models.Model):
     where_are_we_en = models.CharField(
         "Etichetta 'Dove siamo' (EN)", max_length=1000, default=""
     )
+    view_map_it = models.CharField("Etichetta 'Accetta e visualizza' (IT)", max_length=1000, default="")
+    view_map_en = models.CharField("Etichetta 'Accetta e visualizza' (EN)", max_length=1000, default="")
 
 
 class CalaGononeInfo(models.Model):

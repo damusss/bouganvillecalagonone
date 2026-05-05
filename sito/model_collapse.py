@@ -47,6 +47,7 @@ class CTXLabels:
     other_apartments: str = ""
 
     where_are_we: str = ""
+    view_map: str = ""
 
 
 @dataclass

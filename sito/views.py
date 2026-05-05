@@ -51,7 +51,7 @@ def submit_request(request):
             Email: {email}
             Messaggio: {message}
 
-            Il sito era in lingua {language} quando la richiesta è stata inviata
+            Il sito era in lingua {language} quando la richiesta è stata inviata.
             """,
             from_email=settings.EMAIL_FROM_USER,
             recipient_list=[settings.EMAIL_END_USER],
@@ -141,6 +141,7 @@ def add_labels(ctx, english, page):
         "other_apartments",
         "apartment_not_available",
         "where_are_we",
+        "view_map",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -199,6 +200,7 @@ def add_apartments(ctx, english):
 def add_data_calagonone(ctx, english):
     infos = CalaGononeInfo.objects.all()
     street_directions = None
+    view_map = None
     info_ctxs = []
     for model_info in infos:
         info = CTXCalaGononeInfo()
@@ -210,10 +212,13 @@ def add_data_calagonone(ctx, english):
             info.descr = model_info.description_it
         if model_info.name_id == "street_directions":
             street_directions = info
+        elif model_info.name_id == "view_map":
+            view_map = info
         else:
             info_ctxs.append(info)
     ctx["infos"] = info_ctxs
     ctx["street_directions"] = street_directions
+    ctx["view_map"] = view_map
 
 
 def add_data_contacts(ctx, english):
