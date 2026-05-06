@@ -142,6 +142,8 @@ def add_labels(ctx, english, page):
         "apartment_not_available",
         "where_are_we",
         "view_map",
+        "read_more",
+        "read_less",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels

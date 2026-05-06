@@ -169,12 +169,14 @@
     {% if apartment.available == True %}
     <div class="container mx-auto px-4">
         <div
-            class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 bg-white shadow-lg"
+            class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 lg:gap-8 bg-white shadow-lg"
             id="apartment-grid-{{apartment.index}}"
         >
             <!-- Left Column -->
-            <div class="p-6 rounded-lg bg-white">
-
+            <div class="pb-3 px-6 lg:pb-6 rounded-lg bg-white">
+                {% if forloop.counter0 == 0 %}
+                <div class="py-3"></div>
+                {%endif%}
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
                         class="text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} text-white font-bold"
@@ -207,15 +209,17 @@
             </div>
 
             <!-- Right Column -->
-            <div class="md:p-6 rounded-lg bg-white">
+            <div class="pb-6 md:p-6 rounded-lg bg-white">
                 <!--START CAROUSEL-->
                 <div>
                     <div
                         class="relative"
                         id="slideshow-apartment-{{apartment.index}}"
+                        style="user-select: none; -webkit-user-select: none; touch-action: pan-y;"
                     >
+                        <a class="absolute hidden" href="/apartment-{{apartment.index}}/{{lang}}" id="slideshow-link-{{apartment.index}}"></a>
+                        <div  id="slideshow-a-{{apartment.index}}">
                         {%for image in apartment.images%}
-                        <a href="/apartment-{{apartment.index}}/{{lang}}">
                             <div
                                 class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
                                 id="image-{{apartment.index}}-{{forloop.counter0}}"
@@ -224,14 +228,24 @@
                                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
                                     src="{{image.image.url}}"
                                     alt="Apartment image {{forloop.counter0}}"
+                                    style=  "-webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -o-user-select: none;
+                        user-select: none;"
                                 />
                                 <img
                                     class="absolute inset-0 w-full h-full object-contain"
                                     src="{{image.image.url}}"
                                     alt="Apartment image {{forloop.counter0}}"
-                                /></div
-                        ></a>
+                                    style=  "-webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -o-user-select: none;
+                        user-select: none;"
+                                /></div>
                         {%endfor%}
+                        </div>
                         <button
                             class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
                             id="prevBtn-{{apartment.index}}"
@@ -245,65 +259,141 @@
                             &#10095;
                         </button>
                     </div>
-
-                    <!-- Arrows -->
                 </div>
                 <!--END CAROUSEL-->
             </div>
         </div>
     </div>
+
     {%endif%}
     {%endfor%}
 </div>
 
+<!-- script relying on django macros -->
 <script type="text/javascript">
-    // APARTMENTS SLIDESHOWS
-    {%for apartment in apartments%}
-    {% if apartment.available == True %}
+    const isApartment = false;
 
-    let currentImage{{apartment.index}} = 1;
-    var totalImages{{apartment.index}} = 0;
-    var images{{apartment.index}} = [];
-    {%for image in apartment.images%}
-    totalImages{{apartment.index}} += 1;
-    images{{apartment.index}}.push(document.getElementById("image-{{apartment.index}}-{{forloop.counter0}}"));
-    {%endfor%}
-    const imagesContainer{{apartment.index}} = document.getElementById("slideshow-apartment-{{apartment.index}}");
+// smart-start:apartment_slideshows
+{% for apartment in apartments %}
+{% if apartment.available == True %}
 
+let currentImage{{apartment.index}} = 1;
+var totalImages{{apartment.index}} = 0;
+var images{{apartment.index}} = [];
+{% for image in apartment.images %}
+totalImages{{apartment.index}} += 1;
+images{{apartment.index}}.push(document.getElementById("image-{{apartment.index}}-{{forloop.counter0}}"));
+{% endfor %}
 
-    function updateImages{{apartment.index}}() {
-        images{{apartment.index}}.forEach((image, index) => {
-            if (index + 1 === currentImage{{apartment.index}}) {
-                image.classList.remove("opacity-0");
-                image.classList.add("opacity-100");
-                image.classList.remove("hidden");
-            } else {
-                image.classList.remove("opacity-100");
-                image.classList.add("opacity-0");
-                image.classList.add("hidden");
-            }
-        });
+const imagesContainer{{apartment.index}} = document.getElementById("slideshow-apartment-{{apartment.index}}");
+const imagesTrack{{apartment.index}} = document.getElementById("slideshow-a-{{apartment.index}}");
+const prevBtn{{apartment.index}} = document.getElementById("prevBtn-{{apartment.index}}");
+const nextBtn{{apartment.index}} = document.getElementById("nextBtn-{{apartment.index}}");
+
+let startX{{apartment.index}} = 0;
+let isPointerDown{{apartment.index}} = false;
+
+const SWIPE_THRESHOLD_{{apartment.index}} = 100;
+
+imagesContainer{{apartment.index}}.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("button")) {
+        return;
     }
 
-    document.getElementById("prevBtn-{{apartment.index}}").addEventListener("click", function () {
-        currentImage{{apartment.index}} = currentImage{{apartment.index}} === 1 ? totalImages{{apartment.index}} : currentImage{{apartment.index}} - 1;
-        updateImages{{apartment.index}}();
+    isPointerDown{{apartment.index}} = true;
+    startX{{apartment.index}} = e.clientX;
+    imagesContainer{{apartment.index}}.setPointerCapture(e.pointerId);
+    imagesTrack{{apartment.index}}.style.transition = "none";
+});
+
+imagesContainer{{apartment.index}}.addEventListener("pointermove", (e) => {
+    if (!isPointerDown{{apartment.index}}) return;
+
+    const currentX = e.clientX;
+    const deltaX = currentX - startX{{apartment.index}};
+
+    imagesTrack{{apartment.index}}.style.transform = `translateX(${deltaX}px)`;
+
+    if (Math.abs(deltaX) > SWIPE_THRESHOLD_{{apartment.index}}) {
+        isPointerDown{{apartment.index}} = false;
+
+        imagesTrack{{apartment.index}}.style.transition = "transform 0.3s ease-out";
+        imagesTrack{{apartment.index}}.style.transform = "translateX(0px)";
+
+        imagesContainer{{apartment.index}}.releasePointerCapture(e.pointerId);
+
+        if (deltaX > 0) {
+            prevBtn{{apartment.index}}.click();
+        } else {
+            nextBtn{{apartment.index}}.click();
+        }
+    }
+});
+
+imagesContainer{{apartment.index}}.addEventListener("pointerup", (e) => {
+    if (!isPointerDown{{apartment.index}}) return;
+    isPointerDown{{apartment.index}} = false;
+
+    const currentX = e.clientX;
+    const deltaX = currentX - startX{{apartment.index}};
+
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD_{{apartment.index}}) {
+        document.getElementById("slideshow-link-{{apartment.index}}").click();
+    }
+});
+
+imagesContainer{{apartment.index}}.addEventListener("pointercancel", (e) => {
+    isPointerDown{{apartment.index}} = false;
+    imagesTrack{{apartment.index}}.style.transition = "transform 0.3s ease-out";
+    imagesTrack{{apartment.index}}.style.transform = "translateX(0px)";
+    imagesContainer{{apartment.index}}.releasePointerCapture(e.pointerId);
+});
+
+imagesContainer{{apartment.index}}.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+});
+
+function updateImages{{apartment.index}}() {
+    images{{apartment.index}}.forEach((image, index) => {
+        if (index + 1 === currentImage{{apartment.index}}) {
+            image.classList.remove("opacity-0");
+            image.classList.add("opacity-100");
+            image.classList.remove("hidden");
+        } else {
+            image.classList.remove("opacity-100");
+            image.classList.add("opacity-0");
+            image.classList.add("hidden");
+        }
     });
+}
 
-    document.getElementById("nextBtn-{{apartment.index}}").addEventListener("click", function () {
-        currentImage{{apartment.index}} = currentImage{{apartment.index}} === totalImages{{apartment.index}} ? 1 : currentImage{{apartment.index}} + 1;
-        updateImages{{apartment.index}}();
-    });
-
-    /*setInterval(() => {
-        currentImage{{apartment.index}} = currentImage{{apartment.index}} === totalImages{{apartment.index}} ? 1 : currentImage{{apartment.index}} + 1;
-        updateImages{{apartment.index}}();
-    }, 3000);*/
-
+const prevMoveImages{{apartment.index}} = function () {
+    currentImage{{apartment.index}} = currentImage{{apartment.index}} === 1 ? totalImages{{apartment.index}} : currentImage{{apartment.index}} - 1;
     updateImages{{apartment.index}}();
+{%if apartment.index == apartment.index %}
+    if (isApartment && modal.classList.contains("hidden")) {
+        prevMoveImagesM();
+    }
+{%endif%}
+}
+prevBtn{{apartment.index}}.addEventListener("click", prevMoveImages{{apartment.index}});
 
-    {% endif %}
-    {%endfor%}
+const nextMoveImages{{apartment.index}} = function () {
+    currentImage{{apartment.index}} = currentImage{{apartment.index}} === totalImages{{apartment.index}} ? 1 : currentImage{{apartment.index}} + 1;
+    updateImages{{apartment.index}}();
+{%if apartment.index == apartment.index %}
+    if (isApartment && modal.classList.contains("hidden")) {
+        nextMoveImagesM();
+    }
+{%endif%}
+}
+nextBtn{{apartment.index}}.addEventListener("click", nextMoveImages{{apartment.index}});
+
+updateImages{{apartment.index}}();
+
+{% endif %}
+{% endfor %}
+// smart-end:apartment_slideshows
 
     // PANORAMA SLIDESHOWS
     let skip = false;

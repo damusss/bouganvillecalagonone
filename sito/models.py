@@ -241,6 +241,18 @@ class Labels(models.Model):
     apartment_not_available_en = models.CharField(
         "Etichetta 'appartamento non disponibile' (EN)", max_length=1000, default=""
     )
+    read_more_it = models.CharField(
+        "Etichetta 'leggi di piu' (IT)", max_length=1000, default=""
+    )
+    read_more_en = models.CharField(
+        "Etichetta 'leggi di piu' (EN)", max_length=1000, default=""
+    )
+    read_less_it = models.CharField(
+        "Etichetta 'leggi meno' (IT)", max_length=1000, default=""
+    )
+    read_less_en = models.CharField(
+        "Etichetta 'leggi meno' (EN)", max_length=1000, default=""
+    )
 
     where_are_we_it = models.CharField(
         "Etichetta 'Dove siamo' (IT)", max_length=1000, default=""
@@ -248,8 +260,12 @@ class Labels(models.Model):
     where_are_we_en = models.CharField(
         "Etichetta 'Dove siamo' (EN)", max_length=1000, default=""
     )
-    view_map_it = models.CharField("Etichetta 'Accetta e visualizza' (IT)", max_length=1000, default="")
-    view_map_en = models.CharField("Etichetta 'Accetta e visualizza' (EN)", max_length=1000, default="")
+    view_map_it = models.CharField(
+        "Etichetta 'Accetta e visualizza' (IT)", max_length=1000, default=""
+    )
+    view_map_en = models.CharField(
+        "Etichetta 'Accetta e visualizza' (EN)", max_length=1000, default=""
+    )
 
 
 class CalaGononeInfo(models.Model):

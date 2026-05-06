@@ -45,6 +45,7 @@ class CTXLabels:
     in_evidenza: str = ""
     full_descr: str = ""
     other_apartments: str = ""
+    apartment_not_available: str = ""
 
     where_are_we: str = ""
     view_map: str = ""

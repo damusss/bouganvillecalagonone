@@ -43,11 +43,13 @@
                                 required
                             >
                                 {%for apartment in apartments%}
+                                {% if apartment.available == True %}
                                 <option value="{{apartment.name}}" class="font-[{{conf.p_font}}]">
                                     {{apartment.name}} (Max.
                                     {{apartment.max_people}}
                                     {{labels.form_people}})
                                 </option>
+                                {% endif %}
                                 {%endfor%}
                             </select>
                             <div
@@ -372,7 +374,9 @@
                     {{labels.rubbish}}
                 </h1>
                 <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.rubbish|safe}}</p>
-                <br>
+                <div class="my-6">
+                    <div class="rounded-md bg-{{ secondary_col }}" style="height: 4px;"></div>
+                </div>
                 <h1 class="text-black text-xl font-bold font-[Courgette] px-2" id="privacy-policy">
                     <span
                         class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
