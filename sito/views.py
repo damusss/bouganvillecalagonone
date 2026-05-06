@@ -212,6 +212,7 @@ def add_data_calagonone(ctx, english):
         else:
             info.title = model_info.title_it
             info.descr = model_info.description_it
+        info.nameid = model_info.name_id
         if model_info.name_id == "street_directions":
             street_directions = info
         elif model_info.name_id == "view_map":

@@ -5,7 +5,7 @@ CONFIG = {
 
 
 def resolve_mod(mod_name, conf):
-    with open(f"js_smart_syntax/{mod_name}.js", "r") as file:
+    with open(f"generator_scripts/{mod_name}.js", "r") as file:
         content = file.read()
         for confkey, confval in conf.items():
             content = content.replace(confkey, confval)

@@ -89,3 +89,4 @@ class CTXWelcomeInfo:
 class CTXCalaGononeInfo:
     title: str = ""
     descr: str = ""
+    nameid: str = ""

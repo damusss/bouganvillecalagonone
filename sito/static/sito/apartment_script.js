@@ -6,8 +6,10 @@ const readLessText = document.getElementById("read-less");
 function toggleDescriptionClamp() {
     if (clampedDescription.classList.contains("expanded-text")) {
         clampedDescription.classList.remove("expanded-text");
+        clampedDescription.classList.add("clamped-text");
         readMoreBtn.innerHTML = `...${readMoreText.innerHTML}`;
     } else {
+        clampedDescription.classList.remove("clamped-text");
         clampedDescription.classList.add("expanded-text");
         readMoreBtn.innerHTML = `...${readLessText.innerHTML}`;
     }
