@@ -646,7 +646,8 @@ const nextBtn{{apartm.index}} = document.getElementById("nextBtn-{{apartm.index}
 let startX{{apartm.index}} = 0;
 let isPointerDown{{apartm.index}} = false;
 
-const SWIPE_THRESHOLD_{{apartm.index}} = 100;
+const SWIPE_THRESHOLD_{{apartm.index}} = 80;
+const CLICK_THRESHOLD_{{apartm.index}} = 10;
 
 imagesContainer{{apartm.index}}.addEventListener("pointerdown", (e) => {
     if (e.target.closest("button")) {
@@ -690,7 +691,10 @@ imagesContainer{{apartm.index}}.addEventListener("pointerup", (e) => {
     const currentX = e.clientX;
     const deltaX = currentX - startX{{apartm.index}};
 
-    if (Math.abs(deltaX) < SWIPE_THRESHOLD_{{apartm.index}}) {
+    imagesTrack{{apartm.index}}.style.transition = "transform 0.3s ease-out";
+    imagesTrack{{apartm.index}}.style.transform = "translateX(0px)";
+
+    if (Math.abs(deltaX) < CLICK_THRESHOLD_{{apartm.index}}) {
         document.getElementById("slideshow-link-{{apartm.index}}").click();
     }
 });
@@ -721,25 +725,27 @@ function updateImages{{apartm.index}}() {
 }
 
 const prevMoveImages{{apartm.index}} = function () {
-    currentImage{{apartm.index}} = currentImage{{apartm.index}} === 1 ? totalImages{{apartm.index}} : currentImage{{apartm.index}} - 1;
+    currentImage{{apartm.index}} =
+        currentImage{{apartm.index}} === 1 ? totalImages{{apartm.index}} : currentImage{{apartm.index}} - 1;
     updateImages{{apartm.index}}();
-{%if apartm.index == apartment.index %}
+    {%if apartm.index == apartment.index %}
     if (isApartment && modal.classList.contains("hidden")) {
         prevMoveImagesM();
     }
-{%endif%}
-}
+    {%endif%}
+};
 prevBtn{{apartm.index}}.addEventListener("click", prevMoveImages{{apartm.index}});
 
 const nextMoveImages{{apartm.index}} = function () {
-    currentImage{{apartm.index}} = currentImage{{apartm.index}} === totalImages{{apartm.index}} ? 1 : currentImage{{apartm.index}} + 1;
+    currentImage{{apartm.index}} =
+        currentImage{{apartm.index}} === totalImages{{apartm.index}} ? 1 : currentImage{{apartm.index}} + 1;
     updateImages{{apartm.index}}();
-{%if apartm.index == apartment.index %}
+    {%if apartm.index == apartment.index %}
     if (isApartment && modal.classList.contains("hidden")) {
         nextMoveImagesM();
     }
-{%endif%}
-}
+    {%endif%}
+};
 nextBtn{{apartm.index}}.addEventListener("click", nextMoveImages{{apartm.index}});
 
 updateImages{{apartm.index}}();

@@ -18,7 +18,8 @@ const nextBtnAID = document.getElementById("nextBtn-AID");
 let startXAID = 0;
 let isPointerDownAID = false;
 
-const SWIPE_THRESHOLD_AID = 100;
+const SWIPE_THRESHOLD_AID = 80;
+const CLICK_THRESHOLD_AID = 10;
 
 imagesContainerAID.addEventListener("pointerdown", (e) => {
     if (e.target.closest("button")) {
@@ -62,10 +63,10 @@ imagesContainerAID.addEventListener("pointerup", (e) => {
     const currentX = e.clientX;
     const deltaX = currentX - startXAID;
 
-    if (Math.abs(deltaX) < SWIPE_THRESHOLD_AID) {
-        imagesTrackAID.style.transition = "transform 0.3s ease-out";
-        imagesTrackAID.style.transform = "translateX(0px)";
+    imagesTrackAID.style.transition = "transform 0.3s ease-out";
+    imagesTrackAID.style.transform = "translateX(0px)";
 
+    if (Math.abs(deltaX) < CLICK_THRESHOLD_AID) {
         document.getElementById("slideshow-link-AID").click();
     }
 });
