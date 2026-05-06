@@ -5,7 +5,13 @@ from django.contrib import messages
 from django.conf import settings
 
 from .models import ContactsInfo, WelcomeInfo, Apartment, Labels, CalaGononeInfo
-from .model_collapse import CTXContactInfo, CTXWelcomeInfo, CTXApartment, CTXLabels, CTXCalaGononeInfo
+from .model_collapse import (
+    CTXContactInfo,
+    CTXWelcomeInfo,
+    CTXApartment,
+    CTXLabels,
+    CTXCalaGononeInfo,
+)
 
 
 SECONDARY_COLOR = "purple-600"
@@ -38,9 +44,11 @@ def submit_request(request):
     message = request.POST.get("message")
     language = "inglese" if lang == "en" else "italiana"
     try:
-        print("mail result: ", send_mail(
-            subject=f"Nuova Richiesta Da {email}",
-            message=f"""
+        print(
+            "mail result: ",
+            send_mail(
+                subject=f"Nuova Richiesta Da {email}",
+                message=f"""
             Nuova Richiesta Disponibilità:
 
             Appartamento: {option}
@@ -53,10 +61,11 @@ def submit_request(request):
 
             Il sito era in lingua {language} quando la richiesta è stata inviata.
             """,
-            from_email=settings.EMAIL_FROM_USER,
-            recipient_list=[settings.EMAIL_END_USER],
-            fail_silently=False,
-        ))
+                from_email=settings.EMAIL_FROM_USER,
+                recipient_list=[settings.EMAIL_END_USER],
+                fail_silently=False,
+            ),
+        )
         messages.success(
             request,
             "Your aviability request was successfully submitted!"
@@ -85,10 +94,7 @@ def site_main(request, english, page, aid=None, url=""):
         "redirect": f"{url}{'/' if url != '/' else ''}{lang}",
     }
     add_labels(ctx, english, page)
-    ctx["conf"] = {
-        "p_font": "Poppins",
-        "h_font": "Courgette"
-    }
+    ctx["conf"] = {"p_font": "Poppins", "h_font": "Courgette"}
     func = ADD_DATA.get(page, None)
     if func:
         func(ctx, english)
@@ -220,6 +226,10 @@ def add_data_calagonone(ctx, english):
         else:
             info_ctxs.append(info)
     ctx["infos"] = info_ctxs
+    ctx["infos_split"] = [
+        info_ctxs[: len(infos) // 2 - 1],
+        info_ctxs[len(infos) // 2 - 1 : :],
+    ]
     ctx["street_directions"] = street_directions
     ctx["view_map"] = view_map
 
