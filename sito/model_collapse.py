@@ -46,6 +46,9 @@ class CTXLabels:
     full_descr: str = ""
     other_apartments: str = ""
     apartment_not_available: str = ""
+    read_more: str = ""
+    read_less: str = ""
+    gallery: str = ""
 
     where_are_we: str = ""
     view_map: str = ""
@@ -90,3 +93,4 @@ class CTXCalaGononeInfo:
     title: str = ""
     descr: str = ""
     nameid: str = ""
+    images: typing.Any = None

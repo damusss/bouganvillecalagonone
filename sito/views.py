@@ -150,6 +150,7 @@ def add_labels(ctx, english, page):
         "view_map",
         "read_more",
         "read_less",
+        "gallery",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -219,6 +220,7 @@ def add_data_calagonone(ctx, english):
             info.title = model_info.title_it
             info.descr = model_info.description_it
         info.nameid = model_info.name_id
+        info.images = model_info.images.all()  # type: ignore
         if model_info.name_id == "street_directions":
             street_directions = info
         elif model_info.name_id == "view_map":

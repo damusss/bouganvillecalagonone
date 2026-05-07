@@ -36,17 +36,9 @@ html {
     transition: all 0.3s ease;
 }
 
-.clamped-read-more {
-    display: block;
-}
-
 @media (min-width: 768px) {
     .clamped-text {
         display: block;
-    }
-
-    .clamped-read-more {
-        display: none;
     }
 }
 

@@ -7,7 +7,7 @@
     />
     <div class="container mx-auto px-4 lg:max-w-7xl">
         <div class="grid grid-cols-1 bg-white shadow-lg gap-8">
-            <div class="px-3 lg:px-20 pb-4">
+            <div class="px-3 md:px-6 lg:px-20 pb-4">
                 <div class="w-full gap-1 mb-4 mt-2 hidden md:inline-flex">
                     {% for info in infos %}
                     <a
@@ -20,11 +20,11 @@
                 </div>
                 <div class="flex flex-col gap-1 md:hidden w-full mb-4 mt-2">
                     {% for partition in infos_split %}
-                    <div class="w-full gap-1 inline-flex">
+                    <div class="w-full gap-1 flex">
                         {% for info in partition %}
                         <a
                             href="#{{info.nameid}}"
-                            class="font-[{{conf.p_font}}] first:rounded-l-xl last:rounded-r-xl bg-{{ secondary_col }} text-white font-bold py-1 px-3 w-[50%] inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                            class="min-w-0 font-[{{conf.p_font}}] first:rounded-l-xl last:rounded-r-xl bg-{{ secondary_col }} text-white font-bold py-1 px-3 w-[50%] inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
                         >
                             <span class="truncate">{{info.title}}</span>
                         </a>
@@ -125,6 +125,51 @@
                     </span>
                     {{ info.title }}
                 </h1>
+                <!--START SLIDESHOW-->
+                <div
+                    data-group="images-main-cont"
+                    class="relative -mx-3 md:-mx-0 h-[25vh] md:h-[50vh] mt-6 mb-3 md:rounded-md overflow-hidden"
+                >
+                    <button
+                        data-role="left"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                    >
+                        &#10094;
+                    </button>
+                    <button
+                        data-role="right"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+                    >
+                        &#10095;
+                    </button>
+                    <div
+                        data-cont="images"
+                        class="flex overflow-x-auto scroll-smooth touch-pan-x gap-1"
+                        style="scrollbar-width: none; -ms-overflow-style: none;"
+                    >
+                        {% for image in info.images %}
+                        <div
+                            class="h-[25vh] md:h-[50vh] snap-center flex-shrink-0"
+                            style="pointer-events: none"
+                        >
+                            <img
+                                src="{{ image.image.url }}"
+                                alt="{{ image.caption }}"
+                                class="h-full w-auto"
+                                style="
+                                    -webkit-user-select: none;
+                                    -khtml-user-select: none;
+                                    -moz-user-select: none;
+                                    -o-user-select: none;
+                                    user-select: none;
+                                "
+                                draggable="false"
+                            />
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!--END SLIDESHOW-->
                 <p
                     class="text-black text-lg w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 mb-5 font-[{{conf.p_font}}]"
                 >
@@ -135,24 +180,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    const injector = document.getElementById("map-injector");
-
-    function injectGoogleMapIFrame() {
-        if (document.cookie.split("; ").includes("gmaps_consent=accepted")) {
-            injector.innerHTML =
-                '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4153.993020868887!2d9.625948581771791!3d40.28568967254134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12def42637a344d7%3A0x8114c1df60c1be9c!2sLa%20Bouganville%20Apartments!5e1!3m2!1sen!2sit!4v1777996488921!5m2!1sen!2sit" class="w-full aspect-square md:aspect-video rounded-md mb-6" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe>';
-        }
-    }
-
-    function acceptAndViewMap() {
-        if (!document.cookie.split("; ").includes("gmaps_consent=accepted")) {
-            const maxAgeSeconds = 180 * 24 * 60 * 60;
-            document.cookie = `gmaps_consent=accepted; max-age=${maxAgeSeconds}; path=/; SameSite=Strict; Secure`;
-            injectGoogleMapIFrame();
-        }
-    }
-
-    injectGoogleMapIFrame();
-</script>
+<script
+    type="text/javascript"
+    src="{% static '' %}sito/calagonone_script.js"
+></script>
 {%endblock%}

@@ -29,7 +29,7 @@
              style="pointer-events: none;">
             <img
                 src="{{ image.image.url }}"
-                alt="Apartment Image {{ forloop.counter }}"
+                alt="{{ image.caption }}"
                 class="w-full h-[40vh] object-cover md:h-[50vh]"
                 style=  "-webkit-user-select: none;
                         -khtml-user-select: none;
@@ -126,7 +126,7 @@
                 >
                     {{apartment.full_descr|safe}}
                 </p></div>
-                <button class="text-{{ secondary_col }} text-lg font-[{{conf.p_font}}] clamped-read-more" id="descr-read-more">...{{ labels.read_more }}</button>
+                <button class="text-{{ secondary_col }} text-lg font-[{{conf.p_font}}] lg:hidden" id="descr-read-more">...{{ labels.read_more }}</button>
                 <p class="hidden" id="read-more">{{ labels.read_more }}</p>
                 <p class="hidden" id="read-less">{{ labels.read_less }}</p>
             </div>
@@ -339,6 +339,13 @@
             </form>
         </div>
         <!--END FORM-->
+        <h1 class="text-black text-3xl font-bold font-[Courgette] pt-3 pb-6 px-6">
+            <span
+                class="text-4xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} text-white font-bold"
+            >
+            </span>
+            {{labels.gallery}}
+        </h1>
         <!--IMAGES-->
         <div>
                     <div
@@ -356,7 +363,7 @@
                                 <img
                                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
                                     src="{{image.image.url}}"
-                                    alt="Apartment image {{forloop.counter0}}"
+                                    alt="{{image.caption}}"
                                     style=  "-webkit-user-select: none;
                         -khtml-user-select: none;
                         -moz-user-select: none;
@@ -366,7 +373,7 @@
                                 <img
                                     class="absolute inset-0 w-full h-full object-contain"
                                     src="{{image.image.url}}"
-                                    alt="Apartment image {{forloop.counter0}}"
+                                    alt="{{image.caption}}"
                                     style=  "-webkit-user-select: none;
                         -khtml-user-select: none;
                         -moz-user-select: none;
@@ -459,7 +466,7 @@
                                 <img
                                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
                                     src="{{image.image.url}}"
-                                    alt="Apartment image {{forloop.counter0}}"
+                                    alt="{{image.caption}}"
                                     style=  "-webkit-user-select: none;
                         -khtml-user-select: none;
                         -moz-user-select: none;
@@ -469,7 +476,7 @@
                                 <img
                                     class="absolute inset-0 w-full h-full object-contain"
                                     src="{{image.image.url}}"
-                                    alt="Apartment image {{forloop.counter0}}"
+                                    alt="{{image.caption}}"
                                     style=  "-webkit-user-select: none;
                         -khtml-user-select: none;
                         -moz-user-select: none;
@@ -516,13 +523,13 @@
                 <img
                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-70"
                     src="{{ image.image.url }}"
-                    alt="Apartment image {{ forloop.counter0 }}"
+                    alt="{{image.caption}}"
                 />
                 <!-- foreground sharp image -->
                 <img
                     class="absolute inset-0 w-full h-full object-contain"
                     src="{{ image.image.url }}"
-                    alt="Apartment image {{ forloop.counter0 }}"
+                    alt="{{image.caption}}"
                 />
             </div>
             {% endfor %}

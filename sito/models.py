@@ -28,6 +28,9 @@ class Apartment(models.Model):
         default=True,
     )
 
+    class Meta:
+        ordering = ["index"]
+
     def __str__(self):
         return f"<Appartamento {self.index}, {self.name_it}>"
 
@@ -40,9 +43,15 @@ class ApartmentImage(models.Model):
     caption = models.CharField(
         "Titolo immagine (opzionale)", max_length=255, blank=True, null=True
     )
+    order = models.PositiveIntegerField(
+        "Ordine (automatico)", default=0, blank=False, null=False
+    )
+
+    class Meta:
+        ordering = ["order"]
 
     def __str__(self):
-        return f"<Image for {self.apartment.name_it}>"
+        return f"<Image for {self.apartment.name_it} ({self.caption if self.caption != '' else 'Unnamed'})>"
 
 
 class WelcomeInfo(models.Model):
@@ -253,6 +262,12 @@ class Labels(models.Model):
     read_less_en = models.CharField(
         "Etichetta 'leggi meno' (EN)", max_length=1000, default=""
     )
+    gallery_it = models.CharField(
+        "Etichetta 'Galleria' (IT)", max_length=1000, default=""
+    )
+    gallery_en = models.CharField(
+        "Etichetta 'Galleria' (EN)", max_length=1000, default=""
+    )
 
     where_are_we_it = models.CharField(
         "Etichetta 'Dove siamo' (IT)", max_length=1000, default=""
@@ -276,9 +291,32 @@ class CalaGononeInfo(models.Model):
     name_id = models.CharField(
         "Identificativo speciale (non modificiare)", max_length=100, default=""
     )
+    order = models.IntegerField("Ordine (1/2/3/4/...)", default=1)
+
+    class Meta:
+        ordering = ["order"]
 
     def __str__(self):
         return f"<Informazioni per Cala Gonone dal titolo {self.title_it}>"
+
+
+class CalaGononeImage(models.Model):
+    info = models.ForeignKey(
+        CalaGononeInfo, on_delete=models.CASCADE, related_name="images"
+    )
+    image = CloudinaryField("Cala Gonone Image")
+    caption = models.CharField(
+        "Titolo immagine (opzionale)", max_length=255, blank=True, null=True
+    )
+    order = models.PositiveIntegerField(
+        "Ordine (automatico)", default=0, blank=False, null=False
+    )
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"<Image for {self.info.title_it} ({self.caption if self.caption != '' else 'Unnamed'})>"
 
 
 class ContactsInfo(models.Model):

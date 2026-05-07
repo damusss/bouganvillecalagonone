@@ -31,21 +31,23 @@ const startDragging = (e) => {
     mouseDown = true;
     startX = e.pageX - carousel.offsetLeft;
     scrollLeft = carousel.scrollLeft;
-}
+};
 
 const stopDragging = (e) => {
     mouseDown = false;
-}
+};
 
 const move = (e) => {
     e.preventDefault();
-    if(!mouseDown) { return; }
+    if (!mouseDown) {
+        return;
+    }
     const x = e.pageX - carousel.offsetLeft;
     const scroll = x - startX;
     carousel.scrollLeft = scrollLeft - scroll;
-}
+};
 
-carousel.addEventListener('mousemove', move, false);
-carousel.addEventListener('mousedown', startDragging, false);
-carousel.addEventListener('mouseup', stopDragging, false);
-carousel.addEventListener('mouseleave', stopDragging, false);
+carousel.addEventListener("mousemove", move, false);
+carousel.addEventListener("mousedown", startDragging, false);
+carousel.addEventListener("mouseup", stopDragging, false);
+carousel.addEventListener("mouseleave", stopDragging, false);
