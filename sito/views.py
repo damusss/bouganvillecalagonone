@@ -221,6 +221,9 @@ def add_data_calagonone(ctx, english):
             info.descr = model_info.description_it
         info.nameid = model_info.name_id
         info.images = model_info.images.all()  # type: ignore
+        if english:
+            for image in info.images:
+                image.caption = image.caption_en
         if model_info.name_id == "street_directions":
             street_directions = info
         elif model_info.name_id == "view_map":

@@ -144,27 +144,25 @@
                     </button>
                     <div
                         data-cont="images"
-                        class="flex overflow-x-auto scroll-smooth touch-pan-x gap-1"
-                        style="scrollbar-width: none; -ms-overflow-style: none;"
+                        class="flex overflow-x-auto scroll-smooth gap-1"
+                        style="scrollbar-width: none; -ms-overflow-style: none"
                     >
                         {% for image in info.images %}
                         <div
-                            class="h-[25vh] md:h-[50vh] snap-center flex-shrink-0"
+                            class="relative h-[25vh] md:h-[50vh] snap-center flex-shrink-0"
                             style="pointer-events: none"
                         >
                             <img
                                 src="{{ image.image.url }}"
                                 alt="{{ image.caption }}"
-                                class="h-full w-auto"
-                                style="
-                                    -webkit-user-select: none;
-                                    -khtml-user-select: none;
-                                    -moz-user-select: none;
-                                    -o-user-select: none;
-                                    user-select: none;
-                                "
+                                class="h-full w-auto not-selectable"
                                 draggable="false"
                             />
+                            <h2
+                                class="absolute aggressive-shadow text-lg md:text-xl text-white bottom-1 md:bottom-2 left-1/2 -translate-x-1/2 z-10 font-[Courgette] not-selectable"
+                            >
+                                {{image.caption}}
+                            </h2>
                         </div>
                         {% endfor %}
                     </div>

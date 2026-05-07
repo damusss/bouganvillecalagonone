@@ -225,24 +225,14 @@
                                 id="image-{{apartment.index}}-{{forloop.counter0}}"
                             >
                                 <img
-                                    class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%]"
+                                    class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%] not-selectable"
                                     src="{{image.image.url}}"
                                     alt="{{image.caption}}"
-                                    style=  "-webkit-user-select: none;
-                        -khtml-user-select: none;
-                        -moz-user-select: none;
-                        -o-user-select: none;
-                        user-select: none;"
                                 />
                                 <img
-                                    class="absolute inset-0 w-full h-full object-contain"
+                                    class="absolute inset-0 w-full h-full object-contain not-selectable"
                                     src="{{image.image.url}}"
                                     alt="{{image.caption}}"
-                                    style=  "-webkit-user-select: none;
-                        -khtml-user-select: none;
-                        -moz-user-select: none;
-                        -o-user-select: none;
-                        user-select: none;"
                                 /></div>
                         {%endfor%}
                         </div>

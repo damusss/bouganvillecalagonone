@@ -26,7 +26,7 @@ document
         const firstImage = images_cont.querySelector("div");
         let imageWidth;
         if (firstImage) {
-            imageWidth = firstImage.scrollWidth;
+            imageWidth = firstImage.getBoundingClientRect().width;
         } else {
             imageWidth = 0;
         }

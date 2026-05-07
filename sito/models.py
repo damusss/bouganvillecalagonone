@@ -306,7 +306,10 @@ class CalaGononeImage(models.Model):
     )
     image = CloudinaryField("Cala Gonone Image")
     caption = models.CharField(
-        "Titolo immagine (opzionale)", max_length=255, blank=True, null=True
+        "Titolo immagine (IT)", max_length=255, blank=True, null=True
+    )
+    caption_en = models.CharField(
+        "Titolo immagine (EN)", max_length=255, blank=True, null=True
     )
     order = models.PositiveIntegerField(
         "Ordine (automatico)", default=0, blank=False, null=False
