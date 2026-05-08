@@ -70,7 +70,7 @@
     </div>
     <a
         href="#book-apartment"
-        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none ring-2 ring-purple-300 hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-md md:text-2xl font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none ring-2 ring-{{ secondary_col_hover_ring }} hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
     >
         <span>{{labels.book}}</span><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -94,13 +94,14 @@
 <!-- main container-->
 <div class="relative">
     <img
-        class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
+        class="absolute object-cover bg-cover bg-center blur-md brightness-90 h-full inset-0 w-full"
         src="{% static '' %}sito/sea_bg.jpg"
         style="object-fit: fill; z-index: -10"
     />
     <div class="container mx-auto bg-white shadow-lg">
+        <!-- apartment name -->
         <div
-            class="hidden md:flex w-[100%] justify-center text-center items-center pt-2"
+            class="hidden md:flex w-[100%] justify-center text-center items-center pt-4"
             style="pointer-events: none;"
         >
             <span
@@ -362,7 +363,7 @@
                 <!-- Submit Button -->
                 <button
                     type="submit"
-                    class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl font-[{{conf.p_font}}] gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl font-[{{conf.p_font}}] gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                 >
                     {{labels.form_submit}}
                 </button>
@@ -466,7 +467,7 @@
                 <br />
                 <a
                     href="/apartment-{{apartm.index}}/{{lang}}"
-                    class="my-3 bg-{{ secondary_col }} text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="my-3 bg-{{ secondary_col }} text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                 >
                     <span>{{labels.details}}</span>
                 </a>

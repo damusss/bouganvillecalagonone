@@ -66,6 +66,20 @@ class WelcomeInfo(models.Model):
         return "<Informazioni di benvenuto>"
 
 
+class MoreConfig(models.Model):
+    secondary_color = models.CharField(
+        "Colore secondario (di bottoni e altro)", max_length=100, default="purple-600"
+    )
+    secondary_col_hover_bg = models.CharField(
+        "Colore secondario più scuro (hover bg)", max_length=100, default="purple-700"
+    )
+    secondary_col_hover_ring = models.CharField(
+        "Colore secondario più chiaro (hover ring)",
+        max_length=100,
+        default="purple-300",
+    )
+
+
 class Labels(models.Model):
     page_title = models.CharField("Titolo Pagina Base", max_length=1000, default="")
     business_name = models.CharField("Nome Residenza", max_length=1000, default="")

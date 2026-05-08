@@ -1,7 +1,7 @@
 {% extends "../sito/base.html" %} {%block content%} {%load static%}
 <div class="relative">
     <img
-        class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
+        class="absolute object-cover bg-cover bg-center blur-md brightness-90 h-full inset-0 w-full"
         src="{% static '' %}sito/sea_bg.jpg"
         style="object-fit: fill; z-index: -10"
     />
@@ -232,7 +232,7 @@
                     <!-- submit -->
                     <button
                         type="submit"
-                        class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                     >
                         {{labels.form_submit}}
                     </button>
@@ -328,7 +328,7 @@
                 <div class="pl-5 pt-3">
                     <a
                         href="/calagonone/{{lang}}#location-directions"
-                        class="bg-{{ secondary_col }} text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="bg-{{ secondary_col }} text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                     >
                         <span>{{labels.location_directions}}</span>
                     </a>

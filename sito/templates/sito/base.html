@@ -21,6 +21,7 @@
             href="{% static '' %}sito/flower_logo.png"
         />
     </head>
+    <!-- default secondary_col: purple-600, hover bg: {{ secondary_col_hover_bg }}, hover ring: {{ secondary_col_hover_ring }} -->
     <body class="flex flex-col min-h-screen m-0">
         <header class="sticky top-0 bg-white shadow-md z-50" id="main-header">
             <div
@@ -43,7 +44,7 @@
                 <nav class="hidden lg:flex items-center space-x-6">
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="bg-{{ secondary_col }} font-[{{conf.p_font}}] text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="bg-{{ secondary_col }} font-[{{conf.p_font}}] text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
@@ -153,7 +154,7 @@
                     </div>
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                        class="font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
@@ -211,7 +212,7 @@
         <a
             href="#"
             id="scroll-to-top"
-            class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-{{ secondary_col }} text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+            class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-{{ secondary_col }} text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
             style="z-index: 10000;"
         >
             <svg

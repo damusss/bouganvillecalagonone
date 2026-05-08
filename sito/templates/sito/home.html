@@ -28,7 +28,7 @@
             <!-- check apartments button -->
             <a
                 href="#apartments"
-                class="z-10 mb-5 bg-{{ secondary_col }} text-white font-bold font-[{{conf.p_font}}] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                class="z-10 mb-5 bg-{{ secondary_col }} text-white font-bold font-[{{conf.p_font}}] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                  style=" z-index: 10 !important; position: relative;"
                 >
                 <span>{{labels.view_apartments}}</span>
@@ -161,7 +161,7 @@
 <!-- apartments -->
 <div id="apartments" class="relative">
     <img
-        class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
+        class="absolute object-cover bg-cover bg-center blur-md brightness-90 h-full inset-0 w-full"
         src="{% static '' %}sito/sea_bg.jpg"
         style="object-fit: fill; z-index: -10"
     />
@@ -202,7 +202,7 @@
                 <br />
                 <a
                     href="/apartment-{{apartment.index}}/{{lang}}"
-                    class="my-3 bg-{{ secondary_col }} text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
+                    class="my-3 bg-{{ secondary_col }} text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
                 >
                     <span>{{labels.details}}</span>
                 </a>

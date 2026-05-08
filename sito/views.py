@@ -4,7 +4,14 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
 
-from .models import ContactsInfo, WelcomeInfo, Apartment, Labels, CalaGononeInfo
+from .models import (
+    ContactsInfo,
+    WelcomeInfo,
+    Apartment,
+    Labels,
+    CalaGononeInfo,
+    MoreConfig,
+)
 from .model_collapse import (
     CTXContactInfo,
     CTXWelcomeInfo,
@@ -12,9 +19,6 @@ from .model_collapse import (
     CTXLabels,
     CTXCalaGononeInfo,
 )
-
-
-SECONDARY_COLOR = "purple-600"
 
 
 def parse_bold(string):
@@ -85,10 +89,13 @@ def submit_request(request):
 
 def site_main(request, english, page, aid=None, url=""):
     lang = "en" if english else "it"
+    more_conf = MoreConfig.objects.all()[0]
     ctx = {
         "lang": lang,
         "current_page": page if aid is None else f"{page}-{aid}",
-        "secondary_col": SECONDARY_COLOR,
+        "secondary_col": more_conf.secondary_color,
+        "secondary_col_hover_bg": more_conf.secondary_col_hover_bg,
+        "secondary_col_hover_ring": more_conf.secondary_col_hover_ring,
         "it_redirect": f"{url}",
         "en_redirect": f"{url}{'/' if url != '/' else ''}en",
         "redirect": f"{url}{'/' if url != '/' else ''}{lang}",
