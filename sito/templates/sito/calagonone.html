@@ -43,6 +43,7 @@
                     </span>
                     {{labels.where_are_we}}
                 </h1>
+                <!-- google map warning to inject -->
                 <div id="map-injector">
                     <div
                         class="relative w-full aspect-square md:aspect-video rounded-md mb-6 overflow-hidden"
@@ -76,6 +77,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- location directions -->
                 <details
                     class="group [&_summary::-webkit-details-marker]:hidden mb-6"
                 >
@@ -113,6 +115,7 @@
                         {{ street_directions.descr|safe }}
                     </p>
                 </details>
+                <!-- infos -->
                 {% for info in infos %}
                 <h1
                     class="text-black text-3xl md:-mx-6 lg:-mx-20 md:px-4 lg:px-8 font-bold font-[Courgette]"

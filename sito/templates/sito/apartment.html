@@ -7,7 +7,7 @@
             >
                 {{apartment.name}}
             </h1>
-<!--START SLIDESHOW-->
+<!-- START TOP SLIDESHOW -->
 <div
     id="image-carousel-container"
     class="relative w-full max-h-[50vh] overflow-hidden"
@@ -89,8 +89,9 @@
     </a>
     {% endcomment %}
 </div>
-<!--END SLIDESHOW-->
-<!-- 2 COLUMN CONTAINER-->
+<!--END TOP SLIDESHOW-->
+
+<!-- main container-->
 <div class="relative">
     <img
         class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
@@ -113,10 +114,10 @@
                 {{apartment.name}}
             </h1>
         </div>
-        <!-- columns -->
         <div
             class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[40%_60%] pb-0"
         >
+            <!-- key features column -->
             <div class="px-6 pt-6 rounded-lg bg-white">
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
@@ -140,6 +141,7 @@
                     {% endfor%}
                 </ul>
             </div>
+            <!-- description column -->
             <div class="p-6 rounded-lg bg-white lg:pr-0">
                 <h1 class="text-black text-3xl font-bold font-[Courgette] pb-5">
                     <span
@@ -367,6 +369,7 @@
             </form>
         </div>
         <!--END FORM-->
+
         <!-- COMMENTED OUT SECTION: GALLERY -->
         {% comment %}
         <h1 class="text-black text-3xl font-bold font-[Courgette] pt-3 pb-6 px-6">
@@ -376,7 +379,7 @@
             </span>
             {{labels.gallery}}
         </h1>
-        <!--IMAGES-->
+        <!-- START GALLERY -->
             <div>
                     <div
                         class="relative"
@@ -416,8 +419,9 @@
                         </button>
                     </div>
             </div>
-        <!--END IMAGES-->
+        <!-- END GALLERY -->
         {% endcomment %}
+
         <h1 class="text-black text-4xl font-bold font-[Courgette] pt-6 pb-2 px-6">
             <span
                 class="text-4xl inline-flex items-center justify-center w-10 h-10 rounded-full bg-{{ secondary_col }} text-white font-bold"
@@ -426,7 +430,7 @@
             {{labels.other_apartments}}
         </h1>
 
-        <!--APARTMENTS-->
+        <!-- other apartments -->
         {% for apartm in apartments %}
         {% if apartm.name == apartment.name %}
         {%else%}
@@ -435,7 +439,7 @@
             class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 lg:gap-8 bg-white shadow-lg"
             id="apartment-grid-{{apartm.index}}"
         >
-            <!-- Left Column -->
+            <!-- info column -->
             <div class="pb-3 px-6 pt-6 lg:pb-6 rounded-lg bg-white">
                 <h1 class="text-black text-3xl font-bold font-[Courgette]">
                     <span
@@ -468,7 +472,7 @@
                 </a>
             </div>
 
-            <!-- Right Column -->
+            <!-- images column -->
             <div class="p-6 rounded-lg bg-white">
                 <!--START CAROUSEL-->
                 <div>
@@ -519,12 +523,12 @@
         {%endif%}
         {%endif%}
         {%endfor%}
-        <!--END APARTMENTS-->
     </div>
 </div>
 </div>
-<!-- END 2 COLUMN CONTAINER-->
- <!--SLIDESHOW-->
+<!-- end main container -->
+
+ <!-- START MODAL SLIDESHOW -->
 <div id="modal-overlay" class="fixed inset-0 bg-black hidden flex justify-center items-center z-50 h-screen w-screen">
     <div class="w-full">
         <div class="relative" id="modal-container">
@@ -543,11 +547,9 @@
                     src="{{ image.image.url }}"
                     alt="{{image.caption}}"
                 />
-                <h2
-                    class="fixed text-center aggressive-shadow text-base md:text-xl text-white bottom-4 md:bottom-3 left-1/2 -translate-x-1/2 z-10 font-[Courgette]"
-                            >
-                                {{image.caption}}
-                            </h2>
+                <h2 class="fixed text-center aggressive-shadow text-base md:text-xl text-white bottom-4 md:bottom-3 left-1/2 -translate-x-1/2 z-10 font-[Courgette]">
+                    {{image.caption}}
+                </h2>
             </div>
             {% endfor %}
             <button
@@ -564,30 +566,33 @@
             </button>
 
         </div>
+        <!-- close modal button -->
         <a
-class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 hover:outline-none hover:ring-4 hover:ring-gray-300 focus:outline-none transition-all cursor-pointer"
-    id="modal-close-btn"
->
-<svg xmlns="http://www.w3.org/2000/svg"
-     fill="none" viewBox="0 0 24 24"
-     stroke-width="2" stroke="currentColor"
-     class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-</svg></a>
+            class="absolute top-2 right-2 md:top-4 md:right-4 z-50 bg-gray-600 text-white  w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 hover:outline-none hover:ring-4 hover:ring-gray-300 focus:outline-none transition-all cursor-pointer"
+                id="modal-close-btn"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor"
+                class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </a>
     </div>
 </div>
-<!--END SLIDESHOW-->
+<!--END MODAL SLIDESHOW-->
 
 <script type="text/javascript" src="{%static 'sito/apartment_script.js'%}"></script>
 {%else%}
-<div class="flex-grow flex items-center justify-center p-8">
-<h1 class="text-black text-3xl font-bold font-[Courgette]">
-                    <span
-                        class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-{{ secondary_col }} text-white font-bold"
-                    >
-                    </span>
-                    {{labels.apartment_not_available}}
-                </h1>
+<!-- apartment not available for booking -->
+<div class="flex-grow flex justify-center p-8">
+    <h1 class="text-black text-3xl font-bold font-[Courgette]">
+        <span
+            class="text-2xl inline-flex items-center justify-center w-6 h-6 rounded-full bg-{{ secondary_col }} text-white font-bold"
+        >
+        </span>
+        {{labels.apartment_not_available}}
+    </h1>
 </div>
 {%endif%}
 {%endblock%}

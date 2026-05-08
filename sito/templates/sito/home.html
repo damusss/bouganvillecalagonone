@@ -6,7 +6,7 @@
         style="object-fit: cover"
     />
     <div class="absolute inset-0 flex items-center justify-center overflow-hidden">
-        <!-- Left Column: Text content -->
+        <!-- left: title and description -->
         <div
             class="w-full lg:w-1/2 text-white text-center md:text-left lg:text-left px-4 sm:px-8 lg:px-16 md:px-16 z-12"
         >
@@ -20,12 +20,12 @@
             >
                 {{ welcome.descr1|safe }}
             </p>
-            <p 
+            <p
                 class="my-0 text-white text-lg lg:text-xl mt-4 text-shadow-cloud max-w-full md:max-w-[85%] sm:max-w-[90%] lg:max-w-[80%] font-[{{conf.p_font}}] z-10"  style=" z-index: 10 !important; position: relative;"
             >
                 {{ welcome.descr2|safe }}
             </p>
-
+            <!-- check apartments button -->
             <a
                 href="#apartments"
                 class="z-10 mb-5 bg-{{ secondary_col }} text-white font-bold font-[{{conf.p_font}}] text-md md:text-lg py-5 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
@@ -48,6 +48,7 @@
                 </svg>
             </a>
             <br />
+            <!-- mobile slideshow -->
             <div class="lg:hidden mx-0 relative mx-8 mb-0">
                 <div class="w-full h-full">
                     <div
@@ -102,10 +103,9 @@
             </div>
         </div>
 
-        <!-- Right Column: Image (only on desktop) -->
+        <!-- desktop slideshow -->
         <div class="hidden lg:block w-1/2 mx-8 relative -translate-x-[10%]">
             <div class="w-full h-full">
-                <!---->
                 <div
                     id="slides-container-desktop z-20"
                     class="relative w-full"
@@ -142,7 +142,6 @@
                     {%endfor%}
                 </div>
 
-                <!-- Arrows -->
                 <button
                     class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none z-20"
                     id="prev-btn-desktop"
@@ -159,6 +158,7 @@
         </div>
     </div>
 </div>
+<!-- apartments -->
 <div id="apartments" class="relative">
     <img
         class="absolute object-cover bg-cover bg-center blur-lg brightness-90 h-full inset-0 w-full"
@@ -172,7 +172,7 @@
             class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 lg:gap-8 bg-white shadow-lg"
             id="apartment-grid-{{apartment.index}}"
         >
-            <!-- Left Column -->
+            <!-- info column -->
             <div class="pb-3 px-6 lg:pb-6 rounded-lg bg-white">
                 {% if forloop.counter0 == 0 %}
                 <div class="py-3"></div>
@@ -208,9 +208,9 @@
                 </a>
             </div>
 
-            <!-- Right Column -->
+            <!-- images column -->
             <div class="pb-6 md:p-6 rounded-lg bg-white">
-                <!--START CAROUSEL-->
+                <!-- START CAROUSEL -->
                 <div>
                     <div
                         class="relative"

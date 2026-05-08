@@ -11,6 +11,7 @@
             id="apartment-grid-{{apartment.index}}"
         >
             <div class="pb-0 lg:pb-3 rounded-lg bg-white">
+                <!-- START FORM -->
                 <form
                     method="POST"
                     action="{% url 'submit_request' %}"
@@ -28,7 +29,7 @@
                         {{labels.quick_book}}
                     </h1>
 
-                    <!-- Dropdown Row -->
+                    <!-- apartment dropdown -->
                     <div>
                         <label
                             for="options"
@@ -71,7 +72,7 @@
                         </div>
                     </div>
 
-                    <!-- Start and End Date -->
+                    <!-- check in/out -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label
@@ -103,7 +104,7 @@
                         </div>
                     </div>
 
-                    <!-- Adults and Children Dropdowns -->
+                    <!-- adults/children dropdown -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label
@@ -180,7 +181,7 @@
                         </div>
                     </div>
 
-                    <!-- Phone and Email -->
+                    <!-- phone and email -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label
@@ -212,6 +213,7 @@
                             />
                         </div>
                     </div>
+                    <!-- message -->
                     <div>
                         <label
                             for="message"
@@ -227,7 +229,7 @@
                         ></textarea>
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- submit -->
                     <button
                         type="submit"
                         class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl gap-2 hover:bg-purple-700 hover:outline-none hover:ring-4 hover:ring-purple-300 focus:outline-none transition-all"
@@ -235,7 +237,9 @@
                         {{labels.form_submit}}
                     </button>
                 </form>
+                <!-- END FORM -->
             </div>
+            <!-- contacts column -->
             <div class="p-6 rounded-lg bg-white">
                 <h1 class="text-black text-2xl font-bold font-[Courgette]">
                     <span
@@ -332,6 +336,7 @@
             </div>
         </div>
     </div>
+    <!-- other info container -->
     <div class="container mx-auto px-4 lg:max-w-7xl">
         <div class="grid grid-cols-1 bg-white shadow-lg gap-8">
             <div class="px-6 lg:px-20 py-4">

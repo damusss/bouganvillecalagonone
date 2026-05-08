@@ -87,7 +87,7 @@ def site_main(request, english, page, aid=None, url=""):
     lang = "en" if english else "it"
     ctx = {
         "lang": lang,
-        "current_page": page,
+        "current_page": page if aid is None else f"{page}-{aid}",
         "secondary_col": SECONDARY_COLOR,
         "it_redirect": f"{url}",
         "en_redirect": f"{url}{'/' if url != '/' else ''}en",
