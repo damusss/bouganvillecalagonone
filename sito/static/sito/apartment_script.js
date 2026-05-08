@@ -54,6 +54,8 @@ const everything = document.getElementById("everything");
 const modal_container = document.getElementById("modal-container");
 const modal_images = document.querySelectorAll('[data-group="modal-images"]');
 const modal_total_images = modal_images.length;
+const modal_prev_btn = document.getElementById("modal-prev-btn");
+const modal_next_btn = document.getElementById("modal-next-btn");
 let modal_current_image = 1;
 let scroll_before_modal = 0;
 
@@ -86,7 +88,7 @@ function modal_update_images() {
     });
 }
 
-document.getElementById("modal-prev-btn").addEventListener("click", (ev) => {
+modal_prev_btn.addEventListener("click", (ev) => {
     modal_current_image =
         modal_current_image === 1
             ? modal_total_images
@@ -94,7 +96,7 @@ document.getElementById("modal-prev-btn").addEventListener("click", (ev) => {
     modal_update_images();
 });
 
-document.getElementById("modal-next-btn").addEventListener("click", (ev) => {
+modal_next_btn.addEventListener("click", (ev) => {
     modal_current_image =
         modal_current_image === modal_total_images
             ? 1
@@ -108,6 +110,19 @@ document.getElementById("modal-close-btn").addEventListener("click", (ev) => {
 
 modal_btn.addEventListener("click", (ev) => {
     open_modal();
+});
+
+document.addEventListener("keydown", (ev) => {
+    if (modal.classList.contains("hidden")) {
+        return;
+    }
+    if (event.key === "ArrowLeft") {
+        modal_prev_btn.click();
+    } else if (event.key === "ArrowRight") {
+        modal_next_btn.click();
+    } else if (event.key === 'Escape') {
+        close_modal();
+    }
 });
 
 modal_update_images();

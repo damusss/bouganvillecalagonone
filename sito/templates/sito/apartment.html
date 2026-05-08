@@ -526,20 +526,18 @@
 <!-- END 2 COLUMN CONTAINER-->
  <!--SLIDESHOW-->
 <div id="modal-overlay" class="fixed inset-0 bg-black hidden flex justify-center items-center z-50 h-screen w-screen">
-    <div class="w-[97vw]">
+    <div class="w-full">
         <div class="relative" id="modal-container">
             {% for image in apartment.images %}
             <div
                 class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
                 data-group="modal-images"
             >
-                <!-- background blur image -->
                 <img
                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-70"
                     src="{{ image.image.url }}"
                     alt="{{image.caption}}"
                 />
-                <!-- foreground sharp image -->
                 <img
                     class="absolute inset-0 w-full h-full object-contain"
                     src="{{ image.image.url }}"
@@ -553,13 +551,13 @@
             </div>
             {% endfor %}
             <button
-                class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                class="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
                 id="modal-prev-btn"
             >
                 &#10094;
             </button>
             <button
-                class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
+                class="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75"
                 id="modal-next-btn"
             >
                 &#10095;
