@@ -219,6 +219,7 @@ def add_data_calagonone(ctx, english):
         else:
             info.title = model_info.title_it
             info.descr = model_info.description_it
+        info.descr = parse_bold(info.descr)
         info.nameid = model_info.name_id
         info.images = model_info.images.all()  # type: ignore
         if english:
