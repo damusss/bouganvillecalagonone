@@ -21,8 +21,16 @@ from .model_collapse import (
 )
 
 
-def parse_bold(string):
-    return string.replace("<>", "<b>").replace("</>", "</b>")
+def parse_rich_text(string):
+    return (string
+                .replace("<>", "<b>")
+                .replace("</>", "</b>")
+                .replace("<acapo>", "<br>")
+                .replace("<linebreak>", "<br><br>")
+                .replace("<listbegin>", '<ul class="list-disc list-outside ml-5 mt-2 space-y-2"><li>')
+                .replace("<listend>", "</li></ul>")
+                .replace("<listsep>", "</li><li>")
+        )
 
 
 def parse_date(string):
@@ -185,7 +193,7 @@ def add_contact_info(ctx, english):
         setattr(
             contact_info,
             name,
-            parse_bold(getattr(model, f"{name}_{lang}")).replace("\n", "<br>"),
+            parse_rich_text(getattr(model, f"{name}_{lang}")).replace("\n", "<br>"),
         )
     ctx["contact"] = contact_info
 
@@ -198,9 +206,9 @@ def add_data_home(ctx, english):
     else:
         description = welcome.italian
     split = description.split("\n")
-    info.descr1 = parse_bold(split[0])
+    info.descr1 = parse_rich_text(split[0])
     if len(split) > 1:
-        info.descr2 = parse_bold(split[-1])
+        info.descr2 = parse_rich_text(split[-1])
     add_apartments(ctx, english)
     ctx["welcome"] = info
     ctx["panorama_iter"] = list(range(0, 7))
@@ -226,7 +234,7 @@ def add_data_calagonone(ctx, english):
         else:
             info.title = model_info.title_it
             info.descr = model_info.description_it
-        info.descr = parse_bold(info.descr)
+        info.descr = parse_rich_text(info.descr)
         info.nameid = model_info.name_id
         info.images = model_info.images.all()  # type: ignore
         if english:
@@ -271,13 +279,13 @@ def get_apartment_data(aid, english):
         ctx.full_descr = apartment.full_descr_en
         ctx.name = apartment.name_en
         key_features = apartment.key_features_en
-    ctx.descr = parse_bold(ctx.descr)
-    ctx.full_descr = parse_bold(ctx.full_descr)
+    ctx.descr = parse_rich_text(ctx.descr)
+    ctx.full_descr = parse_rich_text(ctx.full_descr)
     if "(" in ctx.name:
         ctx.name = ctx.name.split("(")[0]
     ctx.key_features = [
         item.strip()
-        for item in parse_bold(key_features).strip().split("\n")
+        for item in parse_rich_text(key_features).strip().split("\n")
         if item.strip()
     ]
     ctx.images = apartment.images.all()  # type: ignore
