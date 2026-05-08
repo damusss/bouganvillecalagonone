@@ -151,4 +151,5 @@ cloudinary.config(
     cloud_name=os.environ.get("CLODUINARY_NAME"),
     api_key=os.environ.get("CLOUDINARY_KEY"),
     api_secret=os.environ.get("CLOUDINARY_SECRET"),
+    secure=True,
 )
