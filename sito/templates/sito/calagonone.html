@@ -171,11 +171,12 @@
                     </div>
                 </div>
                 <!--END SLIDESHOW-->
-                <p
-                    class="text-black text-lg w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 mb-5 font-[{{conf.p_font}}]"
+                <div
+                    class="text-black text-lg w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 mb-5"
+                    style="font-family: {{conf.p_font}}"
                 >
                     {{info.descr|safe}}
-                </p>
+                </div>
                 {% endfor %}
             </div>
         </div>
