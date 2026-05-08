@@ -274,6 +274,9 @@ def get_apartment_data(aid, english):
         if item.strip()
     ]
     ctx.images = apartment.images.all()  # type: ignore
+    if english:
+        for image in ctx.images:
+            image.caption = image.caption_en
     ctx.available = apartment.available
     return ctx
 

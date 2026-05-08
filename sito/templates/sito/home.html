@@ -51,36 +51,36 @@
             <div class="lg:hidden mx-0 relative mx-8 mb-0">
                 <div class="w-full h-full">
                     <div
-                        id="slideshow-container"
+                        id="slides-container"
                         class="relative w-full h-[17rem] md:h-[22rem]"
                     >
                         {%for img_iter in panorama_iter%}
-                        {%alias img_iter|add:'-1' as suffix%}
-                    {% if img_iter == 0%}
-                    {%alias panorama_count|add:'-1' as suffix%}
-                    {%endif%}
-                    {%alias img_iter|add:'1' as suffixR%}
-                    {% if img_iter == panorama_count|add:'-1'%}
-                    {%alias 0 as suffixR%}
-                    {%endif%}
+                            {%alias img_iter|add:'-1' as suffix%}
+                            {% if img_iter == 0%}
+                            {%alias panorama_count|add:'-1' as suffix%}
+                            {%endif%}
+                            {%alias img_iter|add:'1' as suffixR%}
+                            {% if img_iter == panorama_count|add:'-1'%}
+                            {%alias 0 as suffixR%}
+                            {%endif%}
                         <img
                         src="{% static '' %}sito/panorama_images/panorama{{suffix}}.jpg"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to left, black -10%, transparent 50%);
             mask-image: linear-gradient(to left, black -10%, transparent 50%);"
-                        id="slidePREV{{img_iter}}"
+                        data-group="slides-prev"
                     />
                         <img
                             src="{% static '' %}sito/panorama_images/panorama{{img_iter}}.jpg"
                             class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
-                            id="slide{{img_iter}}"
+                            data-group="slides"
                         />
                         <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"
-                        id="slideNEXT{{img_iter}}"
+                        data-group="slides-next"
                     />
                         {%endfor%}
                     </div>
@@ -88,13 +88,13 @@
                     <!-- Arrows -->
                     <button
                         class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full z-20"
-                        id="prevBtn"
+                        id="prev-btn"
                     >
                         &#10094;
                     </button>
                     <button
                         class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-0 text-white p-2 rounded-full z-20"
-                        id="nextBtn"
+                        id="next-btn"
                     >
                         &#10095;
                     </button>
@@ -107,37 +107,37 @@
             <div class="w-full h-full">
                 <!---->
                 <div
-                    id="slideshow-container-l z-20"
+                    id="slides-container-desktop z-20"
                     class="relative w-full"
                     style="height: 38rem"
                 >
                     {%for img_iter in panorama_iter%}
-                    {%alias img_iter|add:'-1' as suffix%}
-                    {% if img_iter == 0%}
-                    {%alias panorama_count|add:'-1' as suffix%}
-                    {%endif%}
-                    {%alias img_iter|add:'1' as suffixR%}
-                    {% if img_iter == panorama_count|add:'-1'%}
-                    {%alias 0 as suffixR%}
-                    {%endif%}
+                        {%alias img_iter|add:'-1' as suffix%}
+                        {% if img_iter == 0%}
+                        {%alias panorama_count|add:'-1' as suffix%}
+                        {%endif%}
+                        {%alias img_iter|add:'1' as suffixR%}
+                        {% if img_iter == panorama_count|add:'-1'%}
+                        {%alias 0 as suffixR%}
+                        {%endif%}
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffix }}.jpg"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to left, black, transparent 50%);
             mask-image: linear-gradient(to left, black, transparent 50%); z-index: -10;"
-                        id="slidePREV{{img_iter}}l"
+                        data-group="slides-prev-desktop"
                     />
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ img_iter }}.jpg"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
-                        id="slide{{img_iter}}l"
+                        data-group="slides-desktop"
                     />
                     <img
                         src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%]  top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"
-                        id="slideNEXT{{img_iter}}l"
+                        data-group="slides-next-desktop"
                     />
                     {%endfor%}
                 </div>
@@ -145,13 +145,13 @@
                 <!-- Arrows -->
                 <button
                     class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none z-20"
-                    id="prevBtnL"
+                    id="prev-btn-desktop"
                 >
                     &#10094;
                 </button>
                 <button
                     class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none z-20"
-                    id="nextBtnL"
+                    id="next-btn-desktop"
                 >
                     &#10095;
                 </button>
@@ -214,15 +214,17 @@
                 <div>
                     <div
                         class="relative"
-                        id="slideshow-apartment-{{apartment.index}}"
+                        data-group="apartment-slideshows"
                         style="user-select: none; -webkit-user-select: none; touch-action: pan-y;"
                     >
-                        <a class="absolute hidden" href="/apartment-{{apartment.index}}/{{lang}}" id="slideshow-link-{{apartment.index}}"></a>
-                        <div  id="slideshow-a-{{apartment.index}}">
+                        <a class="absolute hidden"
+                           href="/apartment-{{apartment.index}}/{{lang}}"
+                           data-role="slideshow-link"></a>
+                        <div  data-role="slideshow-track">
                         {%for image in apartment.images%}
                             <div
                                 class="relative w-full pb-[56.25%] transition-opacity duration-500 ease-in-out opacity-100"
-                                id="image-{{apartment.index}}-{{forloop.counter0}}"
+                                data-group="slideshow-images"
                             >
                                 <img
                                     class="absolute inset-0 w-full h-full object-fill blur-md opacity-[70%] not-selectable"
@@ -238,13 +240,13 @@
                         </div>
                         <button
                             class="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
-                            id="prevBtn-{{apartment.index}}"
+                            data-role="slideshow-prev"
                         >
                             &#10094;
                         </button>
                         <button
                             class="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
-                            id="nextBtn-{{apartment.index}}"
+                            data-role="slideshow-next"
                         >
                             &#10095;
                         </button>
@@ -259,230 +261,5 @@
     {%endfor%}
 </div>
 
-<!-- script relying on django macros -->
-<script type="text/javascript">
-    const isApartment = false;
-
-// smart-start:apartment_slideshows
-{% for apartment in apartments %}
-{% if apartment.available == True %}
-
-let currentImage{{apartment.index}} = 1;
-var totalImages{{apartment.index}} = 0;
-var images{{apartment.index}} = [];
-{% for image in apartment.images %}
-totalImages{{apartment.index}} += 1;
-images{{apartment.index}}.push(document.getElementById("image-{{apartment.index}}-{{forloop.counter0}}"));
-{% endfor %}
-
-const imagesContainer{{apartment.index}} = document.getElementById("slideshow-apartment-{{apartment.index}}");
-const imagesTrack{{apartment.index}} = document.getElementById("slideshow-a-{{apartment.index}}");
-const prevBtn{{apartment.index}} = document.getElementById("prevBtn-{{apartment.index}}");
-const nextBtn{{apartment.index}} = document.getElementById("nextBtn-{{apartment.index}}");
-
-let startX{{apartment.index}} = 0;
-let isPointerDown{{apartment.index}} = false;
-
-const SWIPE_THRESHOLD_{{apartment.index}} = 80;
-const CLICK_THRESHOLD_{{apartment.index}} = 10;
-
-imagesContainer{{apartment.index}}.addEventListener("pointerdown", (e) => {
-    if (e.target.closest("button")) {
-        return;
-    }
-
-    isPointerDown{{apartment.index}} = true;
-    startX{{apartment.index}} = e.clientX;
-    imagesContainer{{apartment.index}}.setPointerCapture(e.pointerId);
-    imagesTrack{{apartment.index}}.style.transition = "none";
-});
-
-imagesContainer{{apartment.index}}.addEventListener("pointermove", (e) => {
-    if (!isPointerDown{{apartment.index}}) return;
-
-    const currentX = e.clientX;
-    const deltaX = currentX - startX{{apartment.index}};
-
-    imagesTrack{{apartment.index}}.style.transform = `translateX(${deltaX}px)`;
-
-    if (Math.abs(deltaX) > SWIPE_THRESHOLD_{{apartment.index}}) {
-        isPointerDown{{apartment.index}} = false;
-
-        imagesTrack{{apartment.index}}.style.transition = "transform 0.3s ease-out";
-        imagesTrack{{apartment.index}}.style.transform = "translateX(0px)";
-
-        imagesContainer{{apartment.index}}.releasePointerCapture(e.pointerId);
-
-        if (deltaX > 0) {
-            prevBtn{{apartment.index}}.click();
-        } else {
-            nextBtn{{apartment.index}}.click();
-        }
-    }
-});
-
-imagesContainer{{apartment.index}}.addEventListener("pointerup", (e) => {
-    if (!isPointerDown{{apartment.index}}) return;
-    isPointerDown{{apartment.index}} = false;
-
-    const currentX = e.clientX;
-    const deltaX = currentX - startX{{apartment.index}};
-
-    imagesTrack{{apartment.index}}.style.transition = "transform 0.3s ease-out";
-    imagesTrack{{apartment.index}}.style.transform = "translateX(0px)";
-
-    if (Math.abs(deltaX) < CLICK_THRESHOLD_{{apartment.index}}) {
-        document.getElementById("slideshow-link-{{apartment.index}}").click();
-    }
-});
-
-imagesContainer{{apartment.index}}.addEventListener("pointercancel", (e) => {
-    isPointerDown{{apartment.index}} = false;
-    imagesTrack{{apartment.index}}.style.transition = "transform 0.3s ease-out";
-    imagesTrack{{apartment.index}}.style.transform = "translateX(0px)";
-    imagesContainer{{apartment.index}}.releasePointerCapture(e.pointerId);
-});
-
-imagesContainer{{apartment.index}}.addEventListener("dragstart", (e) => {
-    e.preventDefault();
-});
-
-function updateImages{{apartment.index}}() {
-    images{{apartment.index}}.forEach((image, index) => {
-        if (index + 1 === currentImage{{apartment.index}}) {
-            image.classList.remove("opacity-0");
-            image.classList.add("opacity-100");
-            image.classList.remove("hidden");
-        } else {
-            image.classList.remove("opacity-100");
-            image.classList.add("opacity-0");
-            image.classList.add("hidden");
-        }
-    });
-}
-
-const prevMoveImages{{apartment.index}} = function () {
-    currentImage{{apartment.index}} =
-        currentImage{{apartment.index}} === 1 ? totalImages{{apartment.index}} : currentImage{{apartment.index}} - 1;
-    updateImages{{apartment.index}}();
-    {%if apartment.index == apartment.index %}
-    if (isApartment && modal.classList.contains("hidden")) {
-        prevMoveImagesM();
-    }
-    {%endif%}
-};
-prevBtn{{apartment.index}}.addEventListener("click", prevMoveImages{{apartment.index}});
-
-const nextMoveImages{{apartment.index}} = function () {
-    currentImage{{apartment.index}} =
-        currentImage{{apartment.index}} === totalImages{{apartment.index}} ? 1 : currentImage{{apartment.index}} + 1;
-    updateImages{{apartment.index}}();
-    {%if apartment.index == apartment.index %}
-    if (isApartment && modal.classList.contains("hidden")) {
-        nextMoveImagesM();
-    }
-    {%endif%}
-};
-nextBtn{{apartment.index}}.addEventListener("click", nextMoveImages{{apartment.index}});
-
-updateImages{{apartment.index}}();
-
-{% endif %}
-{% endfor %}
-// smart-end:apartment_slideshows
-
-    // PANORAMA SLIDESHOWS
-    let skip = false;
-    let currentSlide = 1;
-    const totalSlides = {{panorama_count}}; // Update this if you have more images
-    const slideshowContainer = document.getElementById("slideshow-container");
-    const slideshowContainerL = document.getElementById("slideshow-container-l");
-    const slides = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slide{{img_iter}}"),
-        {%endfor%}
-    ];
-    const slidesPREV = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slidePREV{{img_iter}}"),
-        {%endfor%}
-    ];
-
-    const slidesL = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slide{{img_iter}}l"),
-        {%endfor%}
-    ];
-
-    const slidesNEXT = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slideNEXT{{img_iter}}"),
-        {%endfor%}
-    ];
-
-    const slidesPREVL = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slidePREV{{img_iter}}l"),
-        {%endfor%}
-    ];
-
-    const slidesNEXTL = [
-        {%for img_iter in panorama_iter%}
-        document.getElementById("slideNEXT{{img_iter}}l"),
-        {%endfor%}
-    ];
-
-    const slidesSLIDES = [slides, slidesL, slidesPREV, slidesPREVL, slidesNEXT, slidesNEXTL];
-
-    // Hide all slides except the current one
-    function updateSlides() {
-        slidesSLIDES.forEach((slidesS, sI) => {
-        slidesS.forEach((slide, index) => {
-            if (index + 1 === currentSlide) {
-                slide.classList.remove("opacity-0");
-                slide.classList.add("opacity-100");
-            } else {
-                slide.classList.remove("opacity-100");
-                slide.classList.add("opacity-0");
-            }
-        });
-    });
-    }
-
-    document.getElementById("prevBtn").addEventListener("click", function () {
-        currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
-        skip = true;
-        updateSlides();
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", function () {
-        currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
-        skip = true;
-        updateSlides();
-    });
-
-    document.getElementById("prevBtnL").addEventListener("click", function () {
-        currentSlide = currentSlide === 1 ? totalSlides : currentSlide - 1;
-        skip = true;
-        updateSlides();
-    });
-
-    document.getElementById("nextBtnL").addEventListener("click", function () {
-        currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
-        skip = true;
-        updateSlides();
-    });
-
-    setInterval(() => {
-        if (skip) {
-            skip = false;
-            return;
-        }
-        currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
-        updateSlides();
-    }, 3000);
-
-    updateSlides();
-</script>
 <script src="{%static 'sito/home_script.js'%}"></script>
 {%endblock%}
