@@ -5,10 +5,10 @@ from cloudinary.models import CloudinaryField
 class Apartment(models.Model):
     index = models.IntegerField("Numero Appartamento (1/2/3)", default=1, unique=True)
     name_it = models.CharField(
-        "Nome Appartamento (in italiano)", max_length=1000, default=""
+        "Nome Appartamento (in italiano)", max_length=100, default=""
     )
     name_en = models.CharField(
-        "Nome Appartamento (in inglese)", max_length=1000, default=""
+        "Nome Appartamento (in inglese)", max_length=100, default=""
     )
     short_descr_it = models.TextField("Descrizione Breve (in italiano)")
     short_descr_en = models.TextField("Descrizione Breve (in inglese)")
@@ -20,9 +20,7 @@ class Apartment(models.Model):
     )
     full_descr_it = models.TextField("Descrizione Completa (in italiano)")
     full_descr_en = models.TextField("Descrizione Completa (in inglese)")
-    max_people = models.CharField(
-        "Numero Massimo Persone", max_length=1000, default="5"
-    )
+    max_people = models.CharField("Numero Massimo Persone", max_length=10, default="5")
     available = models.BooleanField(
         "L'appartamento è affittabile (dovrebbe essere mostrato nel sito)?",
         default=True,
@@ -66,6 +64,44 @@ class WelcomeInfo(models.Model):
         return "<Informazioni di benvenuto>"
 
 
+class HomePanoramaImage(models.Model):
+    welcome_info = models.ForeignKey(
+        WelcomeInfo, on_delete=models.CASCADE, related_name="panorama_images"
+    )
+    image = CloudinaryField("Panorama Image")
+    caption = models.CharField(
+        "Titolo immagine (IT)", max_length=255, blank=True, null=True
+    )
+    order = models.PositiveIntegerField(
+        "Orine (automatico)", default=0, blank=False, null=False
+    )
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"<Panorama Home Image ({self.caption if self.caption != '' else 'Unnamed'})>"
+
+
+class HouseImage(models.Model):
+    welcome_info = models.ForeignKey(
+        WelcomeInfo, on_delete=models.CASCADE, related_name="house_images"
+    )
+    image = CloudinaryField("House Image")
+    caption = models.CharField(
+        "Titolo immagine (IT)", max_length=255, blank=True, null=True
+    )
+    order = models.PositiveIntegerField(
+        "Orine (automatico)", default=0, blank=False, null=False
+    )
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"<House Image ({self.caption if self.caption != '' else 'Unnamed'})>"
+
+
 class MoreConfig(models.Model):
     secondary_color = models.CharField(
         "Colore secondario (di bottoni e altro)", max_length=100, default="purple-600"
@@ -81,185 +117,183 @@ class MoreConfig(models.Model):
 
 
 class Labels(models.Model):
-    page_title = models.CharField("Titolo Pagina Base", max_length=1000, default="")
-    business_name = models.CharField("Nome Residenza", max_length=1000, default="")
+    page_title = models.CharField("Titolo Pagina Base", max_length=100, default="")
+    business_name = models.CharField("Nome Residenza", max_length=100, default="")
 
     page_title_home_it = models.CharField(
-        "Titolo Pagina home (IT)", max_length=1000, default=""
+        "Titolo Pagina home (IT)", max_length=100, default=""
     )
     page_title_home_en = models.CharField(
-        "Titolo Pagina home (EN)", max_length=1000, default=""
+        "Titolo Pagina home (EN)", max_length=100, default=""
     )
     page_title_calagonone_it = models.CharField(
-        "Titolo Pagina calagonone (IT)", max_length=1000, default=""
+        "Titolo Pagina calagonone (IT)", max_length=100, default=""
     )
     page_title_calagonone_en = models.CharField(
-        "Titolo Pagina calagonone (EN)", max_length=1000, default=""
+        "Titolo Pagina calagonone (EN)", max_length=100, default=""
     )
     page_title_contacts_it = models.CharField(
-        "Titolo Pagina contacts (IT)", max_length=1000, default=""
+        "Titolo Pagina contacts (IT)", max_length=100, default=""
     )
     page_title_contacts_en = models.CharField(
-        "Titolo Pagina contacts (EN)", max_length=1000, default=""
+        "Titolo Pagina contacts (EN)", max_length=100, default=""
     )
     page_title_apartment_it = models.CharField(
-        "Titolo Pagina apartment (IT)", max_length=1000, default=""
+        "Titolo Pagina apartment (IT)", max_length=100, default=""
     )
     page_title_apartment_en = models.CharField(
-        "Titolo Pagina home (EN)", max_length=1000, default=""
+        "Titolo Pagina home (EN)", max_length=100, default=""
     )
 
     section_home_it = models.CharField(
-        "Etichetta Sezione home (IT)", max_length=1000, default=""
+        "Etichetta Sezione home (IT)", max_length=100, default=""
     )
     section_home_en = models.CharField(
-        "Etichetta Sezione home (EN)", max_length=1000, default=""
+        "Etichetta Sezione home (EN)", max_length=100, default=""
     )
     section_calagonone_it = models.CharField(
-        "Etichetta Sezione calagonone (IT)", max_length=1000, default=""
+        "Etichetta Sezione calagonone (IT)", max_length=100, default=""
     )
     section_calagonone_en = models.CharField(
-        "Etichetta Sezione calagonone (EN)", max_length=1000, default=""
+        "Etichetta Sezione calagonone (EN)", max_length=100, default=""
     )
     section_contacts_it = models.CharField(
-        "Etichetta Sezione contacts (IT)", max_length=1000, default=""
+        "Etichetta Sezione contacts (IT)", max_length=100, default=""
     )
     section_contacts_en = models.CharField(
-        "Etichetta Sezione contacts (EN)", max_length=1000, default=""
+        "Etichetta Sezione contacts (EN)", max_length=100, default=""
     )
 
     location_directions_it = models.CharField(
-        "Etichetta Come Arrivare (IT)", max_length=1000, default=""
+        "Etichetta Come Arrivare (IT)", max_length=100, default=""
     )
     location_directions_en = models.CharField(
-        "Etichetta Come Arrivare (EN)", max_length=1000, default=""
+        "Etichetta Come Arrivare (EN)", max_length=100, default=""
     )
     view_apartments_it = models.CharField(
-        "Etichetta per 'guarda gli appartamenti' (IT)", max_length=1000, default=""
+        "Etichetta per 'guarda gli appartamenti' (IT)", max_length=100, default=""
     )
     view_apartments_en = models.CharField(
-        "Etichetta per 'guarda gli appartamenti' (EN)", max_length=1000, default=""
+        "Etichetta per 'guarda gli appartamenti' (EN)", max_length=100, default=""
     )
     book_it = models.CharField(
-        "Etichetta per 'prenota' (IT)", max_length=1000, default=""
+        "Etichetta per 'prenota' (IT)", max_length=100, default=""
     )
     book_en = models.CharField(
-        "Etichetta per 'prenota' (EN)", max_length=1000, default=""
+        "Etichetta per 'prenota' (EN)", max_length=100, default=""
     )
     details_it = models.CharField(
-        "Etichetta per 'dettagli appartamento' (IT)", max_length=1000, default=""
+        "Etichetta per 'dettagli appartamento' (IT)", max_length=100, default=""
     )
     details_en = models.CharField(
-        "Etichetta per 'dettagli appartamento' (EN)", max_length=1000, default=""
+        "Etichetta per 'dettagli appartamento' (EN)", max_length=100, default=""
+    )
+    home_gallery_it = models.CharField(
+        "Etichetta per 'Galleria residenza' (IT)", max_length=100, default=""
+    )
+    home_gallery_en = models.CharField(
+        "Etichetta per 'Galleria residenza' (EN)", max_length=100, default=""
     )
 
     quick_book_it = models.CharField(
-        "Titolo sezione 'prenota' (info e contatti) (IT)", max_length=1000, default=""
+        "Titolo sezione 'prenota' (info e contatti) (IT)", max_length=100, default=""
     )
     quick_book_en = models.CharField(
-        "Titolo sezione 'prenota' (info e contatti) (EN)", max_length=1000, default=""
+        "Titolo sezione 'prenota' (info e contatti) (EN)", max_length=100, default=""
     )
     contacts_it = models.CharField(
-        "Titolo sezione 'contatti' (info e contatti) (IT)", max_length=1000, default=""
+        "Titolo sezione 'contatti' (info e contatti) (IT)", max_length=100, default=""
     )
     contacts_en = models.CharField(
-        "Titolo sezione 'contatti' (info e contatti) (EN)", max_length=1000, default=""
+        "Titolo sezione 'contatti' (info e contatti) (EN)", max_length=100, default=""
     )
-    phone_it = models.CharField("'telefono' (IT)", max_length=1000, default="")
-    phone_en = models.CharField("'telefono' (EN)", max_length=1000, default="")
-    location_it = models.CharField("'residenza' (IT)", max_length=1000, default="")
-    location_en = models.CharField("'residenza' (EN)", max_length=1000, default="")
-    call_it = models.CharField("'chiama' (IT)", max_length=1000, default="")
-    call_en = models.CharField("'chiama' (EN)", max_length=1000, default="")
+    phone_it = models.CharField("'telefono' (IT)", max_length=100, default="")
+    phone_en = models.CharField("'telefono' (EN)", max_length=100, default="")
+    location_it = models.CharField("'residenza' (IT)", max_length=100, default="")
+    location_en = models.CharField("'residenza' (EN)", max_length=100, default="")
+    call_it = models.CharField("'chiama' (IT)", max_length=100, default="")
+    call_en = models.CharField("'chiama' (EN)", max_length=100, default="")
 
     form_apartment_it = models.CharField(
-        "'scegli appartamento' Form (IT)", max_length=1000, default=""
+        "'scegli appartamento' Form (IT)", max_length=100, default=""
     )
     form_apartment_en = models.CharField(
-        "'scegli appartamento' Form (EN)", max_length=1000, default=""
+        "'scegli appartamento' Form (EN)", max_length=100, default=""
     )
-    form_check_in = models.CharField("Check in Form", max_length=1000, default="")
-    form_check_out = models.CharField("Check out Form", max_length=1000, default="")
-    form_adults_it = models.CharField("Adulti Form (IT)", max_length=1000, default="")
-    form_adults_en = models.CharField("Adulti Form (EN)", max_length=1000, default="")
-    form_children_it = models.CharField(
-        "Bambini Form (IT)", max_length=1000, default=""
-    )
-    form_children_en = models.CharField(
-        "Bambini Form (EN)", max_length=1000, default=""
-    )
-    form_people_it = models.CharField(
-        "'Persone' Form (IT)", max_length=1000, default=""
-    )
-    form_people_en = models.CharField(
-        "'Persone' Form (EN)", max_length=1000, default=""
-    )
-    form_submit_it = models.CharField("Invia Form (IT)", max_length=1000, default="")
-    form_submit_en = models.CharField("Invia Form (EN)", max_length=1000, default="")
-    form_email_it = models.CharField("Email Form (IT)", max_length=1000, default="")
-    form_email_en = models.CharField("Email Form (EN)", max_length=1000, default="")
-    form_phone_it = models.CharField("Phone Form (IT)", max_length=1000, default="")
-    form_phone_en = models.CharField("Phone Form (EN)", max_length=1000, default="")
-    form_message_it = models.CharField("Message Form (IT)", max_length=1000, default="")
-    form_message_en = models.CharField("Message Form (EN)", max_length=1000, default="")
+    form_check_in = models.CharField("Check in Form", max_length=100, default="")
+    form_check_out = models.CharField("Check out Form", max_length=100, default="")
+    form_adults_it = models.CharField("Adulti Form (IT)", max_length=100, default="")
+    form_adults_en = models.CharField("Adulti Form (EN)", max_length=100, default="")
+    form_children_it = models.CharField("Bambini Form (IT)", max_length=100, default="")
+    form_children_en = models.CharField("Bambini Form (EN)", max_length=100, default="")
+    form_people_it = models.CharField("'Persone' Form (IT)", max_length=100, default="")
+    form_people_en = models.CharField("'Persone' Form (EN)", max_length=100, default="")
+    form_submit_it = models.CharField("Invia Form (IT)", max_length=100, default="")
+    form_submit_en = models.CharField("Invia Form (EN)", max_length=100, default="")
+    form_email_it = models.CharField("Email Form (IT)", max_length=100, default="")
+    form_email_en = models.CharField("Email Form (EN)", max_length=100, default="")
+    form_phone_it = models.CharField("Phone Form (IT)", max_length=100, default="")
+    form_phone_en = models.CharField("Phone Form (EN)", max_length=100, default="")
+    form_message_it = models.CharField("Message Form (IT)", max_length=100, default="")
+    form_message_en = models.CharField("Message Form (EN)", max_length=100, default="")
 
     form_email_ph_it = models.CharField(
-        "Placeholder Email Form (IT)", max_length=1000, default=""
+        "Placeholder Email Form (IT)", max_length=100, default=""
     )
     form_email_ph_en = models.CharField(
-        "Placeholder Email Form (EN)", max_length=1000, default=""
+        "Placeholder Email Form (EN)", max_length=100, default=""
     )
     form_phone_ph_it = models.CharField(
-        "Placeholder Phone Form (IT)", max_length=1000, default=""
+        "Placeholder Phone Form (IT)", max_length=100, default=""
     )
     form_phone_ph_en = models.CharField(
-        "Placeholder Phone Form (EN)", max_length=1000, default=""
+        "Placeholder Phone Form (EN)", max_length=100, default=""
     )
     form_message_ph_it = models.CharField(
-        "Placeholder Message Form (IT)", max_length=1000, default=""
+        "Placeholder Message Form (IT)", max_length=100, default=""
     )
     form_message_ph_en = models.CharField(
-        "PlaceholderMessage Form (EN)", max_length=1000, default=""
+        "PlaceholderMessage Form (EN)", max_length=100, default=""
     )
 
     prices_it = models.CharField(
-        "Etichetta 'prezzi e condizioni' (IT)", max_length=1000, default=""
+        "Etichetta 'prezzi e condizioni' (IT)", max_length=100, default=""
     )
     prices_en = models.CharField(
-        "Etichetta 'prezzi e condizioni' (EN)", max_length=1000, default=""
+        "Etichetta 'prezzi e condizioni' (EN)", max_length=100, default=""
     )
-    taxes_it = models.CharField("Etichetta 'tasse' (IT)", max_length=1000, default="")
-    taxes_en = models.CharField("Etichetta 'tasse' (EN)", max_length=1000, default="")
+    taxes_it = models.CharField("Etichetta 'tasse' (IT)", max_length=100, default="")
+    taxes_en = models.CharField("Etichetta 'tasse' (EN)", max_length=100, default="")
     cancelation_it = models.CharField(
-        "Etichetta 'cancellazione' (IT)", max_length=1000, default=""
+        "Etichetta 'cancellazione' (IT)", max_length=100, default=""
     )
     cancelation_en = models.CharField(
-        "Etichetta 'cancellazione' (EN)", max_length=1000, default=""
+        "Etichetta 'cancellazione' (EN)", max_length=100, default=""
     )
     rubbish_it = models.CharField(
-        "Etichetta 'rifiuti' (IT)", max_length=1000, default=""
+        "Etichetta 'rifiuti' (IT)", max_length=100, default=""
     )
     rubbish_en = models.CharField(
-        "Etichetta 'rifiuti' (EN)", max_length=1000, default=""
+        "Etichetta 'rifiuti' (EN)", max_length=100, default=""
     )
 
     in_evidenza_it = models.CharField(
-        "Etichetta 'in evidenza' (IT)", max_length=1000, default=""
+        "Etichetta 'in evidenza' (IT)", max_length=100, default=""
     )
     in_evidenza_en = models.CharField(
-        "Etichetta 'in evidenza' (EN)", max_length=1000, default=""
+        "Etichetta 'in evidenza' (EN)", max_length=100, default=""
     )
     full_descr_it = models.CharField(
-        "Etichetta 'descrizione' appartamento (IT)", max_length=1000, default=""
+        "Etichetta 'descrizione' appartamento (IT)", max_length=100, default=""
     )
     full_descr_en = models.CharField(
-        "Etichetta 'descrizione' appartamento (EN)", max_length=1000, default=""
+        "Etichetta 'descrizione' appartamento (EN)", max_length=100, default=""
     )
     other_apartments_it = models.CharField(
-        "Etichetta 'altri appartamenti' (IT)", max_length=1000, default=""
+        "Etichetta 'altri appartamenti' (IT)", max_length=100, default=""
     )
     other_apartments_en = models.CharField(
-        "Etichetta 'altri appartamenti' (IT)", max_length=1000, default=""
+        "Etichetta 'altri appartamenti' (IT)", max_length=100, default=""
     )
     apartment_not_available_it = models.CharField(
         "Etichetta 'appartamento non disponibile' (IT)", max_length=1000, default=""
@@ -268,41 +302,41 @@ class Labels(models.Model):
         "Etichetta 'appartamento non disponibile' (EN)", max_length=1000, default=""
     )
     read_more_it = models.CharField(
-        "Etichetta 'leggi di piu' (IT)", max_length=1000, default=""
+        "Etichetta 'leggi di piu' (IT)", max_length=100, default=""
     )
     read_more_en = models.CharField(
-        "Etichetta 'leggi di piu' (EN)", max_length=1000, default=""
+        "Etichetta 'leggi di piu' (EN)", max_length=100, default=""
     )
     read_less_it = models.CharField(
-        "Etichetta 'leggi meno' (IT)", max_length=1000, default=""
+        "Etichetta 'leggi meno' (IT)", max_length=100, default=""
     )
     read_less_en = models.CharField(
-        "Etichetta 'leggi meno' (EN)", max_length=1000, default=""
+        "Etichetta 'leggi meno' (EN)", max_length=100, default=""
     )
     gallery_it = models.CharField(
-        "Etichetta 'Galleria' (IT)", max_length=1000, default=""
+        "Etichetta 'Galleria' (IT)", max_length=100, default=""
     )
     gallery_en = models.CharField(
-        "Etichetta 'Galleria' (EN)", max_length=1000, default=""
+        "Etichetta 'Galleria' (EN)", max_length=100, default=""
     )
 
     where_are_we_it = models.CharField(
-        "Etichetta 'Dove siamo' (IT)", max_length=1000, default=""
+        "Etichetta 'Dove siamo' (IT)", max_length=100, default=""
     )
     where_are_we_en = models.CharField(
-        "Etichetta 'Dove siamo' (EN)", max_length=1000, default=""
+        "Etichetta 'Dove siamo' (EN)", max_length=100, default=""
     )
     view_map_it = models.CharField(
-        "Etichetta 'Accetta e visualizza' (IT)", max_length=1000, default=""
+        "Etichetta 'Accetta e visualizza' (IT)", max_length=100, default=""
     )
     view_map_en = models.CharField(
-        "Etichetta 'Accetta e visualizza' (EN)", max_length=1000, default=""
+        "Etichetta 'Accetta e visualizza' (EN)", max_length=100, default=""
     )
 
 
 class CalaGononeInfo(models.Model):
-    title_it = models.CharField(max_length=1000)
-    title_en = models.CharField(max_length=1000)
+    title_it = models.CharField(max_length=100)
+    title_en = models.CharField(max_length=100)
     description_it = models.TextField()
     description_en = models.TextField()
     name_id = models.CharField(
@@ -340,15 +374,15 @@ class CalaGononeImage(models.Model):
 
 
 class ContactsInfo(models.Model):
-    mail = models.CharField("e-mail", max_length=1000)
-    phone = models.CharField("Telefono", max_length=1000, default="")
-    address = models.CharField("Via", max_length=1000)
-    cap_and_town = models.CharField("CAP e nome paese", max_length=1000)
+    mail = models.CharField("e-mail", max_length=100)
+    phone = models.CharField("Telefono", max_length=100, default="")
+    address = models.CharField("Via", max_length=100)
+    cap_and_town = models.CharField("CAP e nome paese", max_length=100)
     region_and_country_it = models.CharField(
-        "Regione e stato (in italiano)", max_length=1000
+        "Regione e stato (in italiano)", max_length=100
     )
     region_and_country_en = models.CharField(
-        "Regione e stato (in inglese)", max_length=1000
+        "Regione e stato (in inglese)", max_length=100
     )
     tassa_di_soggiorno_it = models.TextField(
         "Tassa di soggiorno (in italiano)",

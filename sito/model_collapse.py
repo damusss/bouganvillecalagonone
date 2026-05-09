@@ -16,6 +16,7 @@ class CTXLabels:
     view_apartments: str = ""
     book: str = ""
     details: str = ""
+    home_gallery: str = ""
 
     quick_book: str = ""
     contacts: str = ""
@@ -94,6 +95,7 @@ class CTXWelcomeInfo:
     image: typing.Any = None
     descr1: str = ""
     descr2: str = ""
+    house_images: typing.Any = None
 
 
 @dataclass

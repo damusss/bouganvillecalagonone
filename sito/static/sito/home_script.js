@@ -14,7 +14,6 @@ document
         const link_btn = images_container.querySelector(
             '[data-role="slideshow-link"]',
         );
-        console.log(link_btn);
         const images_track = images_container.querySelector(
             '[data-role="slideshow-track"]',
         );
@@ -150,7 +149,7 @@ const slides_slides = [
     slides_next,
     slides_next_desktop,
 ];
-const total_slides = slides.length;
+const total_slides = slides.length || slides_desktop.length;
 
 function update_slides() {
     slides_slides.forEach((slides_s, sI) => {

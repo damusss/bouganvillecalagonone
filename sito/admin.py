@@ -12,6 +12,8 @@ from .models import (
     ApartmentImage,
     Labels,
     MoreConfig,
+    HomePanoramaImage,
+    HouseImage,
 )
 
 
@@ -64,8 +66,19 @@ class LabelsAdmin(SingletonModelAdmin): ...
 class MoreConfigAdmin(SingletonModelAdmin): ...
 
 
+class HomePanoramaImageInline(SortableTabularInline):
+    model = HomePanoramaImage
+    extra = 1
+
+
+class HouseImageInLine(SortableTabularInline):
+    model = HouseImage
+    extra = 1
+
+
 @admin.register(WelcomeInfo)
-class WelcomeInfoAdmin(SingletonModelAdmin): ...
+class WelcomeInfoAdmin(SortableAdminBase, SingletonModelAdmin):
+    inlines = [HouseImageInLine, HomePanoramaImageInline]
 
 
 @admin.register(ContactsInfo)

@@ -1,4 +1,4 @@
-{% extends "../sito/base.html" %} {%block content%} {%load static%} {%load alias %}
+{% extends "../sito/base.html" %} {%block content%} {%load static%}
 <div class="relative w-full h-screen">
     <img
         class="absolute w-full h-screen bg-cover bg-center blur-sm brightness-90"
@@ -55,29 +55,21 @@
                         id="slides-container"
                         class="relative w-full h-[17rem] md:h-[22rem]"
                     >
-                        {%for img_iter in panorama_iter%}
-                            {%alias img_iter|add:'-1' as suffix%}
-                            {% if img_iter == 0%}
-                            {%alias panorama_count|add:'-1' as suffix%}
-                            {%endif%}
-                            {%alias img_iter|add:'1' as suffixR%}
-                            {% if img_iter == panorama_count|add:'-1'%}
-                            {%alias 0 as suffixR%}
-                            {%endif%}
+                        {% for slide in panorama_data %}
                         <img
-                        src="{% static '' %}sito/panorama_images/panorama{{suffix}}.jpg"
+                        src="{{ slide.prev.image.url }}"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to left, black -10%, transparent 50%);
             mask-image: linear-gradient(to left, black -10%, transparent 50%);"
                         data-group="slides-prev"
                     />
                         <img
-                            src="{% static '' %}sito/panorama_images/panorama{{img_iter}}.jpg"
+                            src="{{ slide.current.image.url }}"
                             class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
                             data-group="slides"
                         />
                         <img
-                        src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
+                        src="{{ slide.next.image.url }}"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"
@@ -111,29 +103,21 @@
                     class="relative w-full"
                     style="height: 38rem"
                 >
-                    {%for img_iter in panorama_iter%}
-                        {%alias img_iter|add:'-1' as suffix%}
-                        {% if img_iter == 0%}
-                        {%alias panorama_count|add:'-1' as suffix%}
-                        {%endif%}
-                        {%alias img_iter|add:'1' as suffixR%}
-                        {% if img_iter == panorama_count|add:'-1'%}
-                        {%alias 0 as suffixR%}
-                        {%endif%}
+                    {% for slide in panorama_data %}
                     <img
-                        src="{% static '' %}sito/panorama_images/panorama{{ suffix }}.jpg"
+                        src="{{ slide.prev.image.url }}"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%] top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to left, black, transparent 50%);
             mask-image: linear-gradient(to left, black, transparent 50%); z-index: -10;"
                         data-group="slides-prev-desktop"
                     />
                     <img
-                        src="{% static '' %}sito/panorama_images/panorama{{ img_iter }}.jpg"
+                        src="{{ slide.current.image.url }}"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
                         data-group="slides-desktop"
                     />
                     <img
-                        src="{% static '' %}sito/panorama_images/panorama{{ suffixR }}.jpg"
+                        src="{{ slide.next.image.url }}"
                         class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%]  top-1/2 -translate-y-1/2"
                         style="-webkit-mask-image: linear-gradient(to right, black, transparent 50%);
             mask-image: linear-gradient(to right, black, transparent 50%);"

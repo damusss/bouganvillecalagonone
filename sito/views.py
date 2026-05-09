@@ -169,6 +169,7 @@ def add_labels(ctx, english, page):
         "read_more",
         "read_less",
         "gallery",
+        "home_gallery",
     ]:
         setattr(labels, name, getattr(model, f"{name}_{lang}"))
     ctx["labels"] = labels
@@ -212,10 +213,16 @@ def add_data_home(ctx, english):
     info.descr1 = parse_rich_text(split[0])
     if len(split) > 1:
         info.descr2 = parse_rich_text(split[-1])
+    info.house_images = welcome.house_images  # type: ignore
+    images = list(welcome.panorama_images.all())  # type: ignore
+    panorama_data = []
+    for i, img in enumerate(images):
+        prev_img = images[i - 1]
+        next_img = images[(i + 1) % len(images)]
+        panorama_data.append({"current": img, "prev": prev_img, "next": next_img})
     add_apartments(ctx, english)
     ctx["welcome"] = info
-    ctx["panorama_iter"] = list(range(0, 7))
-    ctx["panorama_count"] = 7
+    ctx["panorama_data"] = panorama_data
 
 
 def add_apartments(ctx, english):
