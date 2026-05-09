@@ -23,11 +23,11 @@ document
         const images_cont = images_main_cont.querySelector(
             '[data-cont="images"',
         );
-        imageWidth = images_cont.getBoundingClientRect().width*0.66;
+        imageWidth = images_cont.getBoundingClientRect().width * 0.66;
         images_main_cont
             .querySelector('[data-role="left"]')
             .addEventListener("click", (ev) => {
-                imageWidth = images_cont.getBoundingClientRect().width*0.66;
+                imageWidth = images_cont.getBoundingClientRect().width * 0.66;
                 images_cont.scrollBy({
                     left: -1 * imageWidth,
                     behavior: "smooth",
@@ -36,7 +36,7 @@ document
         images_main_cont
             .querySelector('[data-role="right"]')
             .addEventListener("click", (ev) => {
-                imageWidth = images_cont.getBoundingClientRect().width*0.66;
+                imageWidth = images_cont.getBoundingClientRect().width * 0.66;
                 images_cont.scrollBy({
                     left: 1 * imageWidth,
                     behavior: "smooth",
@@ -47,6 +47,9 @@ document
         let startX, scrollLeft;
 
         const startDragging = (e) => {
+            if (e.button !== 0) {
+                return;
+            }
             mouseDown = true;
             startX = e.pageX;
             scrollLeft = images_cont.scrollLeft;

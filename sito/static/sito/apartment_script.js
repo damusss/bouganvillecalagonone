@@ -20,6 +20,9 @@ let mouse_down = false;
 let start_x, scroll_left;
 
 const start_dragging = (e) => {
+    if (e.button !== 0) {
+        return;
+    }
     mouse_down = true;
     start_x = e.pageX - carousel.offsetLeft;
     scroll_left = carousel.scrollLeft;
@@ -120,7 +123,7 @@ document.addEventListener("keydown", (ev) => {
         modal_prev_btn.click();
     } else if (event.key === "ArrowRight") {
         modal_next_btn.click();
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
         close_modal();
     }
 });
@@ -156,6 +159,9 @@ document
         let pointer_down = false;
 
         images_container.addEventListener("pointerdown", (e) => {
+            if (e.button !== 0) {
+                return;
+            }
             if (e.target.closest("button")) {
                 return;
             }

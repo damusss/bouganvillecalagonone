@@ -27,6 +27,9 @@ document
         let pointer_down = false;
 
         images_container.addEventListener("pointerdown", (e) => {
+            if (e.button !== 0) {
+                return;
+            }
             if (e.target.closest("button")) {
                 return;
             }
@@ -216,6 +219,9 @@ update_slides();
     const images_track = slide_cont.querySelector('[data-role="slides-track"]');
 
     slide_cont.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0) {
+            return;
+        }
         if (e.target.closest("button")) {
             return;
         }
