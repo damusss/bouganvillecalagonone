@@ -118,15 +118,17 @@
                 <!-- infos -->
                 {% for info in infos %}
                 <h1
-                    class="text-black text-3xl md:-mx-6 lg:-mx-20 md:px-4 lg:px-8 font-bold font-[Courgette]"
+                    class="flex items-start gap-3 text-black text-3xl md:-mx-6 lg:-mx-20 md:px-4 lg:px-8 font-bold font-[Courgette]"
                     id="{{info.nameid}}"
                 >
                     <span
-                        class="text-xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="shrink-0 text-xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
                     >
                         .
                     </span>
-                    {{ info.title }}
+                    <span>
+                        {{ info.title }}
+                    </span>
                 </h1>
                 <!--START SLIDESHOW-->
                 <div
@@ -172,7 +174,7 @@
                 </div>
                 <!--END SLIDESHOW-->
                 <div
-                    class="text-black text-lg w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 mb-5"
+                    class="text-black text-base md:text-lg w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 mb-5"
                     style="font-family: {{conf.p_font}}"
                 >
                     {{info.descr|safe}}

@@ -18,19 +18,22 @@ from .model_collapse import (
     CTXApartment,
     CTXLabels,
     CTXCalaGononeInfo,
+    CTXSimpleApartm,
 )
 
 
 def parse_rich_text(string):
-    return (string
-                .replace("<>", "<b>")
-                .replace("</>", "</b>")
-                .replace("<acapo>", "<br>")
-                .replace("<linebreak>", "<br><br>")
-                .replace("<listbegin>", '<ul class="list-disc list-outside ml-5 mt-2 space-y-2"><li>')
-                .replace("<listend>", "</li></ul>")
-                .replace("<listsep>", "</li><li>")
+    return (
+        string.replace("<>", "<b>")
+        .replace("</>", "</b>")
+        .replace("<acapo>", "<br>")
+        .replace("<linebreak>", "<br><br>")
+        .replace(
+            "<listbegin>", '<ul class="list-disc list-outside ml-5 mt-2 space-y-2"><li>'
         )
+        .replace("<listend>", "</li></ul>")
+        .replace("<listsep>", "</li><li>")
+    )
 
 
 def parse_date(string):
@@ -221,6 +224,19 @@ def add_apartments(ctx, english):
     ctx["apartments"] = apartments
 
 
+def add_simple_apartments(ctx, english):
+    apartments = Apartment.objects.all()
+    ctx["apartments"] = [
+        CTXSimpleApartm(
+            apartm.index,
+            apartm.name_en if english else apartm.name_it,
+            apartm.available,
+            apartm.max_people,
+        )
+        for apartm in apartments
+    ]
+
+
 def add_data_calagonone(ctx, english):
     infos = CalaGononeInfo.objects.all()
     street_directions = None
@@ -246,6 +262,7 @@ def add_data_calagonone(ctx, english):
             view_map = info
         else:
             info_ctxs.append(info)
+    add_simple_apartments(ctx, english)
     ctx["infos"] = info_ctxs
     ctx["infos_split"] = [
         info_ctxs[: len(infos) // 2 - 1],
@@ -257,7 +274,7 @@ def add_data_calagonone(ctx, english):
 
 def add_data_contacts(ctx, english):
     add_contact_info(ctx, english)
-    add_apartments(ctx, english)
+    add_simple_apartments(ctx, english)
 
 
 def add_data_apartment(ctx, english):

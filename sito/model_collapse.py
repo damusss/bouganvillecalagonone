@@ -67,6 +67,14 @@ class CTXApartment:
 
 
 @dataclass
+class CTXSimpleApartm:
+    index: int = -1
+    name: str = ""
+    available: bool = True
+    max_people: str = ""
+
+
+@dataclass
 class CTXContactInfo:
     email: str = ""
     phone: str = ""

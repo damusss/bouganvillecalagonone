@@ -177,13 +177,13 @@
                 {% if forloop.counter0 == 0 %}
                 <div class="py-3"></div>
                 {%endif%}
-                <h1 class="text-black text-3xl font-bold font-[Courgette]">
-                    <span
-                        class="text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} text-white font-bold"
-                    >
+                <h1 class="flex items-start gap-3 text-black text-3xl font-bold font-[Courgette]">
+                    <span class="shrink-0 text-2xl inline-flex items-center justify-center w-8 h-8 rounded-full bg-{{ secondary_col }} text-white font-bold">
                         {{apartment.index}}
                     </span>
-                    {{apartment.name}}
+                    <span>
+                        {{apartment.name}}
+                    </span>
                 </h1>
                 <br />
                 <p
