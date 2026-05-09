@@ -5,8 +5,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{labels.page_title_base}} | {{labels.page_title}}</title>
-        <!-- Tailwind CSS CDN -->
-        <script src="https://cdn.tailwindcss.com"></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family={{conf.p_font}}"
@@ -20,8 +18,17 @@
             rel="icon"
             href="{% static '' %}sito/flower_logo.png"
         />
+        <style>
+            :root {
+                --sec-col: {{ secondary_col|default:"purple-600" }};
+                --sec-col-hover-bg: {{ secondary_col_hover_bg|default:"purple-700" }};
+                --sec-col-hover-ring: {{ secondary_col_hover_ring|default:"purple-300" }};
+                --p-font: '{{ conf.p_font|default:"Poppins" }}', sans-serif;
+            }
+        </style>
+        <link rel="stylesheet" href="{%static 'sito/output.css'%}" />
     </head>
-    <!-- default secondary_col: purple-600, hover bg: {{ secondary_col_hover_bg }}, hover ring: {{ secondary_col_hover_ring }} -->
+    <!-- default secondary_col: purple-600, hover bg: [var(--sec-col-hover-bg)], hover ring: [var(--sec-col-hover-ring)] -->
     <body class="flex flex-col min-h-screen m-0">
         <header class="sticky top-0 bg-white shadow-md z-50" id="main-header">
             <div
@@ -44,7 +51,7 @@
                 <nav class="hidden lg:flex items-center space-x-6">
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="bg-{{ secondary_col }} font-[{{conf.p_font}}] text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+                        class="bg-[var(--sec-col)] font-[family-name:var(--p-font)] text-white font-bold py-2 px-6 rounded-2xl inline-flex items-center gap-2 hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
@@ -52,7 +59,7 @@
                     <div class="relative group">
                         <a
                             href="/{{lang}}#apartments"
-                            class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg inline-block {%if current_page == 'home'%}underline{%endif%}"
+                            class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg inline-block {%if current_page == 'home'%}underline{%endif%}"
                         >
                             {{labels.section_home}}
                         </a>
@@ -64,7 +71,7 @@
                                         {% with index_str=apartm.index|stringformat:"s" %}{% with page_name="apartment-"|add:index_str %}
                                         <a
                                             href="/apartment-{{apartm.index}}/{{lang}}"
-                                            class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-4 py-2 text-sm {%if current_page == page_name%}underline{%endif%}"
+                                            class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-4 py-2 text-sm {%if current_page == page_name%}underline{%endif%}"
                                         >
                                             {{apartm.name}}
                                         </a>
@@ -76,12 +83,12 @@
                     </div>
                     <a
                         href="/calagonone/{{lang}}"
-                        class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}underline{%endif%}"
+                        class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}underline{%endif%}"
                         >{{labels.section_calagonone}}</a
                     >
                     <a
                         href="/contacts/{{lang}}"
-                        class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}underline{%endif%}"
+                        class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}underline{%endif%}"
                         >{{labels.section_contacts}}</a
                     >
                 </nav>
@@ -154,13 +161,13 @@
                     </div>
                     <a
                         href="/contacts/{{lang}}#book"
-                        class="font-[{{conf.p_font}}] bg-{{ secondary_col }} text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+                        class="font-[family-name:var(--p-font)] bg-[var(--sec-col)] text-white font-bold py-2 px-6 rounded-2xl inline-flex w-[50%] items-center gap-2 hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
                     >
                         <span>{{labels.book}}</span>
                     </a>
                     <a
                         href="/{{lang}}"
-                        class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'home'%}underline{%endif%}"
+                        class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'home'%}underline{%endif%}"
                         >{{labels.section_home}}</a
                     >
                     {% for apartm in apartments %}
@@ -168,7 +175,7 @@
                         {% with index_str=apartm.index|stringformat:"s" %}{% with page_name="apartment-"|add:index_str %}
                         <a
                             href="/apartment-{{apartm.index}}/{{lang}}"
-                            class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 px-3 ml-6 rounded-lg {%if current_page == page_name%}underline{%endif%}"
+                            class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 px-3 ml-6 rounded-lg {%if current_page == page_name%}underline{%endif%}"
                             >{{apartm.name}}</a
                         >
                         {% endwith %}{% endwith %}
@@ -176,12 +183,12 @@
                     {% endfor %}
                     <a
                         href="/calagonone/{{lang}}"
-                        class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}underline{%endif%}"
+                        class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'calagonone'%}underline{%endif%}"
                         >{{labels.section_calagonone}}</a
                     >
                     <a
                         href="/contacts/{{lang}}"
-                        class="font-[{{conf.p_font}}] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}underline{%endif%}"
+                        class="font-[family-name:var(--p-font)] text-gray-600 hover:text-gray-800 py-2 px-3 rounded-lg {%if current_page == 'contacts'%}underline{%endif%}"
                         >{{labels.section_contacts}}</a
                     >
                 </nav>
@@ -212,7 +219,7 @@
         <a
             href="#"
             id="scroll-to-top"
-            class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-{{ secondary_col }} text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+            class="fixed opacity-0 pointer-events-none bottom-2 right-2 md:bottom-4 md:right-4 bg-[var(--sec-col)] text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
             style="z-index: 10000;"
         >
             <svg

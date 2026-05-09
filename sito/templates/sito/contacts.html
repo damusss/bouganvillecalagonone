@@ -15,14 +15,14 @@
                 <form
                     method="POST"
                     action="{% url 'submit_request' %}"
-                    class="max-w-xl mx-auto bg-white space-y-6 px-6 md:px-0 lg:px-0 font-[{{conf.p_font}}]"
+                    class="max-w-xl mx-auto bg-white space-y-6 px-6 md:px-0 lg:px-0 font-[family-name:var(--p-font)]"
                 >
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{{ lang }}" />
                     <input type="hidden" name="url" value="{{ redirect }}" />
                     <h1 class="text-black text-2xl font-bold font-[Courgette]">
                         <span
-                            class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                            class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                         >
                             .
                         </span>
@@ -45,7 +45,7 @@
                             >
                                 {%for apartment in apartments%}
                                 {% if apartment.available == True %}
-                                <option value="{{apartment.name}}" class="font-[{{conf.p_font}}]">
+                                <option value="{{apartment.name}}" class="font-[family-name:var(--p-font)]">
                                     {{apartment.name}} (Max.
                                     {{apartment.max_people}}
                                     {{labels.form_people}})
@@ -232,7 +232,7 @@
                     <!-- submit -->
                     <button
                         type="submit"
-                        class="w-full bg-{{ secondary_col }} text-white py-2 px-4 rounded-2xl gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+                        class="w-full bg-[var(--sec-col)] text-white py-2 px-4 rounded-2xl gap-2 hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
                     >
                         {{labels.form_submit}}
                     </button>
@@ -243,7 +243,7 @@
             <div class="p-6 rounded-lg bg-white" id="contacts">
                 <h1 class="text-black text-2xl font-bold font-[Courgette]">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
@@ -253,14 +253,14 @@
                 <ul class="list-disc pl-10">
                     <li>
                         <a
-                            class="text-md text-blue-700 hover:underline font-bold font-[{{conf.p_font}}]"
+                            class="text-md text-blue-700 hover:underline font-bold font-[family-name:var(--p-font)]"
                             href="mailto:{{contact.email}}"
                         >
                             E-Mail: {{contact.email}}
                         </a>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
+                        <p class="text-md text-black font-bold font-[family-name:var(--p-font)]">
                             {{labels.phone}}: {{contact.phone}}
                         </p>
                     </li>
@@ -305,22 +305,22 @@
                     </a>
                 </div>
                 <br />
-                <p class="text-lg text-black font-[{{conf.p_font}}] pl-6">
+                <p class="text-lg text-black font-[family-name:var(--p-font)] pl-6">
                     {{labels.location}}
                 </p>
                 <ul class="list-disc pl-10">
                     <li>
-                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
+                        <p class="text-md text-black font-bold font-[family-name:var(--p-font)]">
                             {{contact.address}}
                         </p>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
+                        <p class="text-md text-black font-bold font-[family-name:var(--p-font)]">
                             {{contact.cap_and_town}}
                         </p>
                     </li>
                     <li>
-                        <p class="text-md text-black font-bold font-[{{conf.p_font}}]">
+                        <p class="text-md text-black font-bold font-[family-name:var(--p-font)]">
                             {{contact.region_and_country}}
                         </p>
                     </li>
@@ -328,7 +328,7 @@
                 <div class="pl-5 pt-3">
                     <a
                         href="/calagonone/{{lang}}#location-directions"
-                        class="bg-{{ secondary_col }} text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+                        class="bg-[var(--sec-col)] text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
                     >
                         <span>{{labels.location_directions}}</span>
                     </a>
@@ -336,7 +336,7 @@
                 <div class="pl-5 pt-3">
                     <a
                         href="/{{lang}}#residence-gallery"
-                        class="bg-{{ secondary_col }} text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-{{ secondary_col_hover_bg }} hover:outline-none hover:ring-4 hover:ring-{{ secondary_col_hover_ring }} focus:outline-none transition-all"
+                        class="bg-[var(--sec-col)] text-white font-bold py-1 px-4 rounded-2xl inline-flex items-center gap-2 hover:bg-[var(--sec-col-hover-bg)] hover:outline-none hover:ring-4 hover:ring-[var(--sec-col-hover-ring)] focus:outline-none transition-all"
                     >
                         <span>{{labels.home_gallery|upper}}</span>
                     </a>
@@ -350,55 +350,55 @@
             <div class="px-6 lg:px-20 py-4">
                 <h1 class="text-black text-2xl font-bold font-[Courgette]">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
                     {{labels.prices}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 font-[{{conf.p_font}}]">{{contact.prices|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 font-[family-name:var(--p-font)]">{{contact.prices|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
                     {{labels.taxes}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.tassa_di_soggiorno|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[family-name:var(--p-font)]">{{contact.tassa_di_soggiorno|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
                     {{labels.cancelation}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.cancelation|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[family-name:var(--p-font)]">{{contact.cancelation|safe}}</p>
                 <br>
                 <h1 class="text-black text-lg font-bold font-[Courgette] px-2">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
                     {{labels.rubbish}}
                 </h1>
-                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[{{conf.p_font}}]">{{contact.rubbish|safe}}</p>
+                <p class="text-black text-base w-full  lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 italic font-[family-name:var(--p-font)]">{{contact.rubbish|safe}}</p>
                 <div class="my-6">
-                    <div class="rounded-md bg-{{ secondary_col }}" style="height: 4px;"></div>
+                    <div class="rounded-md bg-[var(--sec-col)]" style="height: 4px;"></div>
                 </div>
                 <h1 class="text-black text-xl font-bold font-[Courgette] px-2" id="privacy-policy">
                     <span
-                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-{{ secondary_col }} font-bold text-{{ secondary_col }}"
+                        class="text-xl inline-flex items-center justify-center w-4 h-4 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
                     >
                         .
                     </span>
                     Privacy Policy
                 </h1>
-                <p class="text-black text-base w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 font-[{{conf.p_font}}]">{{contact.privacy|safe}}</p>
+                <p class="text-black text-base w-full lg:w-[85%] pt-2 pl-3 md:pl-5 lg:pl-5 font-[family-name:var(--p-font)]">{{contact.privacy|safe}}</p>
                 <br>
             </div>
         </div>
