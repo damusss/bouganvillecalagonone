@@ -59,11 +59,15 @@
                     <div
                         id="slides-container"
                         class="relative w-full h-[17rem] md:h-[22rem]"
+                        style="user-select: none;
+                            -webkit-user-select: none;
+                            touch-action: pan-y;"
                     >
+                    <div data-role="slides-track" class="relative w-full h-full">
                         {% for slide in panorama_data %}
                         <img
                             src="{{ slide.prev.image.url }}"
-                            class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%] top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%] top-1/2 -translate-y-1/2"
                             style="
                                 -webkit-mask-image: linear-gradient(
                                     to left,
@@ -80,12 +84,12 @@
                         />
                         <img
                             src="{{ slide.current.image.url }}"
-                            class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
                             data-group="slides"
                         />
                         <img
                             src="{{ slide.next.image.url }}"
-                            class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%] top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%] top-1/2 -translate-y-1/2"
                             style="
                                 -webkit-mask-image: linear-gradient(
                                     to right,
@@ -101,6 +105,7 @@
                             data-group="slides-next"
                         />
                         {%endfor%}
+                    </div>
                     </div>
 
                     <!-- Arrows -->
@@ -124,14 +129,20 @@
         <div class="hidden lg:block w-1/2 mx-8 relative -translate-x-[10%]">
             <div class="w-full h-full">
                 <div
-                    id="slides-container-desktop z-20"
+                    id="slides-container-desktop"
                     class="relative w-full"
-                    style="height: 38rem"
+                    style="
+                            height: 38rem;
+                            user-select: none;
+                            -webkit-user-select: none;
+                            touch-action: pan-y;
+                        "
                 >
+                    <div data-role="slides-track" class="relative w-full h-full">
                     {% for slide in panorama_data %}
                     <img
                         src="{{ slide.prev.image.url }}"
-                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%] top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%] top-1/2 -translate-y-1/2"
                         style="
                             -webkit-mask-image: linear-gradient(
                                 to left,
@@ -149,12 +160,12 @@
                     />
                     <img
                         src="{{ slide.current.image.url }}"
-                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
                         data-group="slides-desktop"
                     />
                     <img
                         src="{{ slide.next.image.url }}"
-                        class="w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%] top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%] top-1/2 -translate-y-1/2"
                         style="
                             -webkit-mask-image: linear-gradient(
                                 to right,
@@ -170,6 +181,7 @@
                         data-group="slides-next-desktop"
                     />
                     {%endfor%}
+                    </div>
                 </div>
 
                 <button

@@ -122,10 +122,8 @@ document
 let skip = false;
 let current_slide = 1;
 
-const slides_cont = document.getElementById("slideshow-container");
-const slides_cont_desktop = document.getElementById(
-    "slideshow-container-desktop",
-);
+const slides_cont = document.getElementById("slides-container");
+const slides_cont_desktop = document.getElementById("slides-container-desktop");
 
 const slides = document.querySelectorAll('[data-group="slides"]');
 const slides_prev = document.querySelectorAll('[data-group="slides-prev"]');
@@ -165,33 +163,34 @@ function update_slides() {
     });
 }
 
-document.getElementById("prev-btn").addEventListener("click", function () {
+const s_prev_btn = document.getElementById("prev-btn");
+const s_next_btn = document.getElementById("next-btn");
+const s_prev_btn_desktop = document.getElementById("prev-btn-desktop");
+const s_next_btn_desktop = document.getElementById("next-btn-desktop");
+
+s_prev_btn.addEventListener("click", function () {
     current_slide = current_slide === 1 ? total_slides : current_slide - 1;
     skip = true;
     update_slides();
 });
 
-document.getElementById("next-btn").addEventListener("click", function () {
+s_next_btn.addEventListener("click", function () {
     current_slide = current_slide === total_slides ? 1 : current_slide + 1;
     skip = true;
     update_slides();
 });
 
-document
-    .getElementById("prev-btn-desktop")
-    .addEventListener("click", function () {
-        current_slide = current_slide === 1 ? total_slides : current_slide - 1;
-        skip = true;
-        update_slides();
-    });
+s_prev_btn_desktop.addEventListener("click", function () {
+    current_slide = current_slide === 1 ? total_slides : current_slide - 1;
+    skip = true;
+    update_slides();
+});
 
-document
-    .getElementById("next-btn-desktop")
-    .addEventListener("click", function () {
-        current_slide = current_slide === total_slides ? 1 : current_slide + 1;
-        skip = true;
-        update_slides();
-    });
+s_next_btn_desktop.addEventListener("click", function () {
+    current_slide = current_slide === total_slides ? 1 : current_slide + 1;
+    skip = true;
+    update_slides();
+});
 
 setInterval(() => {
     if (skip) {
@@ -203,6 +202,75 @@ setInterval(() => {
 }, 3000);
 
 update_slides();
+
+// PANORAMA DRAG
+[
+    [slides_cont, s_prev_btn, s_next_btn],
+    [slides_cont_desktop, s_prev_btn_desktop, s_next_btn_desktop],
+].forEach((slide_data) => {
+    const slide_cont = slide_data[0];
+    const slide_prev_btn = slide_data[1];
+    const slide_next_btn = slide_data[2];
+    let slide_start_x = 0;
+    let slide_pointer_down = false;
+    const images_track = slide_cont.querySelector('[data-role="slides-track"]');
+
+    slide_cont.addEventListener("pointerdown", (e) => {
+        if (e.target.closest("button")) {
+            return;
+        }
+        slide_pointer_down = true;
+        slide_start_x = e.clientX;
+        slide_cont.setPointerCapture(e.pointerId);
+        images_track.style.transition = "none";
+    });
+
+    slide_cont.addEventListener("pointermove", (e) => {
+        if (!slide_pointer_down) return;
+
+        const current_x = e.clientX;
+        const delta_x = current_x - slide_start_x;
+
+        images_track.style.transform = `translateX(${delta_x}px)`;
+
+        if (Math.abs(delta_x) > SWIPE_THRESHOLD) {
+            slide_pointer_down = false;
+
+            images_track.style.transition = "transform 0.3s ease-out";
+            images_track.style.transform = "translateX(0px)";
+
+            slide_cont.releasePointerCapture(e.pointerId);
+
+            if (delta_x > 0) {
+                slide_prev_btn.click();
+            } else {
+                slide_next_btn.click();
+            }
+        }
+    });
+
+    slide_cont.addEventListener("pointerup", (e) => {
+        if (!slide_pointer_down) return;
+        slide_pointer_down = false;
+
+        const current_x = e.clientX;
+        const delta_x = current_x - slide_start_x;
+
+        images_track.style.transition = "transform 0.3s ease-out";
+        images_track.style.transform = "translateX(0px)";
+    });
+
+    slide_cont.addEventListener("pointercancel", (e) => {
+        slide_pointer_down = false;
+        images_track.style.transition = "transform 0.3s ease-out";
+        images_track.style.transform = "translateX(0px)";
+        slide_cont.releasePointerCapture(e.pointerId);
+    });
+
+    slide_cont.addEventListener("dragstart", (e) => {
+        e.preventDefault();
+    });
+});
 
 // APARTMENT SWAP
 const apartment_cont = document.getElementById("apartment-grid-2");

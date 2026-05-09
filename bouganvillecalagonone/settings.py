@@ -25,13 +25,16 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True if os.environ.get("DEBUG") == "true" else False
 
-ALLOWED_HOSTS = ["*"]
-public_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
-CSRF_TRUSTED_ORIGINS = [
-    "https://" + os.environ.get("RAILWAY_DEFAULT_DOMAIN", ""),
-]
-if public_domain != "":
-    CSRF_TRUSTED_ORIGINS.append(f"https://{public_domain}")
+DEFAULT_DOMAIN = os.environ.get("RAILWAY_DEFAULT_DOMAIN", "")
+PUBLIC_DOMAIN = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
+ALLOWED_HOSTS = ["127.0.0.1"] if DEBUG else []
+CSRF_TRUSTED_ORIGINS = []
+for domain in [DEFAULT_DOMAIN, PUBLIC_DOMAIN]:
+    if domain == "":
+        continue
+    ALLOWED_HOSTS.append(domain)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{domain}")
+
 
 # MAIN CONFIG
 INSTALLED_APPS = [

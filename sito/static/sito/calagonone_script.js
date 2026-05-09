@@ -23,16 +23,11 @@ document
         const images_cont = images_main_cont.querySelector(
             '[data-cont="images"',
         );
-        const firstImage = images_cont.querySelector("div");
-        let imageWidth;
-        if (firstImage) {
-            imageWidth = firstImage.getBoundingClientRect().width;
-        } else {
-            imageWidth = 0;
-        }
+        imageWidth = images_cont.getBoundingClientRect().width*0.66;
         images_main_cont
             .querySelector('[data-role="left"]')
             .addEventListener("click", (ev) => {
+                imageWidth = images_cont.getBoundingClientRect().width*0.66;
                 images_cont.scrollBy({
                     left: -1 * imageWidth,
                     behavior: "smooth",
@@ -41,6 +36,7 @@ document
         images_main_cont
             .querySelector('[data-role="right"]')
             .addEventListener("click", (ev) => {
+                imageWidth = images_cont.getBoundingClientRect().width*0.66;
                 images_cont.scrollBy({
                     left: 1 * imageWidth,
                     behavior: "smooth",
@@ -52,12 +48,14 @@ document
 
         const startDragging = (e) => {
             mouseDown = true;
-            startX = e.pageX - images_cont.offsetLeft;
+            startX = e.pageX;
             scrollLeft = images_cont.scrollLeft;
+            images_cont.setPointerCapture(e.pointerId);
         };
 
         const stopDragging = (e) => {
             mouseDown = false;
+            images_cont.releasePointerCapture(e.pointerId);
         };
 
         const move = (e) => {
@@ -65,14 +63,14 @@ document
             if (!mouseDown) {
                 return;
             }
-            const x = e.pageX - images_cont.offsetLeft;
+            const x = e.pageX;
             const scroll = x - startX;
             images_cont.scrollLeft = scrollLeft - scroll;
         };
 
-        images_cont.addEventListener("mousemove", move, false);
-        images_cont.addEventListener("mousedown", startDragging, false);
-        images_cont.addEventListener("mouseup", stopDragging, false);
-        images_cont.addEventListener("mousecancel", stopDragging, false);
-        images_cont.addEventListener("mouseleave", stopDragging, false);
+        images_cont.addEventListener("pointermove", move, false);
+        images_cont.addEventListener("pointerdown", startDragging, false);
+        images_cont.addEventListener("pointerup", stopDragging, false);
+        images_cont.addEventListener("pointercancel", stopDragging, false);
+        images_cont.addEventListener("pointerleave", stopDragging, false);
     });
