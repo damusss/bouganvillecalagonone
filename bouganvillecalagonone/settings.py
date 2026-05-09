@@ -24,13 +24,14 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True if os.environ.get("DEBUG") == "true" else False
+
 ALLOWED_HOSTS = ["*"]
+public_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
 CSRF_TRUSTED_ORIGINS = [
-    "https://"
-    + os.environ.get(
-        "RAILWAY_STATIC_URL", "bouganvillecalagonone-production.up.railway.app"
-    )
+    "https://" + os.environ.get("RAILWAY_DEFAULT_DOMAIN", ""),
 ]
+if public_domain != "":
+    CSRF_TRUSTED_ORIGINS.append(f"https://{public_domain}")
 
 # MAIN CONFIG
 INSTALLED_APPS = [
