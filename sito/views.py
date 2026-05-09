@@ -213,7 +213,7 @@ def add_data_home(ctx, english):
     info.descr1 = parse_rich_text(split[0])
     if len(split) > 1:
         info.descr2 = parse_rich_text(split[-1])
-    info.house_images = welcome.house_images  # type: ignore
+    info.house_images = list(welcome.house_images.all())  # type: ignore
     images = list(welcome.panorama_images.all())  # type: ignore
     panorama_data = []
     for i, img in enumerate(images):
