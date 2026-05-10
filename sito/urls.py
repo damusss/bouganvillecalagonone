@@ -1,6 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -18,4 +19,8 @@ urlpatterns = [
     path("apartment-<int:aid>", views.view_apartment),
     path("apartment-<int:aid>/en", views.view_apartment_en),
     path("apartment-<int:aid>/it", views.view_apartment_it),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
