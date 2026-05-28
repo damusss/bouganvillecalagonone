@@ -107,6 +107,7 @@ def site_main(request, english, page, aid=None, url=""):
         "secondary_col": more_conf.secondary_color,
         "secondary_col_hover_bg": more_conf.secondary_col_hover_bg,
         "secondary_col_hover_ring": more_conf.secondary_col_hover_ring,
+        "footer_col": more_conf.footer_col,
         "it_redirect": f"{url}",
         "en_redirect": f"{url}{'/' if url != '/' else ''}en",
         "redirect": f"{url}{'/' if url != '/' else ''}{lang}",

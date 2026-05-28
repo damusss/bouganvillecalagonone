@@ -23,12 +23,13 @@
                 --sec-col: {{ secondary_col|default:"purple-600" }};
                 --sec-col-hover-bg: {{ secondary_col_hover_bg|default:"purple-700" }};
                 --sec-col-hover-ring: {{ secondary_col_hover_ring|default:"purple-300" }};
+                --footer-col: {{footer_col|default:"bg-gray-800"}};
                 --p-font: '{{ conf.p_font|default:"Poppins" }}', sans-serif;
             }
         </style>
         <link rel="stylesheet" href="{%static 'sito/output.css'%}" />
     </head>
-    <!-- default secondary_col: purple-600, hover bg: [var(--sec-col-hover-bg)], hover ring: [var(--sec-col-hover-ring)] -->
+    <!-- default secondary_col: purple-600, hover bg: purple-700, hover ring: purple-300 footer: bg-gray-800 -->
     <body class="flex flex-col min-h-screen m-0">
         <header class="sticky top-0 bg-white shadow-md z-50" id="main-header">
             <div
@@ -238,14 +239,14 @@
             </svg>
         </a>
         <!-- footer -->
-        <footer class="bg-gray-800 text-white py-4 mt-auto">
+        <footer class="bg-[var(--footer-col)] text-white py-4 mt-auto">
             <div class="container mx-auto px-3 flex flex-col md:flex-row justify-between items-center">
               <!-- links -->
               <div class="flex flex-col md:flex-row md:space-x-6 text-center md:text-left">
-                <a href="/contacts/{{lang}}#book" class="text-sm md:text-base hover:underline">{{labels.book}}</a>
-                <a href="/contacts/{{lang}}#contacts" class="text-sm md:text-base hover:underline">{{labels.contacts|upper}}</a>
-                <a href="/calagonone/{{lang}}#location-directions" class="text-sm md:text-base hover:underline">{{labels.location_directions}}</a>
-                <a href="/contacts/{{lang}}#privacy-policy" class="text-sm md:text-base hover:underline">PRIVACY POLICY</a>
+                <a href="/contacts/{{lang}}#book" class="text-lg md:text-base hover:underline">{{labels.book}}</a>
+                <a href="/contacts/{{lang}}#contacts" class="text-lg md:text-base hover:underline">{{labels.contacts|upper}}</a>
+                <a href="/calagonone/{{lang}}#location-directions" class="text-lg md:text-base hover:underline">{{labels.location_directions}}</a>
+                <a href="/contacts/{{lang}}#privacy-policy" class="text-lg md:text-base hover:underline">PRIVACY POLICY</a>
               </div>
               <!-- copyright -->
               <div class="mt-4 md:mt-0 text-xs md:text-sm text-gray-400 text-center">

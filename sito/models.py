@@ -114,6 +114,11 @@ class MoreConfig(models.Model):
         max_length=100,
         default="purple-300",
     )
+    footer_col = models.CharField(
+        "Colore del footer",
+        max_length=100,
+        default="bg-gray-800",
+    )
 
 
 class Labels(models.Model):
