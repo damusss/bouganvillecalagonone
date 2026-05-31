@@ -67,7 +67,7 @@
                         {% for slide in panorama_data %}
                         <img
                             src="{{ slide.prev.image.url }}"
-                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[102%] top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 -translate-x-[102%] top-1/2 -translate-y-1/2"
                             style="
                                 -webkit-mask-image: linear-gradient(
                                     to left,
@@ -84,12 +84,12 @@
                         />
                         <img
                             src="{{ slide.current.image.url }}"
-                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 top-1/2 -translate-y-1/2"
                             data-group="slides"
                         />
                         <img
                             src="{{ slide.next.image.url }}"
-                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-102%] top-1/2 -translate-y-1/2"
+                            class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 -translate-x-[-102%] top-1/2 -translate-y-1/2"
                             style="
                                 -webkit-mask-image: linear-gradient(
                                     to right,
@@ -142,7 +142,7 @@
                     {% for slide in panorama_data %}
                     <img
                         src="{{ slide.prev.image.url }}"
-                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[101%] top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 -translate-x-[101%] top-1/2 -translate-y-1/2"
                         style="
                             -webkit-mask-image: linear-gradient(
                                 to left,
@@ -160,12 +160,12 @@
                     />
                     <img
                         src="{{ slide.current.image.url }}"
-                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 top-1/2 -translate-y-1/2"
                         data-group="slides-desktop"
                     />
                     <img
                         src="{{ slide.next.image.url }}"
-                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-100 -translate-x-[-101%] top-1/2 -translate-y-1/2"
+                        class="not-selectable w-full object-fill inset-0 absolute transition-opacity duration-500 ease-in-out opacity-0 -translate-x-[-101%] top-1/2 -translate-y-1/2"
                         style="
                             -webkit-mask-image: linear-gradient(
                                 to right,

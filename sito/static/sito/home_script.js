@@ -124,6 +124,7 @@ document
 // PANORAMA SLIDESHOWS
 let skip = false;
 let current_slide = 1;
+let previous_slide = current_slide;
 
 const slides_cont = document.getElementById("slides-container");
 const slides_cont_desktop = document.getElementById("slides-container-desktop");
@@ -151,7 +152,7 @@ const slides_slides = [
     slides_next_desktop,
 ];
 const total_slides = slides.length || slides_desktop.length;
-
+/*
 function update_slides() {
     slides_slides.forEach((slides_s, sI) => {
         slides_s.forEach((slide, index) => {
@@ -164,6 +165,24 @@ function update_slides() {
             }
         });
     });
+}
+*/
+
+function update_slides() {
+    const current_index = current_slide - 1;
+    const prev_index = previous_slide - 1;
+
+    slides_slides.forEach((slide_group) => {
+        if (current_slide !== previous_slide) {
+            slide_group[prev_index].classList.remove("opacity-100");
+            slide_group[prev_index].classList.add("opacity-0");
+        }
+
+        slide_group[current_index].classList.remove("opacity-0");
+        slide_group[current_index].classList.add("opacity-100");
+    });
+
+    previous_slide = current_slide;
 }
 
 const s_prev_btn = document.getElementById("prev-btn");
