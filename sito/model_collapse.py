@@ -19,6 +19,7 @@ class CTXLabels:
     home_gallery: str = ""
 
     quick_book: str = ""
+    book_discount: str = ""
     contacts: str = ""
     phone: str = ""
     location: str = ""
@@ -42,6 +43,7 @@ class CTXLabels:
     form_email_ph: str = ""
     form_phone_ph: str = ""
     form_message_ph: str = ""
+    form_min_stay: str = ""
 
     in_evidenza: str = ""
     full_descr: str = ""

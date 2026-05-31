@@ -206,6 +206,12 @@ class Labels(models.Model):
     quick_book_en = models.CharField(
         "Titolo sezione 'prenota' (info e contatti) (EN)", max_length=100, default=""
     )
+    book_discount_it = models.CharField(
+        "Messaggio sconto prenotazione (IT)", max_length=100, default=""
+    )
+    book_discount_en = models.CharField(
+        "Messaggio sconto prenotazione (EN)", max_length=100, default=""
+    )
     contacts_it = models.CharField(
         "Titolo sezione 'contatti' (info e contatti) (IT)", max_length=100, default=""
     )
@@ -241,6 +247,12 @@ class Labels(models.Model):
     form_phone_en = models.CharField("Phone Form (EN)", max_length=100, default="")
     form_message_it = models.CharField("Message Form (IT)", max_length=100, default="")
     form_message_en = models.CharField("Message Form (EN)", max_length=100, default="")
+    form_min_stay_it = models.CharField(
+        "Form, messaggio soggiorno minimo (IT)", max_length=1000, default=""
+    )
+    form_min_stay_en = models.CharField(
+        "Form, messaggio soggiorno minimo (EN)", max_length=1000, default=""
+    )
 
     form_email_ph_it = models.CharField(
         "Placeholder Email Form (IT)", max_length=100, default=""

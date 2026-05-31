@@ -124,13 +124,18 @@
                     {% csrf_token %}
                     <input type="hidden" name="language" value="{{ lang }}" />
                     <input type="hidden" name="url" value="{{ redirect }}" />
-                    <h1 class="text-black text-2xl font-bold font-[Courgette]">
-                        <span
-                            class="text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
-                        >
-                            .
-                        </span>
-                        {{labels.quick_book}}
+                    <h1
+                    class="flex items-start gap-3 text-black text-2xl font-bold font-[Courgette]"
+                    id="{{info.nameid}}"
+                >
+                    <span
+                        class="shrink-0 text-xl inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--sec-col)] font-bold text-[var(--sec-col)]"
+                    >
+                        .
+                    </span>
+                    <div class="flex flex-col leading-tight">
+                        <span>{{ labels.quick_book }}</span><span class="text-base font-[family-name:var(--p-font)]">{{labels.book_discount}}</span>
+                    </div>
                     </h1>
 
                     <!-- apartment dropdown -->
@@ -207,6 +212,12 @@
                             />
                         </div>
                     </div>
+                    <p
+                        class="block text-sm font-medium text-gray-800"
+                        style="margin-top: 0.5rem!important;"
+                    >
+                        {{labels.form_min_stay}}
+                    </p>
 
                     <!-- adults/children dropdown -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

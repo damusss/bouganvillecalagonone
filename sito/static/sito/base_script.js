@@ -29,3 +29,49 @@ function toggle_scroll_to_top_btn() {
 }
 
 window.addEventListener("scroll", toggle_scroll_to_top_btn);
+
+// FORM RULES IF IT EXISTS
+document.addEventListener("DOMContentLoaded", function () {
+    const checkin = document.getElementById("start-date");
+    const checkout = document.getElementById("end-date");
+
+    if (checkin != null && checkout != null) {
+
+        function addDaysToString(dateString, daysToAdd) {
+            const parts = dateString.split("-");
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+
+            dateObj.setDate(dateObj.getDate() + daysToAdd);
+
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+            const day = String(dateObj.getDate()).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+        const currentDay = String(now.getDate()).padStart(2, "0");
+        const today = `${currentYear}-${currentMonth}-${currentDay}`;
+
+        const defaultCheckoutMin = addDaysToString(today, 7);
+        checkin.min = today;
+        checkout.min = defaultCheckoutMin;
+
+        checkin.addEventListener("change", function (event) {
+            const selected_date = event.target.value;
+
+            if (selected_date) {
+                checkout.min = addDaysToString(selected_date, 7);
+            } else {
+                checkout.min = defaultCheckoutMin;
+            }
+
+            if (checkout.value && checkout.value < checkout.min) {
+                checkout.value = "";
+            }
+        });
+    }
+});
